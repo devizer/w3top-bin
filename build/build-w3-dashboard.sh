@@ -55,5 +55,5 @@ done
 
 pushd $clone
 git add --all .
-git commit "Update $ver"
+git commit -am "Update $ver"
 git push
