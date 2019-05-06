@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-set repo=w3-top
+repo=w3top-bin
 work=/transient-builds/defrag
 pushd "$(dirname $0)" >/dev/null; ScriptDir="$(pwd)"; popd >/dev/null
 mkdir -p $work
@@ -13,4 +13,3 @@ git reflog expire --expire=now --all && git gc --prune=now --aggressive
 git push
 
 popd
-
