@@ -36,7 +36,7 @@ cd ClientApp; time (yarn install); cd ..
 for r in linux-x64 linux-arm linux-arm64; do
   verFile=../build/AppGitInfo.json
   ver=$(cat $verFile | jq -r ".Version")
-  cp $verFile $clone/public/
+  cp $verFile $clone/public/version.json
 
   say "Building $r"
   time dotnet publish -c Release /p:DefineConstants="DUMPS" -o bin/$r/w3top --self-contained -r $r
