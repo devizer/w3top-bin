@@ -38,16 +38,16 @@ for r in linux-x64 linux-arm linux-arm64; do
   ver=$(cat $verFile | jq -r ".Version")
   cp $verFile $clone/public/version.json
 
-  say "Building $r"
+  say "Building $r [$ver]"
   time dotnet publish -c Release /p:DefineConstants="DUMPS" -o bin/$r/w3top --self-contained -r $r
   pushd bin/$r
 
-  say "Compressing $r as GZIP"
+  say "Compressing $r [$ver] as GZIP"
   time sudo bash -c "tar cf - w3top | pv | gzip -9 > ../w3top-$r.tar.gz"
   cp ../w3top-$r.tar.gz $clone/public/
-  say "Compressing $r as XZ"
+  say "Compressing $r [$ver] as XZ"
   time sudo bash -c "tar cf - w3top | pv | xz -1 -z > ../w3top-$r.tar.xz"
-  say "Compressing $r as 7z"
+  say "Compressing $r [$ver] as 7z"
   7z a "../w3top-$r.7z" -m0=lzma -mx=1 -mfb=256 -md=256m -ms=on 
 
   popd
@@ -55,4 +55,5 @@ done
 
 pushd $clone
 git add --all .
-git commit "Update "
+git commit "Update $ver"
+git push
