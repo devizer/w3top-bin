@@ -34,7 +34,7 @@ url=https://raw.githubusercontent.com/devizer/w3top-bin/master/install-w3top-ser
 ### Prerequisites and requirements
 Official .net core prerequisites: https://docs.microsoft.com/en-us/dotnet/core/linux-prerequisites
 
-Unofficial one-line installer of them using builtin package manager (zypper, yum, dnf of apt):
+Unofficial one-line installer of them using builtin package manager (zypper, yum, dnf or apt):
 ```bash
 url=https://raw.githubusercontent.com/devizer/glist/master/install-dotnet-dependencies.sh; 
 (wget -q -nv --no-check-certificate -O - $url 2>/dev/null || curl -ksSL $url) | bash
