@@ -53,7 +53,7 @@ sudo rm -f /etc/systemd/system/w3top.service
 sudo rm -rf /opt/w3top
 ```
 
-### Troubleshooting
+### Logs and Troubleshooting
 ```bash
 journalctl -u w3top.service
 ```
