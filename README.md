@@ -10,7 +10,7 @@ Here is a build tools for w3top, an http-based monitoring and bench-marking tool
 
 Supported architectures: x64, armv7 (32-bit) and aarch64 (arm 64-bit)
 
-Alpine Linux and legacy RedHat 6 are also supported but it should be compiled from sources: https://github.com/devizer/KernelManagementLab.
+Alpine Linux and legacy RedHat 6 are also supported but it should be compiled from sources: https://github.com/devizer/KernelManagementLab#install-from-source.
 The script below doesn't yet support RedHat 6 and Alpine Linux
 
 ### Installation of precompiled binaries
