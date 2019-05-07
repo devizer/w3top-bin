@@ -1,7 +1,9 @@
 ### W3-Top
-W3-Top isn't grafana, htop, atop, iotop or gnome-system-monitor. It's all together with web interface and built-in benchmarks. 
+W3-Top isn't grafana, htop, atop, iotop or gnome-system-monitor. It's all together with a web interface and built-in benchmarks.
 
-Here is a build tools for w3top, an http-based monitoring and bench-marking tool based on KernelManagementJam
+Here is a build tool for w3top, an HTTP-based monitoring and benchmarking tool based on KernelManagementJam
+
+Live demo: on the throttled Xeon with 592M RAM, on the Orange PI board
 
 ### Supported OS are provided by dotnet core 
 - Debian 8 & 9, Ubuntu 14.04 ... 19.04
@@ -18,16 +20,27 @@ Short instruction: extract
 [w3top-linux-x64.tar.gz](https://raw.githubusercontent.com/devizer/w3top-bin/master/public/w3top-linux-x64.tar.gz),
 [w3top-linux-arm.tar.gz](https://raw.githubusercontent.com/devizer/w3top-bin/master/public/w3top-linux-arm.tar.gz) or 
 [w3top-linux-arm64.tar.gz](https://raw.githubusercontent.com/devizer/w3top-bin/master/public/w3top-linux-arm64.tar.gz) archive 
-and run "./Universe.W3Top" or install SystemD service using `install-systemd-service.sh`
+and run `./Universe.W3Top` or install SystemD service using `install-systemd-service.sh`
 
 Shorter option:
 ```
 HTTP_PORT=5050
 RESPONSE_COMPRESSION=True
 INSTALL_DIR=/opt/w3top
-url=https://raw.githubusercontent.com/devizer/w3top-bin/master/install-w3top-service.sh; 
+url=https://raw.githubusercontent.com/devizer/w3top-bin/master/install-w3top-service.sh
 (wget -q -nv --no-check-certificate -O - $url 2>/dev/null || curl -ksSL $url) | bash
 ```
+
+### Prerequisites and requirements
+Official .net core prerequisites: https://docs.microsoft.com/en-us/dotnet/core/linux-prerequisites
+Unofficial one-line installer of them using builtin package manager (zypper, yum, dnf of apt):
+```bash
+url=https://raw.githubusercontent.com/devizer/glist/master/install-dotnet-dependencies.sh; 
+(wget -q -nv --no-check-certificate -O - $url 2>/dev/null || curl -ksSL $url) | bash
+```
+
+As of now app needs 60Mb of RAM on arm 32-bit and 100Mb of RAM on x64/arm64.
+Installer above needs common command line tools: bash, bzip and wget|curl.
 
 ### History
 https://github.com/devizer/KernelManagementLab/blob/master/WHATSNEW.md
@@ -43,4 +56,3 @@ sudo rm -rf /opt/w3top
 ```bash
 journalctl -u w3top.service
 ```
-
