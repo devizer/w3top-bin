@@ -5,12 +5,13 @@ Here is a build tools for w3top, an http-based monitoring and bench-marking tool
 
 ### Supported OS are provided by dotnet core 
 - Debian 8 & 9, Ubuntu 14.04 ... 19.04
-- SUSE 42/15, SLES 12/15
+- OpenSUSE 42 & 15, SLES 12 & 15
 - CentOS 6 & 7, Fedora 24 ... 30, RedHat 7
 
 Supported architectures: x64, armv7 (32-bit) and aarch64 (arm 64-bit)
 
-Alpine Linux and legacy RedHat 6 are also supported but it should be compiled from sources: https://github.com/devizer/
+Alpine Linux and legacy RedHat 6 are also supported but it should be compiled from sources: https://github.com/devizer/KernelManagementLab.
+The script below doesn't yet support RedHat 6 and Alpine Linux
 
 ### Installation of precompiled binaries
 Short instruction: extract 
@@ -24,9 +25,6 @@ Shorter option:
 HTTP_PORT=5050
 RESPONSE_COMPRESSION=True
 INSTALL_DIR=/opt/w3top
-
-url=https://raw.githubusercontent.com/devizer/w3top-bin/master/install-dotnet-and-nodejs.sh; 
+url=https://raw.githubusercontent.com/devizer/w3top-bin/master/install-w3top-service.sh; 
 (wget -q -nv --no-check-certificate -O - $url 2>/dev/null || curl -ksSL $url) | bash
 ```
-
-
