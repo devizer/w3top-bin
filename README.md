@@ -13,7 +13,7 @@ Supported architectures: x64, armv7 (32-bit) and aarch64 (arm 64-bit)
 Alpine Linux and legacy RedHat 6 are also supported but it should be compiled from sources: https://github.com/devizer/KernelManagementLab#install-from-source.
 The script below doesn't yet support RedHat 6 and Alpine Linux
 
-### Installation of precompiled binaries
+### [Re]Installation of precompiled binaries
 Short instruction: extract 
 [w3top-linux-x64.tar.gz](https://raw.githubusercontent.com/devizer/w3top-bin/master/public/w3top-linux-x64.tar.gz),
 [w3top-linux-arm.tar.gz](https://raw.githubusercontent.com/devizer/w3top-bin/master/public/w3top-linux-arm.tar.gz) or 
@@ -28,3 +28,19 @@ INSTALL_DIR=/opt/w3top
 url=https://raw.githubusercontent.com/devizer/w3top-bin/master/install-w3top-service.sh; 
 (wget -q -nv --no-check-certificate -O - $url 2>/dev/null || curl -ksSL $url) | bash
 ```
+
+### History
+https://github.com/devizer/KernelManagementLab/blob/master/WHATSNEW.md
+
+### Unininstall
+```bash
+sudo systemctl disable w3top.service
+sudo rm -f /etc/systemd/system/w3top.service 
+sudo rm -rf /opt/w3top
+```
+
+### Troubleshooting
+```bash
+journalctl -u w3top.service
+```
+
