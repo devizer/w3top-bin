@@ -9,6 +9,7 @@ rm -rf $repo.git
 git clone --mirror git@github.com:devizer/$repo
 java -jar $ScriptDir/bfg-1.13.0.jar --strip-blobs-bigger-than 1M $repo.git
 
+
 cd $repo.git
 git reflog expire --expire=now --all && git gc --prune=now --aggressive
 git push
