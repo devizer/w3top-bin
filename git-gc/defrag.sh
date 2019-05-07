@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+
 repo=w3top-bin
 work=/transient-builds/defrag
 pushd "$(dirname $0)" >/dev/null; ScriptDir="$(pwd)"; popd >/dev/null
