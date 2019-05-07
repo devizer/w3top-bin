@@ -12,8 +12,8 @@ Live demo: on the throttled Xeon with 592M RAM, on the Orange PI board
 
 Supported architectures: x64, armv7 (32-bit) and aarch64 (arm 64-bit)
 
-Alpine Linux and legacy RedHat 6 are also supported but it should be compiled from sources: https://github.com/devizer/KernelManagementLab#install-from-source.
-The script below doesn't yet support RedHat 6 and Alpine Linux
+Alpine Linux and legacy RedHat 6 are also supported but it should be compiled from sources with correct runtime identifier: https://github.com/devizer/KernelManagementLab#install-from-source.
+The script below doesn't support RedHat 6 and Alpine Linux
 
 ### [Re]Installation of precompiled binaries
 Short instruction: extract 
