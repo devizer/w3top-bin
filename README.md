@@ -8,7 +8,7 @@ Live demo: on the throttled Xeon with 592M RAM, on the Orange PI board
 ### Supported OS are provided by dotnet core 
 - Debian 8 & 9, Ubuntu 14.04 ... 19.04
 - OpenSUSE 42 & 15, SLES 12 & 15
-- CentOS 6 & 7, Fedora 24 ... 30, RedHat 7
+- CentOS 6 & 7, Fedora 27 ... 30, RedHat 7
 
 Supported architectures: x64, armv7 (32-bit) and aarch64 (arm 64-bit)
 
