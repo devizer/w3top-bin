@@ -11,6 +11,7 @@ script:
      (wget -q -nv --no-check-certificate -O - $script 2>/dev/null || curl -ksSL $script) | bash
 
  - sleep 30
+ - curl -I http://localhost:5050/ >/tmp/pre-jit
  - curl -I http://localhost:5050/
  - curl http://localhost:5050/api/BriefInfo && echo ""
  - sudo journalctl -u w3top.service | head -1
