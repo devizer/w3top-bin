@@ -10,7 +10,7 @@ script:
      script=https://raw.githubusercontent.com/devizer/w3top-bin/master/install-w3top-service.sh
      (wget -q -nv --no-check-certificate -O - $script 2>/dev/null || curl -ksSL $script) | bash
  - |
-     t=30; url=http://localhost:5000
+     t=30; url=http://localhost:5050/
      echo "Waiting for $url during $t seconds ..."
      while [ $t -ge 0 ]; do t=$((t-1)); curl -m 1 "$url"; if [ $? -eq 0 ]; then break; fi; sleep 1; done
 
