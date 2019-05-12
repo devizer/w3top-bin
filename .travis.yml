@@ -12,7 +12,7 @@ script:
 
  - sleep 30
  - curl -I http://localhost:5050/
- - curl http://localhost:5050/api/BriefInfo
+ - curl http://localhost:5050/api/BriefInfo && echo ""
  - sudo journalctl -u w3top.service | head -1
  - sudo systemctl disable w3top.service
 
