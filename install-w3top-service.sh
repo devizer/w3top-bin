@@ -2,7 +2,18 @@
 set -e
 set -u
 
-if [[ $(uname -m) == armv7* ]]; then rid=linux-arm; elif [[ $(uname -m) == aarch64 ]]; then rid=linux-arm64; elif [[ $(uname -m) == x86_64 ]]; then rid=linux-x64; fi; if [[ $(uname -s) == Darwin ]]; then rid=osx-x64; fi;
+if [[ $(uname -m) == armv7* ]]; then 
+  rid=linux-arm; 
+elif [[ $(uname -m) == aarch64 ]]; then 
+  rid=linux-arm64; 
+elif [[ $(uname -m) == x86_64 ]]; then 
+  rid=linux-x64; 
+fi; 
+if [[ $(uname -s) == Darwin ]]; then 
+  rid=osx-x64;
+  echo Error: OS X binaries are not pre-compiled
+  exit 1; 
+fi;
 echo "The current OS architecture: $rid"
 
 file=w3top-$rid.tar.gz
@@ -20,7 +31,7 @@ echo "W3Top installation parameters:
     INSTALL_DIR: $INSTALL_DIR
     RESPONSE_COMPRESSION: $RESPONSE_COMPRESSION
     download url: $url
-    temp download cache: $copy
+    temp download file: $copy
 "
 
 mkdir -p "$(dirname $copy)"

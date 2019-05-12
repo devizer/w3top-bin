@@ -1,0 +1,6 @@
+language: minimal
+os: linux
+dist: xenial
+
+script:
+ - bash -e travis-build.sh

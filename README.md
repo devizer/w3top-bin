@@ -3,7 +3,7 @@ W3-Top isn't grafana, htop, atop, iotop or gnome-system-monitor. It's all togeth
 
 Here is a build tool for w3top, an HTTP-based monitoring and benchmarking tool based on KernelManagementJam
 
-Live demo: on the throttled Xeon with 592M RAM, on the Orange PI board
+Live demo: on the throttled single-core Xeon with 592M RAM, on the Orange PI board
 
 ### Supported OS are provided by dotnet core 
 - Debian 8 & 9, Ubuntu 14.04 ... 19.04
@@ -12,7 +12,8 @@ Live demo: on the throttled Xeon with 592M RAM, on the Orange PI board
 
 Supported architectures: x64, armv7 (32-bit) and aarch64 (arm 64-bit)
 
-Alpine Linux and legacy RedHat 6 are also supported but it should be compiled from sources with correct runtime identifier: https://github.com/devizer/KernelManagementLab#install-from-source.
+Alpine Linux and legacy RedHat 6 are also supported but corresponding binaries are not precompiled. It should be compiled from sources with correct runtime identifier: [Install from source](https://github.com/devizer/KernelManagementLab#install-from-source).
+
 The script below doesn't support RedHat 6 and Alpine Linux
 
 ### [Re]Installation of precompiled binaries
@@ -36,17 +37,17 @@ Official .net core prerequisites: https://docs.microsoft.com/en-us/dotnet/core/l
 
 Unofficial one-line installer of them using builtin package manager (zypper, yum, dnf or apt):
 ```bash
-url=https://raw.githubusercontent.com/devizer/glist/master/install-dotnet-dependencies.sh; 
-(wget -q -nv --no-check-certificate -O - $url 2>/dev/null || curl -ksSL $url) | bash
+script=https://raw.githubusercontent.com/devizer/glist/master/install-dotnet-dependencies.sh; 
+(wget -q -nv --no-check-certificate -O - $script 2>/dev/null || curl -ksSL $script) | bash
 ```
 
 As of now app needs 60Mb of RAM on arm 32-bit and 100Mb of RAM on x64/arm64.
-Installer above needs common command line tools: bash, bzip and wget|curl.
+Installer above needs common command line tools: bash, tar, gzip, and wget|curl.
 
 ### History
-https://github.com/devizer/KernelManagementLab/blob/master/WHATSNEW.md
+[WHATSNEW.md](https://github.com/devizer/KernelManagementLab/blob/master/WHATSNEW.md)
 
-### Unininstall
+### Uninstall
 ```bash
 sudo systemctl disable w3top.service
 sudo rm -f /etc/systemd/system/w3top.service 
