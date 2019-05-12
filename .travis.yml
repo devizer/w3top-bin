@@ -9,8 +9,12 @@ script:
      export INSTALL_DIR=/opt/w3top
      script=https://raw.githubusercontent.com/devizer/w3top-bin/master/install-w3top-service.sh
      (wget -q -nv --no-check-certificate -O - $script 2>/dev/null || curl -ksSL $script) | bash
+ - |
+     t=30; url=http://localhost:5000
+     echo "Waiting for $url during $t seconds ..."
+     while [ $t -ge 0 ]; do t=$((t-1)); curl -m 1 "$url"; if [ $? -eq 0 ]; then break; fi; done
 
- - sleep 30
+ # - sleep 30
  - curl -I http://localhost:5050/ >/tmp/pre-jit
  - curl -I http://localhost:5050/
  - curl http://localhost:5050/api/BriefInfo && echo ""
