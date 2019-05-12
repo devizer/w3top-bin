@@ -1,4 +1,4 @@
-### W3-Top [![Build Status](https://travis-ci.org/devizer/w3top-bin.svg?branch=master)](https://travis-ci.org/devizer/w3top-bin)
+### W3-Top &nbsp;&nbsp;&nbsp; [![Build Status](https://travis-ci.org/devizer/w3top-bin.svg?branch=master)](https://travis-ci.org/devizer/w3top-bin)
 W3-Top isn't grafana, htop, atop, iotop or gnome-system-monitor. It's all together with a web interface and built-in benchmarks.
 
 Here is a build tool for w3top, an HTTP-based monitoring and benchmarking tool based on KernelManagementJam
