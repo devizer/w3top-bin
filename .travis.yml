@@ -12,7 +12,7 @@ script:
  - |
      t=30; url=http://localhost:5050/
      echo "Waiting for $url during $t seconds ..."
-     while [ $t -ge 0 ]; do t=$((t-1)); curl -m 1 "$url"; if [ $? -eq 0 ]; then break; fi; sleep 1; done
+     while [ $t -ge 0 ]; do t=$((t-1)); curl -m 1 "$url" >/dev/null; if [ $? -eq 0 ]; then break; fi; sleep 1; done
 
  # - sleep 30
  - curl -I http://localhost:5050/ >/tmp/pre-jit
