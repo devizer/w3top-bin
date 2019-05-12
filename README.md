@@ -6,9 +6,9 @@ Here is a build tool for w3top, an HTTP-based monitoring and benchmarking tool b
 Live demo: on the throttled single-core Xeon with 592M RAM, on the Orange PI board
 
 ### Supported OS are provided by dotnet core 
-- Debian 8 & 9, Ubuntu 14.04 ... 19.04
+- Debian 8 & 9, Ubuntu 14.04 ... 19.04 and derivatives
+- CentOS 6 & 7, Fedora 27 ... 30, RedHat 7 and derivatives
 - OpenSUSE 42 & 15, SLES 12 & 15
-- CentOS 6 & 7, Fedora 27 ... 30, RedHat 7
 
 Supported architectures: x64, armv7 (32-bit) and aarch64 (arm 64-bit)
 
