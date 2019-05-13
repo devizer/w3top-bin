@@ -15,7 +15,7 @@ if [[ $(uname -s) == Darwin ]]; then
   exit 1; 
 fi;
 if [ ! -e /etc/os-release ] && [ -e /etc/redhat-release ]; then
-  local redhatRelease=$(</etc/redhat-release)
+  redhatRelease=$(</etc/redhat-release)
   if [[ $redhatRelease == "CentOS release 6."* || $redhatRelease == "Red Hat Enterprise Linux Server release 6."* ]]; then
     rid=rhel.6-x64;
   fi
