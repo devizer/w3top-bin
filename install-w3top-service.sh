@@ -14,6 +14,12 @@ if [[ $(uname -s) == Darwin ]]; then
   echo Error: OS X binaries are not pre-compiled
   exit 1; 
 fi;
+if [ ! -e /etc/os-release ] && [ -e /etc/redhat-release ]; then
+  local redhatRelease=$(</etc/redhat-release)
+  if [[ $redhatRelease == "CentOS release 6."* || $redhatRelease == "Red Hat Enterprise Linux Server release 6."* ]]; then
+    rid=rhel.6-x64;
+  fi
+fi
 echo "The current OS architecture: $rid"
 
 file=w3top-$rid.tar.gz
