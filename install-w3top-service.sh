@@ -14,7 +14,12 @@ if [[ $(uname -s) == Darwin ]]; then
   echo Error: OS X binaries are not pre-compiled
   exit 1; 
 fi;
-if [ ! -e /etc/os-release ] && [ -e /etc/redhat-release ]; then
+if [ -e /etc/os-release ]; then
+  . /etc/os-release
+  if [[ "${ID:-}" == "alpine" ]]; then 
+    rid=linux-musl-x64; 
+  fi
+elif [ -e /etc/redhat-release ]; then
   redhatRelease=$(</etc/redhat-release)
   if [[ $redhatRelease == "CentOS release 6."* || $redhatRelease == "Red Hat Enterprise Linux Server release 6."* ]]; then
     rid=rhel.6-x64;
