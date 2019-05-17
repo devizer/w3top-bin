@@ -58,5 +58,5 @@ sudo rm -rf /opt/w3top
 journalctl -u w3top.service
 ```
 
-### Source Code
-Compiling from source [source](https://github.com/devizer/KernelManagementLab#install-from-source).
+### Compile from source
+Compile from [source](https://github.com/devizer/KernelManagementLab#install-from-source).
