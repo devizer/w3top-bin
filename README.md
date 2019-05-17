@@ -5,16 +5,15 @@ Here is a build tool for w3top, an HTTP-based monitoring and benchmarking tool b
 
 Live demo: on the throttled single-core Xeon with 592M RAM, on the Orange PI board
 
-### Supported OS are provided by dotnet core 
+### Supported OS are provided by dotnet core
 - Debian 8 & 9, Ubuntu 14.04 ... 19.04 and derivatives
-- CentOS 6 & 7, Fedora 27 ... 30, RedHat 7 and derivatives
+- Fedora 27 ... 30+, CentOS 7, RedHat 7 and derivatives
 - OpenSUSE 42 & 15, SLES 12 & 15
+- Alpine Linux
 
 Supported architectures: x64, armv7 (32-bit) and aarch64 (arm 64-bit)
 
-Alpine Linux and legacy RedHat 6 are also supported but corresponding binaries are not precompiled. It should be compiled from sources with correct runtime identifier: [Install from source](https://github.com/devizer/KernelManagementLab#install-from-source).
-
-The script below doesn't support RedHat 6 and Alpine Linux
+Legacy version 6 of CentOS & RedHat is also supported, however GLIBC to 2.14+ is required by official sqlite3 package. Rest of versions are supported without additional configuration.
 
 ### [Re]Installation of precompiled binaries
 Short instruction: extract 
@@ -35,14 +34,14 @@ script=https://raw.githubusercontent.com/devizer/w3top-bin/master/install-w3top-
 ### Prerequisites and requirements
 Official .net core prerequisites: https://docs.microsoft.com/en-us/dotnet/core/linux-prerequisites
 
-Unofficial one-line installer of them using builtin package manager (zypper, yum, dnf or apt):
+Unofficial one-line installer of them using built-in package manager (zypper, yum, dnf, apk or apt):
 ```bash
 script=https://raw.githubusercontent.com/devizer/glist/master/install-dotnet-dependencies.sh; 
 (wget -q -nv --no-check-certificate -O - $script 2>/dev/null || curl -ksSL $script) | bash
 ```
 
-As of now app needs 60Mb of RAM on arm 32-bit and 100Mb of RAM on x64/arm64.
-Installer above needs common command line tools: bash, tar, gzip, and wget|curl.
+As of now w3top service needs 60Mb of RAM on 32-bit arm and 100Mb of RAM on x64/arm64.
+Installer above needs common command line tools: sudo, bash, tar, gzip, and wget|curl.
 
 ### History
 [WHATSNEW.md](https://github.com/devizer/KernelManagementLab/blob/master/WHATSNEW.md)
@@ -58,3 +57,6 @@ sudo rm -rf /opt/w3top
 ```bash
 journalctl -u w3top.service
 ```
+
+### Source Code
+Compiling from source [source](https://github.com/devizer/KernelManagementLab#install-from-source).
