@@ -7,13 +7,13 @@ Live demo: on the throttled single-core Xeon with 592M RAM, on the Orange PI boa
 
 ### Supported OS are provided by dotnet core
 - Debian 8 & 9, Ubuntu 14.04 ... 19.04 and derivatives
-- Fedora 27 ... 30+, CentOS 7, RedHat 7 and derivatives
+- Fedora 27 ... 30, CentOS 7, RedHat 7 and derivatives
 - OpenSUSE 42 & 15, SLES 12 & 15
 - Alpine Linux
 
 Supported architectures: x64, armv7 (32-bit) and aarch64 (arm 64-bit)
 
-Legacy version 6 of CentOS & RedHat is also supported, however GLIBC to 2.14+ is required by official sqlite3 package. Rest of versions are supported without additional configuration.
+Legacy version 6 of CentOS & RedHat is also supported, however GLIBC 2.14+ is required by official sqlite3 package. 
 
 ### [Re]Installation of precompiled binaries
 Short instruction: extract 
