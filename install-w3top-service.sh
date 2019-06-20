@@ -52,8 +52,8 @@ echo "W3Top installation parameters:
 "
 
 mkdir -p "$(dirname $copy)"
-wget --no-check-certificate -O "$copy" "$url_primary"  || curl -kSL -o "$copy" "$url_primary" \
-|| wget --no-check-certificate -O "$copy" "$url"  || curl -kSL -o "$copy" "$url"
+wget --no-check-certificate -O "$copy" "$url_primary"  || curl -kfSL -o "$copy" "$url_primary" \
+|| wget --no-check-certificate -O "$copy" "$url"  || curl -kfSL -o "$copy" "$url"
 
 sudo mkdir -p "$INSTALL_DIR"
 sudo rm -rf "$INSTALL_DIR/*"
