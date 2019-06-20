@@ -28,7 +28,7 @@ fi
 echo "The current OS architecture: $rid"
 
 url_version=https://raw.githubusercontent.com/devizer/w3top-bin/master/public/version.txt
-version=$(wget -q -nv --no-check-certificate -O - $url_version 2>/dev/null || curl -ksSL $url_version)
+version=$(wget -q -nv --no-check-certificate -O - $url_version 2>/dev/null || curl -ksL $url_version 2>/dev/null || true)
 url_primary=https://dl.bintray.com/devizer/W3-Top/$version/w3top-$rid.tar.gz
 
 file=w3top-$rid.tar.gz
