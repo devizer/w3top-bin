@@ -27,6 +27,10 @@ elif [ -e /etc/redhat-release ]; then
 fi
 echo "The current OS architecture: $rid"
 
+url_version=https://raw.githubusercontent.com/devizer/w3top-bin/master/public/version.txt
+version=$(wget -q -nv --no-check-certificate -O - $url_version 2>/dev/null || curl -ksSL $url_version)
+url_primary=https://dl.bintray.com/devizer/W3-Top/$version/w3top-$rid.tar.gz
+
 file=w3top-$rid.tar.gz
 url=https://raw.githubusercontent.com/devizer/w3top-bin/master/public/$file
 
@@ -41,12 +45,15 @@ echo "W3Top installation parameters:
     HTTP_PORT: $HTTP_PORT
     INSTALL_DIR: $INSTALL_DIR
     RESPONSE_COMPRESSION: $RESPONSE_COMPRESSION
-    download url: $url
+    Version per metadata (optional): $version
+    primary download url: $url_primary
+    secondary download url: $url
     temp download file: $copy
 "
 
 mkdir -p "$(dirname $copy)"
-wget --no-check-certificate -O "$copy" "$url"  || curl -kSL -o "$copy" "$url"
+wget --no-check-certificate -O "$copy" "$url_primary"  || curl -kSL -o "$copy" "$url_primary" \
+|| wget --no-check-certificate -O "$copy" "$url"  || curl -kSL -o "$copy" "$url"
 
 sudo mkdir -p "$INSTALL_DIR"
 sudo rm -rf "$INSTALL_DIR/*"
