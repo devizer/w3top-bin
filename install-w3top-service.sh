@@ -52,8 +52,15 @@ echo "W3Top installation parameters:
 "
 
 mkdir -p "$(dirname $copy)"
-wget --no-check-certificate -O "$copy" "$url_primary"  || curl -kfSL -o "$copy" "$url_primary" \
-|| wget --no-check-certificate -O "$copy" "$url"  || curl -kfSL -o "$copy" "$url"
+ok="false"
+for u in $url_primary $url; do
+  wget --no-check-certificate -O "$copy" "$u"  || curl -kfSL -o "$copy" "$u" || continue;
+  fileSize=$(stat --printf="%s" "$copy")
+  echo "Downloaded size of \"$copy\": $fileSize"
+  if [[ $fileSize > 40000000 ]]; then ok=true; break; fi
+done
+
+if [[ $ok != true ]]; then echo Error downloading $(basename "$url"). Error deayils above; exit 1; fi
 
 sudo mkdir -p "$INSTALL_DIR"
 sudo rm -rf "$INSTALL_DIR/*"
