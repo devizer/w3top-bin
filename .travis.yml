@@ -1,6 +1,12 @@
 language: minimal
-os: linux
-dist: xenial
+matrix:
+  include:
+  - name: Ubuntu 14.04 (Sys V Init)
+    os: linux
+    dist: trusty
+  - name: Ubuntu 16.04 (SystemD)
+    os: linux
+    dist: xenial
 
 script:
  - |
@@ -13,11 +19,14 @@ script:
      t=30; url=http://localhost:5050/
      echo "Waiting for $url during $t seconds ..."
      while [ $t -ge 0 ]; do t=$((t-1)); curl -m 1 "$url" >/dev/null; if [ $? -eq 0 ]; then break; fi; sleep 1; done
-
+ - export codename="$(lsb_release -c -s)"
  # Build fails if corresponding url or systemd unit can't be reached
  - curl -I http://localhost:5050/ >/tmp/pre-jit
  - curl -I http://localhost:5050/
  - curl http://localhost:5050/api/BriefInfo && echo ""
- - sudo journalctl -u w3top.service | head -42
- - sudo systemctl disable w3top.service
-
+ - |
+   if [[ $codename == xenial ]]; then 
+     (sudo journalctl -u w3top.service | head -42) && sudo systemctl disable w3top.service
+   else
+     cat /tmp/w3top.log && cat /etc/init.d/w3top && /etc/init.d/w3top help
+   fi

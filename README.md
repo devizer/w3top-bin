@@ -11,7 +11,7 @@ Live demo: on the throttled single-core Xeon with 592M RAM, on the Orange PI boa
 - OpenSUSE 42 & 15, SLES 12 & 15
 - Alpine Linux
 
-Supported architectures: x64, armv7 (32-bit) and aarch64 (arm 64-bit)
+Supported architectures: x64, armv7 (32-bit) and aarch64 (arm 64-bit). Armv6 (Raspberry PI 1st and Raspberry PI Zero) is not supported.
 
 Legacy version 6 of CentOS & RedHat is also supported, however GLIBC 2.14+ is required by official sqlite3 package. 
 
@@ -41,7 +41,7 @@ script=https://raw.githubusercontent.com/devizer/glist/master/install-dotnet-dep
 ```
 
 As of now w3top service needs 60Mb of RAM on 32-bit arm and 100Mb of RAM on x64/arm64.
-Installer above needs common command line tools: sudo, bash, tar, gzip, and wget|curl.
+The Installer above needs common command line tools: sudo, bash, tar, gzip, and wget|curl.
 
 ### History
 [WHATSNEW.md](https://github.com/devizer/KernelManagementLab/blob/master/WHATSNEW.md)
