@@ -32,7 +32,7 @@ version=$(wget -q -nv --no-check-certificate -O - $url_version 2>/dev/null || cu
 url_primary=https://dl.bintray.com/devizer/W3-Top/$version/w3top-$rid.tar.gz
 
 file=w3top-$rid.tar.gz
-url=https://raw.githubusercontent.com/devizer/w3top-bin/master/public/$file
+url_secondary=https://raw.githubusercontent.com/devizer/w3top-bin/master/public/$file
 
 HTTP_PORT="${HTTP_PORT:-5050}"
 RESPONSE_COMPRESSION="${RESPONSE_COMPRESSION:-True}"
@@ -47,20 +47,21 @@ echo "W3Top installation parameters:
     RESPONSE_COMPRESSION: $RESPONSE_COMPRESSION
     Version per metadata (optional): $version
     primary download url: $url_primary
-    secondary download url: $url
+    secondary download url: $url_secondary
     temp download file: $copy
 "
 
 mkdir -p "$(dirname $copy)"
 ok="false"
-for u in $url_primary $url; do
-  wget --no-check-certificate -O "$copy" "$u"  || curl -kfSL -o "$copy" "$u" || continue;
+for url in $url_primary $url_secondary; do
+  wget --no-check-certificate -O "$copy" "$url"  || curl -kfSL -o "$copy" "$url" || continue;
   fileSize=$(stat --printf="%s" "$copy")
-  echo "Downloaded size of \"$copy\": $fileSize"
+  echo "Downloaded size of \"$file\": $fileSize bytes"
+  # TODO: replace by md5sum
   if [[ $fileSize > 40000000 ]]; then ok=true; break; fi
 done
 
-if [[ $ok != true ]]; then echo Error downloading $(basename "$url"). Error deayils above; exit 1; fi
+if [[ $ok != true ]]; then echo Error downloading $(basename "$url_secondary"). Error deayils above; exit 1; fi
 
 sudo mkdir -p "$INSTALL_DIR"
 sudo rm -rf "$INSTALL_DIR/*"
