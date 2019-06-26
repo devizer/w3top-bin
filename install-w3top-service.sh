@@ -47,7 +47,8 @@ echo "W3Top installation parameters:
     HTTP_PORT: $HTTP_PORT
     INSTALL_DIR: $INSTALL_DIR
     RESPONSE_COMPRESSION: $RESPONSE_COMPRESSION
-    Version per metadata (optional): $version
+Internal installer variables:
+    version per metadata (optional): $version
     primary download url: $url_primary
     secondary download url: $url_secondary
     sha256 hash: $sha256
