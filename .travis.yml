@@ -10,6 +10,16 @@ matrix:
 
 script:
  - |
+   function wait_for_http() {
+     u="$1"; t=30; 
+     printf "\nWaiting for $u during $t seconds ..."
+     while [ $t -ge 0 ]; do t=$((t-1)); curl -m 1 -skf "$u" >/dev/null && printf " OK\n"; if [ $? -eq 0 ]; then return; fi; printf "."; sleep 1; done
+     printf " FAIL\n";
+   }
+ - |
+   wait_for_http "https://raw.githubusercontent.com/devizer/w3top-bin/master/public/version.txt"
+   wait_for_http "https://raw.githubusercontent.com/devizer/w3top-bin/master/public/w3top-linux-x64.tar.gz.sha256"
+ - |
      export HTTP_PORT=5050
      export RESPONSE_COMPRESSION=True
      export INSTALL_DIR=/opt/w3top
