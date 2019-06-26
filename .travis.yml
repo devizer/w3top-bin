@@ -11,7 +11,7 @@ matrix:
 script:
  - |
    function wait_for_http() {
-     u="$1"; t=30; 
+     u="$1"; t=300; 
      printf "\nWaiting for $u during $t seconds ..."
      while [ $t -ge 0 ]; do t=$((t-1)); curl -m 1 -skf "$u" >/dev/null && printf " OK\n"; if [ $? -eq 0 ]; then return; fi; printf "."; sleep 1; done
      printf " FAIL\n";
@@ -26,9 +26,7 @@ script:
      script=https://raw.githubusercontent.com/devizer/w3top-bin/master/install-w3top-service.sh
      (wget -q -nv --no-check-certificate -O - $script 2>/dev/null || curl -ksSL $script) | bash
  - |
-     t=30; url=http://localhost:5050/
-     echo "Waiting for $url during $t seconds ..."
-     while [ $t -ge 0 ]; do t=$((t-1)); curl -m 1 "$url" >/dev/null; if [ $? -eq 0 ]; then break; fi; sleep 1; done
+   wait_for_http "http://localhost:5050/"
  - export codename="$(lsb_release -c -s)"
  # Build fails if corresponding url or systemd unit can't be reached
  - curl -I http://localhost:5050/ >/tmp/pre-jit
