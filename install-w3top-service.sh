@@ -30,6 +30,8 @@ echo "The current OS architecture: $rid"
 url_version=https://raw.githubusercontent.com/devizer/w3top-bin/master/public/version.txt
 version=$(wget -q -nv --no-check-certificate -O - $url_version 2>/dev/null || curl -ksfL $url_version 2>/dev/null || echo "unknown")
 url_primary=https://dl.bintray.com/devizer/W3-Top/$version/w3top-$rid.tar.gz
+url_sha256="${url_primary}.sha256"
+sha256=$(wget -q -nv --no-check-certificate -O - $url_sha256 2>/dev/null || curl -ksfL $url_sha256 2>/dev/null || echo "unknown")
 
 file=w3top-$rid.tar.gz
 url_secondary=https://raw.githubusercontent.com/devizer/w3top-bin/master/public/$file
@@ -48,6 +50,7 @@ echo "W3Top installation parameters:
     Version per metadata (optional): $version
     primary download url: $url_primary
     secondary download url: $url_secondary
+    sha256 hash: $sha256
     temp download file: $copy
 "
 
@@ -55,13 +58,11 @@ mkdir -p "$(dirname $copy)"
 ok="false"
 for url in $url_primary $url_secondary; do
   wget --no-check-certificate -O "$copy" "$url"  || curl -kfSL -o "$copy" "$url" || continue;
-  fileSize=$(stat --printf="%s" "$copy")
-  echo "Downloaded size of \"$file\": $fileSize bytes"
-  # TODO: replace by md5sum
-  if [[ $fileSize > 40000000 ]]; then ok=true; break; fi
+  echo "Checking integrity of $(basename $url_primary) ..."
+  if echo "$sha256 $copy" | sha256sum -c - ; then ok=true; break; fi
 done
 
-if [[ $ok != true ]]; then echo Error downloading $(basename "$url_secondary"). Error deayils above; exit 1; fi
+if [[ $ok != true ]]; then echo Error downloading $(basename "$url_primary"); exit 1; fi
 
 sudo mkdir -p "$INSTALL_DIR"
 sudo rm -rf "$INSTALL_DIR/*"

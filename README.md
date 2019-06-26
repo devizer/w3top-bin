@@ -41,7 +41,7 @@ script=https://raw.githubusercontent.com/devizer/glist/master/install-dotnet-dep
 ```
 
 As of now w3top service needs 60Mb of RAM on 32-bit arm and 100Mb of RAM on x64/arm64.
-The Installer above needs common command line tools: sudo, bash, tar, gzip, and wget|curl.
+The Installer above needs common command line tools: sudo, bash, tar, gzip, sha256sum and wget|curl.
 
 ### History
 [WHATSNEW.md](https://github.com/devizer/KernelManagementLab/blob/master/WHATSNEW.md)
