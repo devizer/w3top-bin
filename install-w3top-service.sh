@@ -2,22 +2,22 @@
 set -e
 set -u
 
-if [[ $(uname -m) == armv7* ]]; then 
-  rid=linux-arm; 
-elif [[ $(uname -m) == aarch64 ]]; then 
-  rid=linux-arm64; 
-elif [[ $(uname -m) == x86_64 ]]; then 
-  rid=linux-x64; 
-fi; 
-if [[ $(uname -s) == Darwin ]]; then 
+if [[ $(uname -m) == armv7* ]]; then
+  rid=linux-arm;
+elif [[ $(uname -m) == aarch64 ]] || [[ $(uname -m) == armv8* ]]; then
+  rid=linux-arm64;
+elif [[ $(uname -m) == x86_64 ]] || [[ $(uname -m) == amd64 ]]; then
+  rid=linux-x64;
+fi;
+if [[ $(uname -s) == Darwin ]]; then
   rid=osx-x64;
   echo Error: OS X binaries are not pre-compiled
-  exit 1; 
+  exit 1;
 fi;
 if [ -e /etc/os-release ]; then
   . /etc/os-release
-  if [[ "${ID:-}" == "alpine" ]]; then 
-    rid=linux-musl-x64; 
+  if [[ "${ID:-}" == "alpine" ]]; then
+    rid=linux-musl-x64;
   fi
 elif [ -e /etc/redhat-release ]; then
   redhatRelease=$(</etc/redhat-release)
@@ -25,7 +25,7 @@ elif [ -e /etc/redhat-release ]; then
     rid=rhel.6-x64;
   fi
 fi
-echo "The current OS architecture: $rid"
+echo "The OS architecture: $rid"
 
 url_version=https://raw.githubusercontent.com/devizer/w3top-bin/master/public/version.txt
 version=$(wget -q -nv --no-check-certificate -O - $url_version 2>/dev/null || curl -ksfL $url_version 2>/dev/null || echo "unknown")
@@ -59,8 +59,10 @@ mkdir -p "$(dirname $copy)"
 ok="false"
 for url in $url_primary $url_secondary; do
   wget --no-check-certificate -O "$copy" "$url"  || curl -kfSL -o "$copy" "$url" || continue;
-  echo "Checking integrity of $(basename $url_primary) ..."
-  if echo "$sha256 $copy" | sha256sum -c - ; then ok=true; break; fi
+  if [[ "$url" == "$url_primary" ]]; then 
+    echo "Checking integrity of $(basename $url_primary) ..."
+    if echo "$sha256 $copy" | sha256sum -c - ; then ok=true; break; fi
+  else ok=true; fi;
 done
 
 if [[ $ok != true ]]; then echo Error downloading $(basename "$url_primary"); exit 1; fi
