@@ -52,6 +52,20 @@ matrix:
     - TEST_IMAGE="centos:6.9"
     - TEST_SCRIPT="pg_84_on_centos_6 && centos_wget_only && install_w3top"
 
+  - name: CentOS 7.0 and sqlite (wget)
+    os: linux
+    dist: xenial
+    env: 
+    - TEST_IMAGE="centos:7.0.1406"
+    - TEST_SCRIPT="centos_wget_only && install_w3top"
+
+  - name: CentOS 7.6 and sqlite (curl)
+    os: linux
+    dist: xenial
+    env: 
+    - TEST_IMAGE="centos:7.6.1810"
+    - TEST_SCRIPT="centos_curl_only && install_w3top"
+
   - name: Debian 8.9 and sqlite
     os: linux
     dist: xenial
@@ -66,6 +80,13 @@ matrix:
     - TEST_IMAGE="debian:9.9"
     - TEST_SCRIPT="debian_prepare && install_w3top"
 
+  - name: Debian Buster and sqlite
+    os: linux
+    dist: xenial
+    env: 
+    - TEST_IMAGE="debian:buster"
+    - TEST_SCRIPT="debian_prepare && install_w3top"
+
   - name: Fedora 27 and sqlite
     os: linux
     dist: xenial
@@ -73,11 +94,11 @@ matrix:
     - TEST_IMAGE="fedora:27"
     - TEST_SCRIPT="fedora_prepare && install_w3top"
 
-  - name: Fedora 31 and sqlite
+  - name: Fedora 28 and sqlite
     os: linux
     dist: xenial
     env: 
-    - TEST_IMAGE="fedora:31"
+    - TEST_IMAGE="fedora:28"
     - TEST_SCRIPT="fedora_prepare && install_w3top"
 
 before_install:
