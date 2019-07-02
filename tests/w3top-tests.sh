@@ -12,11 +12,13 @@ if [[ -f /etc/systemd/system/w3top.service ]]; then sudo journalctl -u w3top.ser
 }
 
 function centos_curl_only() {
+yum install -y tar sudo
 yum remove -y wget
 yum install -y curl
 }
 
 function centos_wget_only() {
+yum install -y tar sudo
 yum remove -y curl
 yum install -y wget
 }
