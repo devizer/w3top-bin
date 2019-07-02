@@ -1,12 +1,28 @@
 language: minimal
 matrix:
   include:
+  
   - name: Ubuntu 14.04 and sqlite (Sys V Init)
     os: linux
     dist: trusty
+
   - name: Ubuntu 16.04 and sqlite (SystemD)
     os: linux
     dist: xenial
+
+  - name: Ubuntu 18.04 and sqlite
+    os: linux
+    dist: xenial
+    env: 
+    - TEST_IMAGE="ubuntu:18.04"
+    - TEST_SCRIPT="debian_prepare && install_w3top"
+
+  - name: Ubuntu 19.04 and sqlite
+    os: linux
+    dist: xenial
+    env: 
+    - TEST_IMAGE="ubuntu:19.04"
+    - TEST_SCRIPT="debian_prepare && install_w3top"
 
   - name: CentOS 6.6 and MySQL 5.1 (curl)
     os: linux
@@ -47,7 +63,7 @@ matrix:
     os: linux
     dist: xenial
     env: 
-    - TEST_IMAGE="debian:stable"
+    - TEST_IMAGE="debian:9.9"
     - TEST_SCRIPT="debian_prepare && install_w3top"
 
 before_install:
