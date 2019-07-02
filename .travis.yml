@@ -13,8 +13,8 @@ matrix:
     env: 
     - DB=postgres
     - SH=bash
-    - PACKAGE_VERSION="1.0.*"    
-    - dimage=opensuse
+    - PACKAGE_VERSION="1.0.*"
+    - dimage="opensuse:42.3"
 
 script:
  - |
