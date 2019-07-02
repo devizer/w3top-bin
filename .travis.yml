@@ -1,10 +1,10 @@
 language: minimal
 matrix:
   include:
-  - name: Ubuntu 14.04 (Sys V Init)
+  - name: Ubuntu 14.04 and sqlite (Sys V Init)
     os: linux
     dist: trusty
-  - name: Ubuntu 16.04 (SystemD)
+  - name: Ubuntu 16.04 and sqlite (SystemD)
     os: linux
     dist: xenial
 
@@ -60,5 +60,6 @@ script:
      chmod +x tests/w3top-tests.sh
      docker cp tests/w3top-tests.sh w3top:/w3top-tests.sh
      docker exec -t w3top bash -c "echo HOME: \$HOME; source /w3top-tests.sh; $TEST_SCRIPT && echo 'TEST FINISHED'"
+     wait_for_http http://localhost:5050
      curl -I http://localhost:5050
    fi
