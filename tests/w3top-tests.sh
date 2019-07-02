@@ -8,7 +8,7 @@ script=https://raw.githubusercontent.com/devizer/w3top-bin/master/install-w3top-
 (wget -q -nv --no-check-certificate -O - $script 2>/dev/null || curl -ksSL $script) | bash
 sleep 5
 echo "LOGS"
-cat /etc/w3top.log
+cat /tmp/w3top.log
 }
 
 function centos_curl_only() {
