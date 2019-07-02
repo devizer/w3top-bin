@@ -22,6 +22,13 @@ yum install -y wget
 }
 
 function debian_prepare() {
+source /etc/os-release
+if [[ $ID == debian ]] && [[ $VERSION_ID == 8 ]]; then
+echo '
+deb http://deb.debian.org/debian jessie main
+deb http://security.debian.org jessie/updates main
+' > /etc/apt/sources.list
+fi
 apt-get update && apt-get install -y sudo wget curl
 }
 
