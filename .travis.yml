@@ -22,6 +22,9 @@ matrix:
     - TEST_IMAGE="centos:6.6"
     - TEST_SCRIPT="pg_84_on_centos_6 && centos_wget_only && install_w3top"
 
+before_install:
+  - sudo apt-get install -y toilet
+
 script:
  - |
    function wait_for_http() {
@@ -30,9 +33,11 @@ script:
      while [ $t -ge 0 ]; do t=$((t-1)); curl -m 1 -skf "$u" >/dev/null && printf " OK\n"; if [ $? -eq 0 ]; then return; fi; printf "."; sleep 1; done
      printf " FAIL\n";
    }
+   function travis_say() { toilet -f bigascii12 -w 120 "$1"; }
  - |
    wait_for_http "https://raw.githubusercontent.com/devizer/w3top-bin/master/public/version.txt"
    wait_for_http "https://raw.githubusercontent.com/devizer/w3top-bin/master/public/w3top-linux-x64.tar.gz.sha256"
+   source /etc/os-release; travis_say "$ID $VERSION_ID"
  - |
      export HTTP_PORT=5050
      export RESPONSE_COMPRESSION=True
@@ -55,11 +60,12 @@ script:
 
  - |
    if [[ "$TEST_IMAGE" != "" ]]; then
+     travis_say "$TEST_IMAGE"
      docker run -d --name w3top -p "5055:5050" "$TEST_IMAGE"  bash -c "while true; do sleep 42; done"
      docker exec -t w3top bash -c "cat /etc/*release"
      chmod +x tests/w3top-tests.sh
      docker cp tests/w3top-tests.sh w3top:/w3top-tests.sh
      docker exec -t w3top bash -c "echo HOME: \$HOME; source /w3top-tests.sh; $TEST_SCRIPT && echo 'TEST FINISHED'"
      wait_for_http http://localhost:5050
-     curl -I http://localhost:5050
+     curl -I http://localhost:5050 || exit 666
    fi
