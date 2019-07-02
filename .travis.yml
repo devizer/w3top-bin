@@ -10,7 +10,11 @@ matrix:
   - name: OpenSUSE 42.3 via Docker
     os: linux
     dist: xenial
-    env: dimage=opensuse
+    env: 
+    - DB=postgres
+    - SH=bash
+    - PACKAGE_VERSION="1.0.*"    
+    - dimage=opensuse
 
 script:
  - |
