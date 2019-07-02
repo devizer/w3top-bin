@@ -142,6 +142,7 @@ script:
      travis_say "$TEST_IMAGE"
      docker run -d --name w3top -p "5055:5050" "$TEST_IMAGE"  bash -c "while true; do sleep 42; done"
      docker exec -t w3top bash -c "cat /etc/*release"
+     docker exec -t w3top bash -c "mkdir -p /etc/init.d"
      chmod +x tests/w3top-tests.sh
      docker cp tests/w3top-tests.sh w3top:/w3top-tests.sh
      docker exec -t w3top bash -c "echo HOME: \$HOME; source /w3top-tests.sh; $TEST_SCRIPT && echo 'TEST FINISHED'"
