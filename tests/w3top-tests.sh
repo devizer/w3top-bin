@@ -32,6 +32,10 @@ fi
 apt-get update && apt-get install -y sudo wget curl
 }
 
+function fedora_prepare() {
+dnf install -y libstdc++ sudo
+}
+
 function mysql_51_on_centos_6() {
 yum install -y tar sudo
 sudo yum install -y mysql-server mysql
