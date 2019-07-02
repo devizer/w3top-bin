@@ -41,7 +41,7 @@ matrix:
     dist: xenial
     env: 
     - TEST_IMAGE="debian:8.9"
-    - TEST_SCRIPT="install_w3top"
+    - TEST_SCRIPT="debian_prepare && install_w3top"
 
 before_install:
   - sudo apt-get install -y toilet

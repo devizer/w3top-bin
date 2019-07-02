@@ -21,6 +21,10 @@ yum remove -y curl
 yum install -y wget
 }
 
+function debian_prepare() {
+apt-get install -y sudo wget curl
+}
+
 function mysql_51_on_centos_6() {
 yum install -y tar sudo
 sudo yum install -y mysql-server mysql
