@@ -7,6 +7,11 @@ matrix:
   - name: Ubuntu 16.04 (SystemD)
     os: linux
     dist: xenial
+  - name: OpenSUSE 42.3 via Docker
+    os: linux
+    dist: xenial
+    - env: 
+      "dimage: opensuse:42.3"
 
 script:
  - |
