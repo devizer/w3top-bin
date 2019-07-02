@@ -80,6 +80,6 @@ script:
      chmod +x tests/w3top-tests.sh
      docker cp tests/w3top-tests.sh w3top:/w3top-tests.sh
      docker exec -t w3top bash -c "echo HOME: \$HOME; source /w3top-tests.sh; $TEST_SCRIPT && echo 'TEST FINISHED'"
-     wait_for_http http://localhost:5050
-     curl -I http://localhost:5050 || exit 666
+     wait_for_http http://localhost:5055
+     curl -I http://localhost:5055 || exit 666
    fi
