@@ -22,7 +22,7 @@ yum install -y wget
 }
 
 function debian_prepare() {
-apt-get install -y sudo wget curl
+apt-get update && apt-get install -y sudo wget curl
 }
 
 function mysql_51_on_centos_6() {
