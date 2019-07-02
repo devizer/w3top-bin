@@ -54,7 +54,7 @@ script:
    fi
 
  - |
-   if [[ "$TEST_IMAGE" != ""]; then
+   if [[ "$TEST_IMAGE" != "" ]]; then
      docker run -d --name w3top -p "5055:5050" "$TEST_IMAGE"  bash -c "while true; do sleep 42; done"
      docker exec -t w3top bash -c "cat /etc/*release"
      chmod +x tests/w3top-tests.sh
