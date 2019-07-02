@@ -8,19 +8,19 @@ matrix:
     os: linux
     dist: xenial
 
-  - name: CentOS 6.6 and MySQL 5.1
+  - name: CentOS 6.6 and MySQL 5.1 (curl)
     os: linux
     dist: xenial
     env: 
     - TEST_IMAGE="centos:6.6"
     - TEST_SCRIPT="mysql_51_on_centos_6 && install_w3top"
 
-  - name: CentOS 6.6 and Postgres SQL 8.4
+  - name: CentOS 6.6 and Postgres SQL 8.4 (wget)
     os: linux
     dist: xenial
     env: 
     - TEST_IMAGE="centos:6.6"
-    - TEST_SCRIPT="pg_84_on_centos_6 && install_w3top"
+    - TEST_SCRIPT="pg_84_on_centos_6 && centos_wget_only && install_w3top"
 
 script:
  - |
