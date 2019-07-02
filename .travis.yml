@@ -10,7 +10,7 @@ matrix:
   - name: OpenSUSE 42.3 via Docker
     os: linux
     dist: xenial
-    - env: >
+    - env: 
       - dimage: opensuse
 
 script:
