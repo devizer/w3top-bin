@@ -17,6 +17,20 @@ matrix:
     - TEST_IMAGE="ubuntu:18.04"
     - TEST_SCRIPT="debian_prepare && install_w3top"
 
+  - name: Fedora 31 with sqlite (SystemD)
+    os: linux
+    dist: xenial
+    env: 
+    - TEST_IMAGE="devizervlad/systemd-on-fedora:31"
+    - TEST_SCRIPT="install_w3top"
+
+  - name: Fedora 26 with sqlite (SystemD)
+    os: linux
+    dist: xenial
+    env: 
+    - TEST_IMAGE="devizervlad/systemd-on-fedora:26"
+    - TEST_SCRIPT="install_w3top"
+
   - name: Ubuntu 19.04 and sqlite
     os: linux
     dist: xenial
