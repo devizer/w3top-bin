@@ -163,12 +163,13 @@ script:
      wait_for_http http://localhost:5055
      curl -I http://localhost:5055 || exit 666
    fi
+
  - |
    if [[ "$SYSTEMD_IMAGES" != "" ]]; then
      count=0;
      for img in $SYSTEMD_IMAGES; do
        count=$((count+1)); name="systemd_${count}";
-       docker run -t -d --name "$name" --rm -v "/sys/fs/cgroup:/sys/fs/cgroup:ro" "$img"
+       docker run -t -d --name "$name" --cap-add SYS_ADMIN --rm -v "/sys/fs/cgroup:/sys/fs/cgroup:ro" "$img"
 
        # make sure SystemD is completely loaded, usually it takes about 1 second
        wait_for_systemd="printf 'Wait for systemd on "$img" '; ok=''; for i in {1..9}; do pgrep systemd-journal >/dev/null && ok='true' && echo ' OK' && break || printf '.'; sleep 1; done; [ -z \$ok ] && echo ' Fail';"
