@@ -166,10 +166,10 @@ script:
 
  - |
    if [[ "$SYSTEMD_IMAGES" != "" ]]; then
-     count=0;
+     port=5060;
      for img in $SYSTEMD_IMAGES; do
-       count=$((count+1)); name="systemd_${count}";
-       docker run -t -d --name "$name" --cap-add SYS_ADMIN --rm -v "/sys/fs/cgroup:/sys/fs/cgroup:ro" "$img"
+       port=$((port+1)); name="systemd_${port}";
+       docker run -t -d --name "$name" -p "${port}:5050" --cap-add SYS_ADMIN --rm -v "/sys/fs/cgroup:/sys/fs/cgroup:ro" "$img"
 
        # make sure SystemD is completely loaded, usually it takes about 1 second
        wait_for_systemd="printf 'Wait for systemd on "$img" '; ok=''; for i in {1..9}; do pgrep systemd-journal >/dev/null && ok='true' && echo ' OK' && break || printf '.'; sleep 1; done; [ -z \$ok ] && echo ' Fail';"
@@ -177,6 +177,9 @@ script:
        docker exec -t "$name" bash -c "$wait_for_systemd"; 
        docker exec "$name" bash -c 'journalctl -b; echo ""; cat /etc/*release; printf "\n\n\n"';
        docker exec "$name" bash -c "echo HOME: \$HOME; source /w3top-tests.sh; $TEST_SCRIPT && echo 'TEST FINISHED'"
+       wait_for_http http://localhost:${port}
+       curl -I http://localhost:${port} || echo "ERROR * ERROR * ERROR * ERROR * ERROR * ERROR * ERROR * ERROR"
+
 
        # last, SystemD initialization is completed and we can install, start, check the status and read logs of a SystemD service
        # for illustration purposes we just display the full SystemD's journal
