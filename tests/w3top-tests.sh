@@ -36,6 +36,7 @@ yum install -y wget
 function debian_prepare() {
 source /etc/os-release
 if [[ $ID == debian ]] && [[ $VERSION_ID == 8 ]]; then
+rm -f /etc/apt/sources.list.d/backports* || true
 echo '
 deb http://deb.debian.org/debian jessie main
 deb http://security.debian.org jessie/updates main
