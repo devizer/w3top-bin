@@ -172,8 +172,8 @@ script:
    fi
 
  - |
+   error=none;
    if [[ "$SYSTEMD_IMAGES" != "" ]]; then
-     error=none;
      port=5060;
      for img in $SYSTEMD_IMAGES; do
        port=$((port+1)); name="systemd_${port}";
@@ -195,7 +195,7 @@ script:
        # for illustration purposes we just display the full SystemD's journal
        
      done
-     echo ERROR is [$error]
-     [[ $error == none ]] && fail
    fi
+   echo "ERROR is [$error]"
+   if [[ $error != "none" ]]; then fail; fi
    
