@@ -173,11 +173,13 @@ script:
 
        # make sure SystemD is completely loaded, usually it takes about 1 second
        wait_for_systemd="printf 'Wait for systemd on "$img" '; ok=''; for i in {1..9}; do pgrep systemd-journal >/dev/null && ok='true' && echo ' OK' && break || printf '.'; sleep 1; done; [ -z \$ok ] && echo ' Fail';"
+       docker cp tests/w3top-tests.sh ${name}:/w3top-tests.sh
        docker exec -t "$name" bash -c "$wait_for_systemd"; 
+       docker exec "$name" bash -c 'journalctl -b; echo ""; cat /etc/*release; printf "\n\n\n"';
+       docker exec -t "$name" bash -c "echo HOME: \$HOME; source /w3top-tests.sh; $TEST_SCRIPT && echo 'TEST FINISHED'"
 
        # last, SystemD initialization is completed and we can install, start, check the status and read logs of a SystemD service
        # for illustration purposes we just display the full SystemD's journal
-       docker exec "$name" bash -c 'journalctl -b; echo ""; cat /etc/*release';
        
      done
    fi
