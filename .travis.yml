@@ -195,6 +195,6 @@ script:
        # for illustration purposes we just display the full SystemD's journal
        
      done
-     [[ $error != "none" ]] && fail
+     [[ $error != "none" ]] && echo "FAIL FAIL FAIL FAIL FAIL " && fail
    fi
    
