@@ -57,7 +57,7 @@ matrix:
     dist: xenial
     env: 
     - TEST_IMAGE="centos:6.9"
-    - TEST_SCRIPT="pg_84_on_centos_6 && centos_wget_only && install_w3top"
+    - TEST_SCRIPT="pg_84_on_centos_6 && centos_wget_only && install_w3top && sleep 60"
 
   - name: CentOS 7.0 and sqlite (wget)
     os: linux
