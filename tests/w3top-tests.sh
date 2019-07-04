@@ -41,7 +41,7 @@ deb http://deb.debian.org/debian jessie main
 deb http://security.debian.org jessie/updates main
 ' > /etc/apt/sources.list
 fi
-apt-get update && apt-get install -y sudo wget curl
+apt-get update && apt-get install -y sudo wget curl procps
 }
 
 function fedora_prepare() {
