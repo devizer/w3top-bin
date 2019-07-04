@@ -196,6 +196,6 @@ script:
        
      done
      echo ERROR is [$error]
-     [[ $error != "none" ]] && echo "FAIL FAIL FAIL FAIL FAIL " && fail
+     [[ $error == none ]] && fail
    fi
    
