@@ -29,7 +29,7 @@ matrix:
     dist: xenial
     env:
     - SYSTEMD_IMAGES="jrei/systemd-debian:9 jrei/systemd-debian:10"
-    - TEST_SCRIPT="install_w3top"
+    - TEST_SCRIPT="debian_prepare && install_w3top"
 
   - name: SystemD on Fedora 26 ... 31 via docker
     os: linux

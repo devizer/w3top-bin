@@ -1,5 +1,15 @@
 #!/usr/bin/env bash
 
+function install_dependencies() {
+  if [[ "$(command -v curl)" == "" ]]; then 
+    if [[ "$(command -v apt)" != "" ]]; then
+      apt-get -y install curl
+    else
+      echo ERROR: Unable to install curl
+    fi
+  fi
+}
+
 function install_w3top() {
 export HTTP_PORT=5050
 export RESPONSE_COMPRESSION=True
