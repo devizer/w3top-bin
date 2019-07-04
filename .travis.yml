@@ -184,7 +184,7 @@ script:
    
        # ready for tests
        docker cp tests/w3top-tests.sh ${name}:/w3top-tests.sh
-       docker exec -t "$name" bash -c "$wait_for_systemd"; 
+       docker exec -t "$name" bash -c "$wait_for_systemd";
        docker exec "$name" bash -c 'journalctl -b; echo ""; cat /etc/*release; systemctl --version; printf "\n\n\n"';
        docker exec -t "$name" bash -c "echo HOME: \$HOME; source /w3top-tests.sh; $TEST_SCRIPT && echo 'TEST FINISHED. Checking app health.'"
        wait_for_http http://localhost:${port}
@@ -195,5 +195,6 @@ script:
        # for illustration purposes we just display the full SystemD's journal
        
      done
+     [[ $error != 0 ]] && fail
    fi
-   [[ $error != 0 ]] && fail
+   
