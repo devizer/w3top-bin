@@ -173,7 +173,7 @@ script:
 
  - |
    if [[ "$SYSTEMD_IMAGES" != "" ]]; then
-     error=none
+     error=none;
      port=5060;
      for img in $SYSTEMD_IMAGES; do
        port=$((port+1)); name="systemd_${port}";
