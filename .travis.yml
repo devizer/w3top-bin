@@ -10,6 +10,20 @@ matrix:
     os: linux
     dist: xenial
 
+  - name: CentOS 6.9 and MySQL 5.1 (curl)
+    os: linux
+    dist: xenial
+    env: 
+    - TEST_IMAGE="centos:6.9"
+    - TEST_SCRIPT="mysql_51_on_centos_6 && install_w3top"
+
+  - name: CentOS 6.9 and Postgres SQL 8.4 (wget)
+    os: linux
+    dist: xenial
+    env: 
+    - TEST_IMAGE="centos:6.9"
+    - TEST_SCRIPT="pg_84_on_centos_6 && centos_wget_only && install_w3top && sleep 60 "
+
   - name: CentOS 6.6 and MySQL 5.1 (curl)
     os: linux
     dist: xenial
@@ -52,20 +66,6 @@ matrix:
     - TEST_IMAGE="ubuntu:19.04"
     - TEST_SCRIPT="debian_prepare && install_w3top"
 
-  - name: CentOS 6.9 and MySQL 5.1 (curl)
-    os: linux
-    dist: xenial
-    env: 
-    - TEST_IMAGE="centos:6.9"
-    - TEST_SCRIPT="mysql_51_on_centos_6 && install_w3top"
-
-  - name: CentOS 6.9 and Postgres SQL 8.4 (wget)
-    os: linux
-    dist: xenial
-    env: 
-    - TEST_IMAGE="centos:6.9"
-    - TEST_SCRIPT="pg_84_on_centos_6 && centos_wget_only && install_w3top && sleep 60 "
-
   - name: CentOS 7.0 and sqlite (wget)
     os: linux
     dist: xenial
@@ -94,7 +94,7 @@ matrix:
     - TEST_IMAGE="debian:9.9"
     - TEST_SCRIPT="debian_prepare && install_w3top"
 
-  - name: Debian Buster and sqlite
+  - name: Debian 10 Buster and sqlite
     os: linux
     dist: xenial
     env: 
