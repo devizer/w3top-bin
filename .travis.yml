@@ -195,5 +195,5 @@ script:
    echo "ERROR is [$error]"
    if [[ $error != "none" ]]; then fail; fi
 
- - free -m | true
+ - free -m || true
    
