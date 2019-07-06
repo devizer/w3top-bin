@@ -190,12 +190,10 @@ script:
        wait_for_http http://localhost:${port}
        curl -I http://localhost:${port} || error=1
 
-
-       # last, SystemD initialization is completed and we can install, start, check the status and read logs of a SystemD service
-       # for illustration purposes we just display the full SystemD's journal
-       
      done
    fi
    echo "ERROR is [$error]"
    if [[ $error != "none" ]]; then fail; fi
+
+ - free -m | true
    
