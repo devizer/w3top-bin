@@ -180,7 +180,7 @@ script:
        docker run -t -d --name "$name" -p "${port}:5050" --cap-add SYS_ADMIN --rm -v "/sys/fs/cgroup:/sys/fs/cgroup:ro" "$img"
 
        # make sure SystemD is completely loaded, usually it takes about 1 second
-       wait_for_systemd="printf 'Wait for systemd on "$img" '; ok=''; for i in {1..9}; do pgrep systemd-journal >/dev/null && ok='true' && echo ' OK' && break || printf '.'; sleep 1; done; [ -z \$ok ] && echo ' Fail';"
+       wait_for_systemd="printf 'Wait for systemd on "$img" '; ok=''; for i in {1..9}; do systemctl is-active --quiet systemd-journald 2>/dev/null && ok='true' && echo ' OK' && break || printf '.'; sleep 1; done; [ -z \$ok ] && echo ' Fail';"
    
        # ready for tests
        docker cp tests/w3top-tests.sh ${name}:/w3top-tests.sh
