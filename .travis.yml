@@ -208,7 +208,8 @@ script:
      for img in $SYSTEMD_IMAGES; do
        port=$((port+1)); name="systemd_${port}";
        docker run -t -d --name "$name" -p "${port}:5050" --cap-add SYS_ADMIN --rm -v "/sys/fs/cgroup:/sys/fs/cgroup:ro" "$img"
-
+       # bash on alpine is missed
+       if [[ "$img" == alpine* ]]; then docker exec -t "$name" sh -c "apk add --no-cache curl tar sudo bzip2 bash"; fi
        # make sure SystemD is completely loaded, usually it takes about 1 second
        wait_for_systemd="printf 'Wait for systemd on "$img" '; ok=''; for i in {1..9}; do systemctl is-active --quiet systemd-journald 2>/dev/null && ok='true' && echo ' OK' && break || printf '.'; sleep 1; done; [ -z \$ok ] && echo ' Fail';"
    
