@@ -60,7 +60,8 @@ ok="false"
 for url in $url_primary $url_secondary; do
   wget --no-check-certificate -O "$copy" "$url"  || curl -kfSL -o "$copy" "$url" || continue;
   
-  fileSize=$(stat --printf="%s" "$copy")
+  # fileSize=$(stat --printf="%s" "$copy")
+  fileSize=$(stat -c"%s" "$copy" 2>/dev/null || stat --printf="%s" "$copy")
   echo "Downloaded size of \"$file\" is $fileSize bytes"
   if [[ ! $fileSize > 40000000 ]]; then continue; fi
 
