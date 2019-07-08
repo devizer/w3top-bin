@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 
+
 function install_dependencies() {
   if [[ "$(command -v curl)" == "" ]]; then 
     if [[ "$(command -v apt)" != "" ]]; then
@@ -19,6 +20,12 @@ script=https://raw.githubusercontent.com/devizer/w3top-bin/master/install-w3top-
 sleep 5
 echo "LOGS"
 if [[ -f /etc/systemd/system/w3top.service ]]; then sudo journalctl -u w3top.service | head -999; else cat /tmp/w3top.log; fi
+}
+
+function opensuse_prepare()
+{
+# opensuse/tumbleweed, opensuse/leap:15, opensuse/leap:42
+zypper in -y curl sudo tar gzip insserv-compat
 }
 
 function centos_curl_only() {
