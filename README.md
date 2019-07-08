@@ -6,14 +6,14 @@ Here is a build tool for w3top, an HTTP-based monitoring and benchmarking tool b
 Live demo: on the throttled single-core Xeon with 592M RAM, on the Orange PI board
 
 ### Supported OS are provided by dotnet core
-- Debian 8 & 9, Ubuntu 14.04 ... 19.04 and derivatives
-- Fedora 27 ... 30, CentOS 7, RedHat 7 and derivatives
+- Debian 8, 9 & 10, Ubuntu 14.04 ... 19.04 and derivatives
+- Fedora 26 ... 30, CentOS 7, RedHat 7 and derivatives
 - OpenSUSE 42 & 15, SLES 12 & 15
 - Alpine Linux
 
 Supported architectures: x64, armv7 (32-bit) and aarch64 (arm 64-bit). Armv6 (Raspberry PI 1st and Raspberry PI Zero) is not supported.
 
-Legacy version 6 of CentOS & RedHat is also supported, however GLIBC 2.14+ is required by official sqlite3 package. 
+Legacy version 6 of CentOS & RedHat is also supported, however optimized build of sqlite3 does not work, but mysql and postgresql can be used for metrics and benchmarks history storage.
 
 ### [Re]Installation of precompiled binaries
 Short instruction: extract 
@@ -36,7 +36,7 @@ Official .net core prerequisites: https://docs.microsoft.com/en-us/dotnet/core/l
 
 Unofficial one-line installer of them using built-in package manager (zypper, yum, dnf, apk or apt):
 ```bash
-script=https://raw.githubusercontent.com/devizer/glist/master/install-dotnet-dependencies.sh; 
+script=https://raw.githubusercontent.com/devizer/glist/master/install-dotnet-dependencies.sh;
 (wget -q -nv --no-check-certificate -O - $script 2>/dev/null || curl -ksSL $script) | bash
 ```
 
@@ -55,7 +55,7 @@ sudo rm -rf /opt/w3top
 
 ### Logs and Troubleshooting
 ```bash
-journalctl -u w3top.service
+journalctl -u w3top.service || cat /tmp/w3top.log
 ```
 
 ### Compile from source

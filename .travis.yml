@@ -38,14 +38,14 @@ matrix:
     - TEST_IMAGE="centos:6.6"
     - TEST_SCRIPT="pg_84_on_centos_6 && centos_wget_only && install_w3top"
 
-  - name: SystemD on Debian 8, 9 & 10 via docker
+  - name: SystemD on Debian 8 (systemd 215), 9 & 10 (systemd 241) via docker
     os: linux
     dist: xenial
     env:
     - SYSTEMD_IMAGES="jrei/systemd-debian:8 jrei/systemd-debian:9 jrei/systemd-debian:10"
     - TEST_SCRIPT="debian_prepare && install_w3top"
 
-  - name: SystemD on Fedora 26 ... 31 via docker
+  - name: SystemD on Fedora 26 (systemd 233) ... 31 (systemd 242) via docker
     os: linux
     dist: xenial
     env:
