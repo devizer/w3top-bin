@@ -28,6 +28,10 @@ function opensuse_prepare()
 zypper in -y curl sudo tar gzip insserv-compat
 }
 
+function alpine_prepare() {
+apk add --no-cache curl tar sudo bzip2 bash
+}
+
 function centos_curl_only() {
 yum install -y tar sudo
 yum remove -y wget

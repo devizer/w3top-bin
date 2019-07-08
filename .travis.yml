@@ -144,6 +144,12 @@ matrix:
     - TEST_IMAGE="opensuse/tumbleweed"
     - TEST_SCRIPT="opensuse_prepare && install_w3top"
 
+  - name: Alpine and sqlite
+    os: linux
+    dist: xenial
+    env: 
+    - TEST_IMAGE="alpine"
+    - TEST_SCRIPT="alpine_prepare && install_w3top"
 
 
 before_install:
