@@ -123,18 +123,18 @@ matrix:
     - TEST_SCRIPT="fedora_prepare && install_w3top"
 
   # opensuse/tumbleweed, opensuse/leap:15, opensuse/leap:42
-  - name: OpenSUSE leap 15 and sqlite
-    os: linux
-    dist: xenial
-    env: 
-    - TEST_IMAGE="opensuse/leap:15"
-    - TEST_SCRIPT="opensuse_prepare && install_w3top"
-
   - name: OpenSUSE leap 42 and sqlite
     os: linux
     dist: xenial
     env: 
     - TEST_IMAGE="opensuse/leap:42"
+    - TEST_SCRIPT="opensuse_prepare && install_w3top"
+
+  - name: OpenSUSE leap 15 and sqlite
+    os: linux
+    dist: xenial
+    env: 
+    - TEST_IMAGE="opensuse/leap:15"
     - TEST_SCRIPT="opensuse_prepare && install_w3top"
 
   - name: OpenSUSE tumbleweed and sqlite
