@@ -29,7 +29,7 @@ matrix:
     dist: xenial
     env: 
     - TEST_IMAGE="centos:6.9"
-    - TEST_SCRIPT="pg_11_on_centos_6 && centos_curl_only && install_w3top && sleep 1;"
+    - TEST_SCRIPT="pg_11_on_centos_6 && centos_curl_only && install_w3top && sleep 1 "
 
   - name: CentOS 6.6 and MySQL 5.1 (curl)
     os: linux
