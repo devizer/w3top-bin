@@ -17,12 +17,12 @@ matrix:
     - TEST_IMAGE="centos:6.9"
     - TEST_SCRIPT="mysql_51_on_centos_6 && centos_wget_only && install_w3top"
 
-#  - name: CentOS 6.9 and Postgres SQL 8.4 (curl)
-#    os: linux
-#    dist: xenial
-#    env: 
-#    - TEST_IMAGE="centos:6.9"
-#    - TEST_SCRIPT="pg_84_on_centos_6 && centos_curl_only && install_w3top && sleep 60 "
+  - name: CentOS 6.9 and Postgres SQL 8.4 (curl)
+    os: linux
+    dist: xenial
+    env: 
+    - TEST_IMAGE="centos:6.9"
+    - TEST_SCRIPT="pg_84_on_centos_6 && centos_curl_only && install_w3top && sleep 33 "
 
   - name: CentOS 6.9 and Postgres SQL 11.4 (curl)
     os: linux
