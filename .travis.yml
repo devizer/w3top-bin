@@ -198,7 +198,7 @@ script:
  - |
    if [[ "$TEST_IMAGE" != "" ]]; then
      travis_say "$TEST_IMAGE"
-     docker run -d --name w3top -p "5055:5050" "$TEST_IMAGE" sh -c "while true; do sleep 42; done"
+     docker run --privileged -d --name w3top -p "5055:5050" "$TEST_IMAGE" sh -c "while true; do sleep 42; done"
      # bash on alpine is missed
      if [[ "$TEST_IMAGE" == alpine* ]]; then docker exec -t w3top sh -c "apk update; apk add curl tar sudo bzip2 bash; apk add bash icu-libs ca-certificates krb5-libs libgcc libstdc++ libintl libstdc++ tzdata userspace-rcu zlib libssl1.0"; fi
      docker exec -t w3top bash -c "cat /etc/*release"
@@ -216,7 +216,7 @@ script:
      port=5060;
      for img in $SYSTEMD_IMAGES; do
        port=$((port+1)); name="systemd_${port}";
-       docker run -t -d --name "$name" -p "${port}:5050" --cap-add SYS_ADMIN --rm -v "/sys/fs/cgroup:/sys/fs/cgroup:ro" "$img"
+       docker run --privileged -t -d --name "$name" -p "${port}:5050" --cap-add SYS_ADMIN --rm -v "/sys/fs/cgroup:/sys/fs/cgroup:ro" "$img"
        # bash on alpine is missed
        if [[ "$img" == alpine* ]]; then docker exec -t "$name" sh -c "apk add --no-cache curl tar sudo bzip2 bash"; fi
        # make sure SystemD is completely loaded, usually it takes about 1 second
