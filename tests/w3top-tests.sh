@@ -91,7 +91,8 @@ local  all  all                ident
 host   all  all  127.0.0.1/32  md5
 host   all  all  ::1/128       md5
 ' | sudo tee /var/lib/pgsql/data/pg_hba.conf
-sudo service postgresql restart
+sudo service postgresql start
+sleep 8
 sudo -u postgres psql -q -t -c "Select Version();"
 
 sudo -u postgres psql -c "CREATE ROLE admin WITH SUPERUSER LOGIN PASSWORD 'pass';"
