@@ -109,6 +109,7 @@ commands=( \
 )
 for sql in "${commands[@]}"; do
   pushd /tmp >/dev/null
+  echo "Exec sql [$sql]"
   sudo -u postgres psql -q -t -c "$sql"
   popd >/dev/null
 done
@@ -151,6 +152,7 @@ commands=( \
 )
 for sql in "${commands[@]}"; do
   pushd /tmp >/dev/null
+  echo "Exec sql [$sql]"
   sudo -u postgres psql -q -t -c "$sql"
   popd >/dev/null
 done
