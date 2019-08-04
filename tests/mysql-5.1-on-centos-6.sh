@@ -5,8 +5,8 @@ yum install -y tar sudo
 sudo yum install -y mysql-server mysql
 sudo chkconfig mysqld on
 sudo /etc/init.d/mysqld start
-sudo mysqladmin -u root password secret
 user=root; password=secret
+sudo mysqladmin -u $user password "$password"
 
 
 # Create empty database w3top ... 
@@ -20,3 +20,4 @@ mysql -u w3top -p'D0tN3t;42' -e "SHOW VARIABLES LIKE \"%version%\";" w3top
 export MYSQL_DATABASE='Server=localhost;Database=w3top;Port=3306;Uid=w3top;Pwd="D0tN3t;42";Connect Timeout=20;Pooling=false;'
 export PGSQL_DATABASE=
 }
+
