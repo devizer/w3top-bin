@@ -203,9 +203,9 @@ script:
      if [[ "$TEST_IMAGE" == alpine* ]]; then docker exec -t w3top sh -c "apk update; apk add curl tar sudo bzip2 bash; apk add bash icu-libs ca-certificates krb5-libs libgcc libstdc++ libintl libstdc++ tzdata userspace-rcu zlib libssl1.0"; fi
      docker exec -t w3top bash -c "cat /etc/*release"
      docker exec -t w3top bash -c "mkdir -p /etc/init.d"
-     docker exec -t "$name" bash -c "mkdir -p /tests"
+     docker exec -t w3top bash -c "mkdir -p /tests"
      chmod +x tests/*.sh
-     docker cp tests ${name}:/tests
+     docker cp tests w3top:/tests
      # docker cp tests/w3top-tests.sh w3top:/w3top-tests.sh
      docker exec -t w3top bash -c "echo HOME: \$HOME; ls -la /tests/*.sh; source /tests/*.sh; $TEST_SCRIPT && echo 'TEST FINISHED. Checking app health.'"
      wait_for_http http://localhost:5055
