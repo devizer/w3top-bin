@@ -7,20 +7,22 @@ Live demo: on the throttled single-core Xeon with 592M RAM, on the Orange PI boa
 
 ### Supported OS are provided by dotnet core
 - Debian 8, 9 & 10, Ubuntu 14.04 ... 19.04 and derivatives
-- Fedora 26 ... 30, CentOS 7, RedHat 7 and derivatives
-- OpenSUSE 42 & 15, SLES 12 & 15
+- Fedora 26 ... 31, CentOS 6 & 7, RedHat 6, 7 & 8 and derivatives
+- OpenSUSE 42, 15 & Tumbleweed, SLES 12 & 15
 - Alpine Linux
+- Generic Linux with libc.so version 2.17+ and GLIBCXX version 3.4.20+
 
 Supported architectures: x64, armv7 (32-bit) and aarch64 (arm 64-bit). Armv6 (Raspberry PI 1st and Raspberry PI Zero) is not supported.
-
-Legacy version 6 of CentOS & RedHat is also supported, however optimized build of sqlite3 does not work, but mysql and postgresql can be used for metrics and benchmarks history storage.
 
 ### [Re]Installation of precompiled binaries
 Short instruction: extract 
 [w3top-linux-x64.tar.gz](https://raw.githubusercontent.com/devizer/w3top-bin/master/public/w3top-linux-x64.tar.gz),
-[w3top-linux-arm.tar.gz](https://raw.githubusercontent.com/devizer/w3top-bin/master/public/w3top-linux-arm.tar.gz) or 
-[w3top-linux-arm64.tar.gz](https://raw.githubusercontent.com/devizer/w3top-bin/master/public/w3top-linux-arm64.tar.gz) archive 
+[w3top-linux-arm.tar.gz](https://raw.githubusercontent.com/devizer/w3top-bin/master/public/w3top-linux-arm.tar.gz), 
+[w3top-linux-arm64.tar.gz](https://raw.githubusercontent.com/devizer/w3top-bin/master/public/w3top-linux-arm64.tar.gz), 
+[w3top-linux-musl-x64.tar.gz](https://raw.githubusercontent.com/devizer/w3top-bin/master/public/w3top-linux-musl-x64.tar.gz) or
+[w3top-rhel.6-x64.tar.gz](https://raw.githubusercontent.com/devizer/w3top-bin/master/public/w3top-rhel.6-x64.tar.gz) archive 
 and run `./Universe.W3Top` or install SystemD service using `install-systemd-service.sh`
+
 
 Shorter option:
 ```
@@ -30,6 +32,25 @@ export INSTALL_DIR=/opt/w3top
 script=https://raw.githubusercontent.com/devizer/w3top-bin/master/install-w3top-service.sh
 (wget -q -nv --no-check-certificate -O - $script 2>/dev/null || curl -ksSL $script) | bash
 ```
+
+This configures storage for benchmark and metrics history using sqlite3 database.
+Postgres 8.4+, mysql 5.1+ and MS Sql Server are also supported. It is enough to export corresponding DATABASE-variable for script above:
+
+```
+# either mysql db
+export MYSQL_DATABASE='Server=localhost;Database=w3top;Port=3306;Uid=w3top;Pwd="D0tN3t;42";Connect Timeout=20;'
+# or postresql db
+export PGSQL_DATABASE="Host=localhost;Port=5432;Database=w3top;Username=w3top;Password=pass;Timeout=15;"
+# or MS Sql Server db
+export MSSQL_DATABASE="Server=localhost,1433;Database=w3top;User=w3top;Password=pass;"
+```
+
+Examples of local-only accessed db configurations for w3top are prepared for 
+[MySQL 5.1](https://raw.githubusercontent.com/devizer/w3top-bin/master/tests/mysql-5.1-on-centos-6.sh), 
+[Postgres SQL 8.4](https://raw.githubusercontent.com/devizer/w3top-bin/master/tests/postres-8.4-on-centos-6.sh), 
+[Postgres SQL 11](https://raw.githubusercontent.com/devizer/w3top-bin/master/tests/postres-11-on-centos-6.sh) 
+on centos 6. By the way this scripts are used by CI auto-tests
+
 
 ### Prerequisites and requirements
 Official .net core prerequisites: https://docs.microsoft.com/en-us/dotnet/core/linux-prerequisites
@@ -43,7 +64,7 @@ script=https://raw.githubusercontent.com/devizer/glist/master/install-dotnet-dep
 As of now w3top service needs 60Mb of RAM on 32-bit arm and 100Mb of RAM on x64/arm64.
 The Installer above needs common command line tools: sudo, bash, tar, gzip, sha256sum and wget|curl.
 
-### History
+### History and Screenshots
 [WHATSNEW.md](https://github.com/devizer/KernelManagementLab/blob/master/WHATSNEW.md)
 
 ### Uninstall
