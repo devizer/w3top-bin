@@ -189,6 +189,7 @@ script:
  - curl -I http://localhost:5050/
  - curl http://localhost:5050/api/BriefInfo && echo ""
  - |
+   sleep 12 # wait for pre-jitting logs
    if [[ $codename == xenial ]]; then 
      (sudo journalctl -u w3top.service | head -242) && sudo systemctl disable w3top.service
    else
