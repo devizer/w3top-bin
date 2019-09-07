@@ -190,7 +190,7 @@ script:
  - curl http://localhost:5050/api/BriefInfo && echo ""
  - |
    if [[ $codename == xenial ]]; then 
-     (sudo journalctl -u w3top.service | head -42) && sudo systemctl disable w3top.service
+     (sudo journalctl -u w3top.service | head -242) && sudo systemctl disable w3top.service
    else
      cat /tmp/w3top.log && cat /etc/init.d/w3top && /etc/init.d/w3top version
    fi
