@@ -165,6 +165,20 @@ matrix:
     - TEST_IMAGE="alpine:3.7"
     - TEST_SCRIPT="alpine_prepare && install_w3top"
 
+  - name: Amazon Linux v2 and sqlite
+    os: linux
+    dist: xenial
+    env: 
+    - TEST_IMAGE="amazonlinux:2"
+    - TEST_SCRIPT="yum install tar sudo -y; install_w3top"
+
+  - name: Amazon Linux v1 and sqlite
+    os: linux
+    dist: xenial
+    env: 
+    - TEST_IMAGE="amazonlinux:1"
+    - TEST_SCRIPT="yum install tar sudo -y; install_w3top"
+
 
 before_install:
   - sudo apt-get install -y toilet
