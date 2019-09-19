@@ -15,7 +15,7 @@ matrix:
     dist: xenial
     env: 
     - TEST_IMAGE="gentoo/stage3-amd64-hardened-nomultilib"
-    - TEST_SCRIPT="emerge --quiet --sync; emerge --quiet sudo bash; HTTP_HOST='+'; export HTTP_HOST; install_w3top"
+    - TEST_SCRIPT="emerge --quiet --sync; emerge --quiet sudo; emerge --quiet bash; HTTP_HOST='+'; export HTTP_HOST; install_w3top"
 
   - name: CentOS 6.9 and MySQL 5.1 (wget)
     os: linux
