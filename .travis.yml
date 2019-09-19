@@ -17,6 +17,13 @@ matrix:
     - TEST_IMAGE="gentoo/stage3-amd64-hardened-nomultilib"
     - TEST_SCRIPT="emerge --quiet --sync; emerge --quiet sudo; emerge --quiet bash; HTTP_HOST='+'; export HTTP_HOST; install_w3top"
 
+  - name: Gentoo (nomultilib) and sqlite
+    os: linux
+    dist: xenial
+    env: 
+    - TEST_IMAGE="gentoo/stage3-amd64-nomultilib"
+    - TEST_SCRIPT="emerge --quiet --sync; emerge --quiet sudo; emerge --quiet bash; HTTP_HOST='+'; export HTTP_HOST; install_w3top"
+  
   - name: Gentoo and sqlite
     os: linux
     dist: xenial
