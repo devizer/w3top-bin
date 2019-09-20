@@ -231,28 +231,35 @@ script:
  - |
    wait_for_http "https://raw.githubusercontent.com/devizer/w3top-bin/master/public/version.txt"
    wait_for_http "https://raw.githubusercontent.com/devizer/w3top-bin/master/public/w3top-linux-x64.tar.gz.sha256"
-   source /etc/os-release; travis_say "$ID $VERSION_ID"
+
+# local installation
  - |
+   if [[ "$TEST_IMAGE" == "" && "$SYSTEMD_IMAGES" == "" ]]; then
+     set -e
+     source /etc/os-release; travis_say "$ID $VERSION_ID"
      export HTTP_PORT=5050
      export RESPONSE_COMPRESSION=True
      export INSTALL_DIR=/opt/w3top
      script=https://raw.githubusercontent.com/devizer/w3top-bin/master/install-w3top-service.sh
      (wget -q -nv --no-check-certificate -O - $script 2>/dev/null || curl -ksSL $script) | bash
- - |
-   wait_for_http "http://localhost:5050/"
- - export codename="$(lsb_release -c -s)"
- # Build fails if corresponding url or systemd unit can't be reached
- - curl -I http://localhost:5050/ >/tmp/pre-jit
- - curl -I http://localhost:5050/
- - curl http://localhost:5050/api/BriefInfo && echo ""
- - |
-   sleep 12 # wait for pre-jitting logs
-   if [[ $codename == xenial ]]; then 
-     (sudo journalctl -u w3top.service | head -242) && sudo systemctl disable w3top.service
-   else
-     cat /tmp/w3top.log && cat /etc/init.d/w3top && /etc/init.d/w3top version
+     
+     wait_for_http "http://localhost:5050/"
+     # Build fails if corresponding url or systemd unit can't be reached
+     curl -I http://localhost:5050/ >/tmp/pre-jit
+     curl -I http://localhost:5050/
+     curl http://localhost:5050/api/BriefInfo && echo ""
+
+     sleep 11 # wait for pre-jitting logs
+     export codename="$(lsb_release -c -s)" || true
+     if [[ $codename == xenial ]]; then 
+       (sudo journalctl -u w3top.service | head -242) && sudo systemctl disable w3top.service
+     else
+       cat /tmp/w3top.log && cat /etc/init.d/w3top && /etc/init.d/w3top version
+     fi
+     set +e
    fi
 
+# docker installation
  - |
    if [[ "$TEST_IMAGE" != "" ]]; then
      travis_say "$TEST_IMAGE"
@@ -269,6 +276,7 @@ script:
      curl -I http://localhost:5055 || exit 666
    fi
 
+# SystemD via docker installaion
  - |
    error=none;
    if [[ "$SYSTEMD_IMAGES" != "" ]]; then
