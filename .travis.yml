@@ -66,6 +66,20 @@ matrix:
     - TEST_IMAGE="centos:6.6"
     - TEST_SCRIPT="pg_84_on_centos_6 && centos_wget_only && install_w3top"
 
+  - name: CentOS 7.0 and sqlite (wget)
+    os: linux
+    dist: xenial
+    env: 
+    - TEST_IMAGE="centos:7.0.1406"
+    - TEST_SCRIPT="centos_wget_only && install_w3top"
+
+  - name: CentOS 7.6 and sqlite (curl)
+    os: linux
+    dist: xenial
+    env: 
+    - TEST_IMAGE="centos:7.6.1810"
+    - TEST_SCRIPT="centos_curl_only && install_w3top"
+
   - name: Ubuntu 18.04 and sqlite
     os: linux
     dist: xenial
@@ -86,20 +100,6 @@ matrix:
     env: 
     - TEST_IMAGE="ubuntu:19.10"
     - TEST_SCRIPT="debian_prepare && install_w3top"
-
-  - name: CentOS 7.0 and sqlite (wget)
-    os: linux
-    dist: xenial
-    env: 
-    - TEST_IMAGE="centos:7.0.1406"
-    - TEST_SCRIPT="centos_wget_only && install_w3top"
-
-  - name: CentOS 7.6 and sqlite (curl)
-    os: linux
-    dist: xenial
-    env: 
-    - TEST_IMAGE="centos:7.6.1810"
-    - TEST_SCRIPT="centos_curl_only && install_w3top"
 
   - name: Debian 8.9 and sqlite
     os: linux
