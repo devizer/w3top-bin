@@ -2,11 +2,13 @@
 set -e
 set -u
 
-if [[ $(uname -m) == armv7* ]]; then
+machine="$(uname -m || true)"; machine="${machine:-unknown}"
+rid=unknown
+if [[ "$machine" == armv7* ]]; then
   rid=linux-arm;
-elif [[ $(uname -m) == aarch64 ]] || [[ $(uname -m) == armv8* ]]; then
+elif [[ "$machine" == aarch64 || "$machine" == armv8* || "$machine" == arm64* ]]; then
   rid=linux-arm64;
-elif [[ $(uname -m) == x86_64 ]] || [[ $(uname -m) == amd64 ]]; then
+elif [[ "$machine" == x86_64 || "$machine" == amd64 ]]; then
   rid=linux-x64;
 fi;
 if [[ $(uname -s) == Darwin ]]; then
