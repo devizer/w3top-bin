@@ -15,7 +15,7 @@ matrix:
     dist: xenial
     env:
 #    - MULTIARCH_IMAGES="multiarch/debian-debootstrap:arm64-buster multiarch/debian-debootstrap:arm64-jessie multiarch/debian-debootstrap:arm64-stretch multiarch/debian-debootstrap:armhf-buster multiarch/debian-debootstrap:armhf-jessie multiarch/debian-debootstrap:armhf-stretch"
-    - MULTIARCH_IMAGES="multiarch/debian-debootstrap:arm64-buster multiarch/debian-debootstrap:arm64-stretch multiarch/debian-debootstrap:armhf-buster multiarch/debian-debootstrap:armhf-stretch"
+    - MULTIARCH_IMAGES="multiarch/debian-debootstrap:armhf-stretch multiarch/debian-debootstrap:armhf-buster multiarch/debian-debootstrap:arm64-buster multiarch/debian-debootstrap:arm64-stretch"
     - TEST_SCRIPT="debian_prepare && install_w3top"
 
   - name: SystemD on Debian 8 (systemd 215), 9 & 10 (systemd 241) via docker
@@ -330,6 +330,7 @@ script:
        wait_for_http http://localhost:$port
        curl -I http://localhost:$port || error=1
        docker exec -t $name bash -c "echo 'LOG@ARM'; echo ''; cat /tmp/w3top.log" || true
+       docker rm -f $name || true
 
      done
    fi
