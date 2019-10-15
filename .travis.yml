@@ -327,6 +327,7 @@ script:
 
        docker cp tests/test-sources.sh $name:/test-sources.sh
        docker exec -t $name bash -c "echo HOME: \$HOME; source /test-sources.sh; $TEST_SCRIPT && echo 'TEST FINISHED. Checking app health.'"
+       sleep 28
        wait_for_http http://localhost:$port
        curl -I http://localhost:$port || error=1
        docker exec -t $name bash -c "echo 'LOG@ARM'; echo ''; cat /tmp/w3top.log" || true
