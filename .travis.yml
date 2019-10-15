@@ -12,7 +12,7 @@ matrix:
 
   - name: Arm 32 & 64 on Debian 8,9 & 10 via docker
     os: linux
-    dist: xenial
+    dist: trusty
     env:
 #    - MULTIARCH_IMAGES="multiarch/debian-debootstrap:arm64-buster multiarch/debian-debootstrap:arm64-jessie multiarch/debian-debootstrap:arm64-stretch multiarch/debian-debootstrap:armhf-buster multiarch/debian-debootstrap:armhf-jessie multiarch/debian-debootstrap:armhf-stretch"
     - MULTIARCH_IMAGES="multiarch/debian-debootstrap:armhf-stretch multiarch/debian-debootstrap:armhf-buster multiarch/debian-debootstrap:arm64-buster multiarch/debian-debootstrap:arm64-stretch"
