@@ -325,7 +325,7 @@ script:
        docker exec -t $name bash -c "cat /etc/*release"
        docker exec -t $name bash -c "mkdir -p /etc/init.d"
 
-       docker exec -t $name bash -c 'apt-get update; apt-get upgrade -y; url=https://raw.githubusercontent.com/devizer/glist/master/install-dotnet-dependencies.sh; (wget -q -nv --no-check-certificate -O - $url 2>/dev/null || curl -ksSL $url) | bash'
+       docker exec -t $name bash -c 'apt-get update; apt-get upgrade -y; apt-get install sudo curl procps -y; url=https://raw.githubusercontent.com/devizer/glist/master/install-dotnet-dependencies.sh; (wget -q -nv --no-check-certificate -O - $url 2>/dev/null || curl -ksSL $url) | bash'
 
        docker cp tests/test-sources.sh $name:/test-sources.sh
        docker exec -t $name bash -c "echo HOME: \$HOME; source /test-sources.sh; $TEST_SCRIPT && echo 'TEST FINISHED. Checking app health.'"
