@@ -29,14 +29,16 @@ elif [ -e /etc/redhat-release ]; then
 fi
 echo "The OS architecture: $rid"
 
+file=w3top-$rid.tar.gz
 url_version=https://raw.githubusercontent.com/devizer/w3top-bin/master/public/version.txt
 version=$(wget -q -nv --no-check-certificate -O - $url_version 2>/dev/null || curl -ksfL $url_version 2>/dev/null || echo "unknown")
-url_primary=https://dl.bintray.com/devizer/W3-Top/$version/w3top-$rid.tar.gz
+url_primary=https://github.com/devizer/KernelManagementLab/releases/download/v$version/$file
+url_secondary=https://dl.bintray.com/devizer/W3-Top/$version/w3top-$rid.tar.gz
 url_sha256="${url_primary}.sha256"
 sha256=$(wget -q -nv --no-check-certificate -O - $url_sha256 2>/dev/null || curl -ksfL $url_sha256 2>/dev/null || echo "unknown")
 
-file=w3top-$rid.tar.gz
-url_secondary=https://raw.githubusercontent.com/devizer/w3top-bin/master/public/$file
+url_tertiary=https://raw.githubusercontent.com/devizer/w3top-bin/master/public/$file
+
 
 HTTP_PORT="${HTTP_PORT:-5050}"
 RESPONSE_COMPRESSION="${RESPONSE_COMPRESSION:-True}"
@@ -53,13 +55,14 @@ Internal installer variables:
     version per metadata (optional): $version
     primary download url: $url_primary
     secondary download url: $url_secondary
+    tertiary download url: $url_tertiary
     sha256 hash: $sha256
     temp download file: $copy
 "
 
 mkdir -p "$(dirname $copy)"
 ok="false"
-for url in $url_primary $url_secondary; do
+for url in "$url_primary" "$url_secondary" "$url_tertiary"; do
   wget --no-check-certificate -O "$copy" "$url"  || curl -kfSL -o "$copy" "$url" || continue;
   
   # fileSize=$(stat --printf="%s" "$copy")
@@ -67,7 +70,7 @@ for url in $url_primary $url_secondary; do
   echo "Downloaded size of \"$file\" is $fileSize bytes"
   if [[ ! $fileSize > 40000000 ]]; then continue; fi
 
-  if [[ "$url" == "$url_primary" ]]; then 
+  if [[ "$url" != "$url_tertiary" ]]; then 
     echo "Checking integrity of $(basename $url_primary) ..."
     if echo "$sha256 $copy" | sha256sum -c - ; then ok=true; break; fi
   else ok=true; fi;
