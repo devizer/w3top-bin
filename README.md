@@ -1,5 +1,4 @@
-### W3-Top &nbsp;&nbsp;&nbsp; [![Build Status](https://travis-ci.org/devizer/w3top-bin.svg?branch=master)](https://travis-ci.org/devizer/w3top-bin) 
-&nbsp;&nbsp;&nbsp;[![W3Top Stable Version](https://img.shields.io/bintray/v/devizer/W3-Top/W3Top?label=Stable)](https://github.com/devizer/w3top-bin/blob/master/README.md#reinstallation-of-precompiled-binaries)
+### W3-Top &nbsp;&nbsp;&nbsp; [![Build Status](https://travis-ci.org/devizer/w3top-bin.svg?branch=master)](https://travis-ci.org/devizer/w3top-bin) &nbsp;&nbsp;&nbsp;[![W3Top Stable Version](https://img.shields.io/bintray/v/devizer/W3-Top/W3Top?label=Stable)](https://github.com/devizer/w3top-bin/blob/master/README.md#reinstallation-of-precompiled-binaries)
 
 W3-Top isn't grafana, htop, atop, iotop or gnome-system-monitor. It's all together with a web interface and built-in benchmarks.
 
@@ -15,6 +14,14 @@ Live demo: on the throttled single-core Xeon with 592M RAM, on the Orange PI boa
 - Generic Linux with libc.so version 2.17+ and GLIBCXX version 3.4.20+ (for example Gentoo and Arch)
 
 Supported architectures: x64, armv7 (32-bit) and aarch64 (arm 64-bit). ArmV6 (Raspberry PI 1st and Raspberry PI Zero) is not supported.
+
+### Supported exotic browsers
+- Builtin Safary on iOS 9
+- Builtin Chrome on Android 5.1
+- IE 11, a builtin browser on Windows Server
+- Firefox ESR 52 and Chrome 49, the latest browsers for Windows XP/2003
+
+Pay attention, that these browsers are not perfect as latest versions in performance. It is supposed that these exotic browsers should not be used on daily basis.
 
 ### [Re]Installation of precompiled binaries
 Short instruction: extract 
