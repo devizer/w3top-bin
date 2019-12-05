@@ -1,6 +1,6 @@
 ### W3-Top &nbsp;&nbsp;&nbsp; [![Build Status](https://travis-ci.org/devizer/w3top-bin.svg?branch=master)](https://travis-ci.org/devizer/w3top-bin) &nbsp;&nbsp;&nbsp;[![W3Top Stable Version](https://img.shields.io/bintray/v/devizer/W3-Top/W3Top?label=Stable)](https://github.com/devizer/w3top-bin/blob/master/README.md#reinstallation-of-precompiled-binaries)
 
-W3-Top isn't grafana, htop, atop, iotop or gnome-system-monitor. It's all together with a web interface and built-in benchmarks.
+W3-Top isn't grafana, fio, sysbench, Crystal Disk Mark, htop, atop, iotop or gnome-system-monitor. It's all together with a web interface and built-in benchmarks.
 
 Here is a build tool for w3top, an HTTP-based monitoring and benchmarking tool based on KernelManagementJam
 
