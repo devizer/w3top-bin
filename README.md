@@ -16,7 +16,7 @@ Live demo: on the throttled single-core Xeon with 592M RAM, on the Orange PI boa
 Supported architectures: x64, armv7 (32-bit) and aarch64 (arm 64-bit). ArmV6 (Raspberry PI 1st and Raspberry PI Zero) is not supported.
 
 ### Supported exotic browsers
-- Builtin Safary on iOS 9.2+
+- Builtin Safari on iOS 9.2+
 - Builtin Chrome on Android 5.1+
 - IE 11, a builtin browser on Windows Server
 - Firefox ESR 52 and Chrome 49, the latest browsers for Windows XP/2003
