@@ -6,6 +6,11 @@ matrix:
     os: linux
     dist: trusty
 
+  - name: Native ARM64 Ubuntu 18.04 and sqlite (Sys V Init)
+    os: linux
+    dist: bionic
+    arch: arm64
+
   - name: Ubuntu 16.04 and sqlite (SystemD)
     os: linux
     dist: xenial
