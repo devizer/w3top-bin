@@ -240,11 +240,11 @@ matrix:
 
 
 before_install:
-  - sudo apt-get install -y toilet
+  - sudo apt-get install -yqq toilet
   - cat /proc/cpuinfo
   - |
     if [[ -n "$BENCHMARK_7Z" ]]; then
-       apt-get install p7zip-full -y
+       apt-get install p7zip-full -yqq
        7z b
     fi
 
