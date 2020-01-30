@@ -244,7 +244,7 @@ before_install:
   - cat /proc/cpuinfo
   - |
     if [[ -n "$BENCHMARK_7Z" ]]; then
-       apt-get install p7zip-full -yqq
+       sudo apt-get install p7zip-full -yqq
        7z b
     fi
 
