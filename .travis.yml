@@ -19,6 +19,12 @@ matrix:
     os: linux
     dist: xenial
 
+  - name: Ubuntu 18.04 and sqlite (SystemD)
+    os: linux
+    dist: bionic
+    env:
+    - BENCHMARK_7Z=true
+
   - name: Arm 64 on Debian 9 & 10 via docker
     os: linux
     dist: trusty
