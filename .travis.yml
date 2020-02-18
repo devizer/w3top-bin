@@ -260,6 +260,7 @@ before_install:
     if [[ -n "$TINY_MEM_BENCH" ]]; then
        bash run-tiny-mem-bench.sh || true
     fi
+  - bash show-platform.sh
 
 script:
  - |
