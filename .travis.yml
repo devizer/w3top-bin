@@ -43,11 +43,11 @@ matrix:
     - SYSTEMD_IMAGES="jrei/systemd-debian:8 jrei/systemd-debian:9 jrei/systemd-debian:10"
     - TEST_SCRIPT="debian_prepare && install_w3top"
 
-  - name: SystemD on Ubuntu 16.04, 18.04, 19.04, 19.10 via docker
+  - name: SystemD on Ubuntu 16.04, 18.04, 19.10 via docker
     os: linux
     dist: xenial
     env:
-    - SYSTEMD_IMAGES="devizervlad/systemd-on-ubuntu:16.04 devizervlad/systemd-on-ubuntu:18.04 devizervlad/systemd-on-ubuntu:19.04 devizervlad/systemd-on-ubuntu:19.10"
+    - SYSTEMD_IMAGES="devizervlad/systemd-on-ubuntu:16.04 devizervlad/systemd-on-ubuntu:18.04 devizervlad/systemd-on-ubuntu:19.10"
     - TEST_SCRIPT="debian_prepare && install_w3top"
 
   - name: SystemD on Fedora 26 (systemd 233) ... 31 (systemd 242) via docker
@@ -113,18 +113,18 @@ matrix:
     - TEST_IMAGE="ubuntu:18.04"
     - TEST_SCRIPT="debian_prepare && install_w3top"
 
-  - name: Ubuntu 19.04 and sqlite
-    os: linux
-    dist: xenial
-    env: 
-    - TEST_IMAGE="ubuntu:19.04"
-    - TEST_SCRIPT="debian_prepare && install_w3top"
-
   - name: Ubuntu 19.10 and sqlite
     os: linux
     dist: xenial
     env: 
     - TEST_IMAGE="ubuntu:19.10"
+    - TEST_SCRIPT="debian_prepare && install_w3top"
+
+  - name: Ubuntu 20.04 and sqlite
+    os: linux
+    dist: xenial
+    env: 
+    - TEST_IMAGE="ubuntu:20.04"
     - TEST_SCRIPT="debian_prepare && install_w3top"
 
   - name: Debian 8.9 and sqlite
@@ -153,13 +153,6 @@ matrix:
     dist: xenial
     env: 
     - TEST_IMAGE="debian:bullseye"
-    - TEST_SCRIPT="debian_prepare && install_w3top"
-
-  - name: Ubuntu 20.04 and sqlite
-    os: linux
-    dist: xenial
-    env: 
-    - TEST_IMAGE="ubuntu:20.04"
     - TEST_SCRIPT="debian_prepare && install_w3top"
 
   - name: Fedora 27 and sqlite
