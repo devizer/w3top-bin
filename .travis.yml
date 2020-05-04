@@ -340,6 +340,8 @@ script:
        docker exec -t "$name" bash -c "$wait_for_systemd";
        docker exec "$name" bash -c 'journalctl -b; echo ""; cat /etc/*release; systemctl --version; printf "\n\n\n"';
        docker exec -t "$name" bash -c "echo HOME: \$HOME; source /test-sources.sh; $TEST_SCRIPT && echo 'TEST FINISHED. Checking app health.'"
+       # Next test is NOT directly related to w3top
+       docker exec -t $name bash -e -c 'echo "Testing INSTALL-DOTNET-DEPENDENCIES-V2.SH"; url=https://raw.githubusercontent.com/devizer/glist/master/install-dotnet-dependencies-v2.sh; (wget -q -nv --no-check-certificate -O - $url 2>/dev/null || curl -ksSL $url) | bash -e' || error=2
        wait_for_http http://localhost:${port}
        curl -I http://localhost:${port} || error=1
 
@@ -365,7 +367,7 @@ script:
 
        docker cp tests/test-sources.sh $name:/test-sources.sh
        docker exec -t $name bash -c "echo HOME: \$HOME; source /test-sources.sh; $TEST_SCRIPT && echo 'TEST FINISHED. Checking app health.'"
-       # next test is not directly related to w3top
+       # Next test is NOT directly related to w3top
        docker exec -t $name bash -e -c 'echo "Testing INSTALL-DOTNET-DEPENDENCIES-V2.SH"; url=https://raw.githubusercontent.com/devizer/glist/master/install-dotnet-dependencies-v2.sh; (wget -q -nv --no-check-certificate -O - $url 2>/dev/null || curl -ksSL $url) | bash -e' || error=2
        sleep 18
        wait_for_http http://localhost:$port
