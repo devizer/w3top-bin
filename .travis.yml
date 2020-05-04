@@ -2,14 +2,14 @@ language: minimal
 matrix:
   include:
   
-  - name: Ubuntu 14.04 and sqlite (Sys V Init)
+  - name: Ubuntu 14.04 and sqlite (Sys V Init on host)
     os: linux
     dist: trusty
     env:
     - BENCHMARK_7Z=true
     - TINY_MEM_BENCH=true
 
-  - name: Native ARM64 Ubuntu 18.04 and sqlite (SystemD)
+  - name: Native ARM64 Ubuntu 18.04 and sqlite (SystemD on host)
     os: linux
     dist: bionic
     arch: arm64
@@ -17,11 +17,11 @@ matrix:
     - BENCHMARK_7Z=true
     - TINY_MEM_BENCH=true
 
-  - name: Ubuntu 16.04 and sqlite (SystemD)
+  - name: Ubuntu 16.04 and sqlite (SystemD on host)
     os: linux
     dist: xenial
 
-  - name: Ubuntu 18.04 and sqlite (SystemD)
+  - name: Ubuntu 18.04 and sqlite (SystemD on host)
     os: linux
     dist: bionic
     env:
