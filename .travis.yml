@@ -352,7 +352,7 @@ script:
      done
    fi
    echo "ERROR is [$error]"
-   if [[ $error != "none" ]]; then fail; fi
+   if [[ $error != "none" ]]; then echo 'FAIL'; exit 333; fi
 
  - |
    error=none;
@@ -382,7 +382,7 @@ script:
      done
    fi
    echo "ERROR is [$error]"
-   if [[ $error != "none" ]]; then fail; fi
+   if [[ $error != "none" ]]; then echo FAIL; exit 444; fi
 
  - free -m || true
    
