@@ -365,6 +365,7 @@ script:
 
        docker cp tests/test-sources.sh $name:/test-sources.sh
        docker exec -t $name bash -c "echo HOME: \$HOME; source /test-sources.sh; $TEST_SCRIPT && echo 'TEST FINISHED. Checking app health.'"
+       docker exec -t $name bash -e -c 'echo "Testing INSTALL-DOTNET-DEPENDENCIES-V2.SH"; url=https://raw.githubusercontent.com/devizer/glist/master/install-dotnet-dependencies-v2.sh; (wget -q -nv --no-check-certificate -O - $url 2>/dev/null || curl -ksSL $url) | bash -e' || error=2
        sleep 18
        wait_for_http http://localhost:$port
        curl -I http://localhost:$port || error=1
