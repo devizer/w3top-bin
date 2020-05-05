@@ -246,21 +246,22 @@ matrix:
     dist: xenial
     env: 
     - TEST_IMAGE="gentoo/stage3-amd64-hardened-nomultilib"
-    - TEST_SCRIPT="time emerge --quiet --sync; time emerge --quiet sudo; time emerge --quiet bash; HTTP_HOST='+'; export HTTP_HOST; install_w3top"
+    - TEST_SCRIPT="time emerge --quiet --sync; time emerge --quiet-build --quiet-fail sudo; HTTP_HOST='+'; export HTTP_HOST; install_w3top"
 
   - name: Gentoo (no multilib) and sqlite
     os: linux
     dist: xenial
     env: 
     - TEST_IMAGE="gentoo/stage3-amd64-nomultilib"
-    - TEST_SCRIPT="time emerge --quiet --sync; time emerge --quiet sudo; time emerge --quiet bash; HTTP_HOST='+'; export HTTP_HOST; install_w3top"
+    - TEST_SCRIPT="time emerge --quiet --sync; time emerge --quiet-build --quiet-fail sudo; HTTP_HOST='+'; export HTTP_HOST; install_w3top"
   
   - name: Gentoo and sqlite
     os: linux
     dist: xenial
     env: 
     - TEST_IMAGE="gentoo/stage3-amd64"
-    - TEST_SCRIPT="time emerge --quiet --sync; time emerge --quiet-build --quiet-fail sudo; time emerge --quiet-build --quiet-fail bash; HTTP_HOST='+'; export HTTP_HOST; install_w3top"
+    - TEST_SCRIPT="time emerge --quiet --sync; time emerge --quiet-build --quiet-fail sudo; HTTP_HOST='+'; export HTTP_HOST; install_w3top"
+    # time emerge --quiet-build --quiet-fail bash;
 
 
 before_install:
