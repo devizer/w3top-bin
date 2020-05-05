@@ -252,7 +252,7 @@ matrix:
     dist: xenial
     env: 
     - TEST_IMAGE="gentoo/stage3-amd64"
-    - TEST_SCRIPT="time emerge --quiet --sync; time travis_wait 30 emerge --quiet sudo; time travis_wait 30 emerge --quiet bash; HTTP_HOST='+'; export HTTP_HOST; install_w3top"
+    - TEST_SCRIPT="time emerge --quiet --sync; time emerge sudo; time emerge bash; HTTP_HOST='+'; export HTTP_HOST; install_w3top"
 
 
 before_install:
