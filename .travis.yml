@@ -55,7 +55,7 @@ matrix:
     dist: xenial
     env:
     - SYSTEMD_IMAGES="devizervlad/systemd-on-fedora:26 devizervlad/systemd-on-fedora:27 devizervlad/systemd-on-fedora:28 devizervlad/systemd-on-fedora:29 devizervlad/systemd-on-fedora:30 devizervlad/systemd-on-fedora:31"
-    - TEST_SCRIPT="install_w3top"
+    - TEST_SCRIPT="sudo dnf update --nogpgcheck -y || true; install_w3top"
 
   - name: CentOS 6.9 and MySQL 5.1 (wget)
     os: linux
