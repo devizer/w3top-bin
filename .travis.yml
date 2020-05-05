@@ -205,11 +205,11 @@ matrix:
     - TEST_IMAGE="alpine:3.7"
     - TEST_SCRIPT="alpine_prepare && install_w3top"
 
-  - name: Alpine 3.11 and sqlite
+  - name: Alpine 3.9 and sqlite
     os: linux
     dist: xenial
     env: 
-    - TEST_IMAGE="alpine:3.11"
+    - TEST_IMAGE="alpine:3.9"
     - TEST_SCRIPT="alpine_prepare && install_w3top"
 
   - name: Amazon Linux v2 and sqlite
