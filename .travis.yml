@@ -106,6 +106,13 @@ matrix:
     - TEST_IMAGE="centos:7.6.1810"
     - TEST_SCRIPT="centos_curl_only && install_w3top"
 
+  - name: CentOS 8.1 and sqlite (curl)
+    os: linux
+    dist: xenial
+    env: 
+    - TEST_IMAGE="centos:centos8.1.1911"
+    - TEST_SCRIPT="centos_curl_only && install_w3top"
+
   - name: Ubuntu 18.04 and sqlite
     os: linux
     dist: xenial
