@@ -183,6 +183,13 @@ matrix:
     - TEST_IMAGE="fedora:31"
     - TEST_SCRIPT="fedora_prepare && install_w3top"
 
+  - name: Fedora 32 and sqlite
+    os: linux
+    dist: xenial
+    env: 
+    - TEST_IMAGE="fedora:32"
+    - TEST_SCRIPT="fedora_prepare && install_w3top"
+
   # opensuse/tumbleweed, opensuse/leap:15, opensuse/leap:42
   - name: OpenSUSE leap 42 and sqlite
     os: linux
