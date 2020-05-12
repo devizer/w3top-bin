@@ -245,7 +245,7 @@ matrix:
     dist: xenial
     env: 
     - TEST_IMAGE="manjarolinux/base"
-    - TEST_SCRIPT="pacman -Syu haveged; pacman -Sy --noconfirm sudo tar; mkdir -p /etc/init.d; install_w3top"
+    - TEST_SCRIPT="pacman -Syu --noconfirm haveged; pacman -Sy --noconfirm sudo tar; mkdir -p /etc/init.d; install_w3top"
 
   - name: Arch linux and sqlite
     os: linux
