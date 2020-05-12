@@ -240,6 +240,13 @@ matrix:
     - TEST_IMAGE="amazonlinux:1"
     - TEST_SCRIPT="yum install tar sudo -y; install_w3top"
 
+  - name: Manjaro linux and sqlite
+    os: linux
+    dist: xenial
+    env: 
+    - TEST_IMAGE="manjarolinux/base"
+    - TEST_SCRIPT="pacman -Syu haveged; pacman -Sy --noconfirm sudo tar; mkdir -p /etc/init.d; install_w3top"
+
   - name: Arch linux and sqlite
     os: linux
     dist: xenial
