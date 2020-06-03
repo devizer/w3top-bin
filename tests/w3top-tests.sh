@@ -29,6 +29,10 @@ function opensuse_prepare()
 
 function alpine_prepare() {
   apk add --no-cache curl tar sudo bzip2 bash
+  script=https://raw.githubusercontent.com/devizer/test-and-build/master/install-build-tools-bundle.sh; (wget -q -nv --no-check-certificate -O - $script 2>/dev/null || curl -ksSL $script) | bash
+  Say "Installing base utils"
+  apk add --no-cache curl tar sudo bzip2 bash
+  Say "Done"
 }
 
 function centos_curl_only() {
