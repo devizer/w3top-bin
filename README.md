@@ -8,7 +8,7 @@ Live demo: on the throttled single-core Xeon with 592M RAM, on the Orange PI boa
 
 ### Supported OS are provided by dotnet core
 - Debian 8, 9 & 10, Ubuntu 14.04 ... 20.04 and derivatives
-- Fedora 26 ... 31, CentOS/RedHat 6, 7 & 8 and derivatives (including Amazon Linux V1 and V2)
+- Fedora 26 ... 32, CentOS/RedHat 6, 7 & 8 and derivatives (including Amazon Linux V1 and V2)
 - OpenSUSE 42, 15 & Tumbleweed, SLES 12 & 15
 - Alpine Linux 3.7+
 - Generic Linux with libc.so version 2.17+ and GLIBCXX version 3.4.20+ (for example Gentoo and Arch)
