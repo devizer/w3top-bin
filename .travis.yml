@@ -134,6 +134,13 @@ matrix:
     - TEST_IMAGE="ubuntu:20.04"
     - TEST_SCRIPT="debian_prepare && install_w3top"
 
+  - name: Ubuntu 20.10 and sqlite
+    os: linux
+    dist: xenial
+    env: 
+    - TEST_IMAGE="ubuntu:20.10"
+    - TEST_SCRIPT="debian_prepare && install_w3top"
+
   - name: Debian 8.9 and sqlite
     os: linux
     dist: xenial
