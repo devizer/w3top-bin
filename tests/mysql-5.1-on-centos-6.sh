@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 function mysql_51_on_centos_6() {
+  prepare_centos
   yum install -y tar sudo
   sudo yum install -y mysql-server mysql
   sudo chkconfig mysqld on

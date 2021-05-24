@@ -43,11 +43,11 @@ matrix:
     - SYSTEMD_IMAGES="jrei/systemd-debian:8 jrei/systemd-debian:9 jrei/systemd-debian:10"
     - TEST_SCRIPT="debian_prepare && install_w3top"
 
-  - name: SystemD on Ubuntu 16.04, 18.04, 19.10, 20.04 via docker
+  - name: SystemD on Ubuntu 16.04, 18.04, 20.04 via docker
     os: linux
     dist: xenial
     env:
-    - SYSTEMD_IMAGES="devizervlad/systemd-on-ubuntu:16.04 devizervlad/systemd-on-ubuntu:18.04 devizervlad/systemd-on-ubuntu:19.10 devizervlad/systemd-on-ubuntu:20.04"
+    - SYSTEMD_IMAGES="devizervlad/systemd-on-ubuntu:16.04 devizervlad/systemd-on-ubuntu:18.04 devizervlad/systemd-on-ubuntu:20.04"
     - TEST_SCRIPT="debian_prepare && install_w3top"
 
   - name: SystemD on Fedora 26 (systemd 233) ... 31 (systemd 242) via docker
@@ -57,40 +57,26 @@ matrix:
     - SYSTEMD_IMAGES="devizervlad/systemd-on-fedora:26 devizervlad/systemd-on-fedora:27 devizervlad/systemd-on-fedora:28 devizervlad/systemd-on-fedora:29 devizervlad/systemd-on-fedora:30 devizervlad/systemd-on-fedora:31"
     - TEST_SCRIPT="sudo dnf update --nogpgcheck -y || true; install_w3top"
 
-  - name: CentOS 6.9 and MySQL 5.1 (wget)
+  - name: CentOS 6.10 and MySQL 5.1 (wget)
     os: linux
     dist: xenial
     env: 
-    - TEST_IMAGE="centos:6.9"
+    - TEST_IMAGE="centos:6.10"
     - TEST_SCRIPT="mysql_51_on_centos_6 && centos_wget_only && install_w3top"
 
-  - name: CentOS 6.9 and PostgreSQL 8.4 (curl)
+  - name: CentOS 6.10 and PostgreSQL 8.4 (curl)
     os: linux
     dist: xenial
     env: 
-    - TEST_IMAGE="centos:6.9"
+    - TEST_IMAGE="centos:6.10"
     - TEST_SCRIPT="pg_84_on_centos_6 && centos_curl_only && install_w3top && sleep 66"
 
-  - name: CentOS 6.9 and PostgreSQL 11.4 (curl)
+  - name: CentOS 6.10 and PostgreSQL 11.4 (curl)
     os: linux
     dist: xenial
     env: 
-    - TEST_IMAGE="centos:6.9"
+    - TEST_IMAGE="centos:6.10"
     - TEST_SCRIPT="pg_11_on_centos_6 && centos_curl_only && install_w3top && sleep 1 "
-
-  - name: CentOS 6.6 and MySQL 5.1 (curl)
-    os: linux
-    dist: xenial
-    env: 
-    - TEST_IMAGE="centos:6.6"
-    - TEST_SCRIPT="mysql_51_on_centos_6 && install_w3top"
-
-  - name: CentOS 6.6 and PostgreSQL 8.4 (wget)
-    os: linux
-    dist: xenial
-    env: 
-    - TEST_IMAGE="centos:6.6"
-    - TEST_SCRIPT="pg_84_on_centos_6 && centos_wget_only && install_w3top"
 
   - name: CentOS 7.0 and sqlite (wget)
     os: linux
@@ -285,6 +271,7 @@ matrix:
 
 
 before_install:
+  - 'if [ "$TRAVIS_PULL_REQUEST" != "false" ]; then echo SKIP PULL REQUEST; exit 888; fi'
   - sudo apt-get install -yqq toilet
   - cat /proc/cpuinfo
   - sudo docker version || true

@@ -2,6 +2,7 @@
 
 function pg_84_on_centos_6()
 {
+  prepare_centos
   yum install -y tar sudo
   sudo yum install -y postgresql postgresql-server postgresql-contrib
   sudo service postgresql initdb
