@@ -24,7 +24,8 @@ function install_w3top() {
 function opensuse_prepare()
 {
   # opensuse/tumbleweed, opensuse/leap:15, opensuse/leap:42
-  zypper in -y curl sudo tar gzip insserv-compat
+  zypper in -y curl sudo tar gzip 
+  zypper in -y insserv-compat || true
 }
 
 function alpine_prepare() {
