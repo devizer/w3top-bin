@@ -244,7 +244,7 @@ matrix:
     os: linux
     dist: xenial
     env: 
-    - TEST_IMAGE="archlinux/base"
+    - TEST_IMAGE="archlinux:base"
     - TEST_SCRIPT="pacman -Sy --noconfirm sudo tar; mkdir -p /etc/init.d; install_w3top"
 
   - name: Gentoo Hardened (no multilib) and sqlite
