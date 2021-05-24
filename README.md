@@ -1,4 +1,4 @@
-### W3-Top &nbsp;&nbsp;&nbsp; [![Build Status](https://travis-ci.org/devizer/w3top-bin.svg?branch=master)](https://travis-ci.org/devizer/w3top-bin) &nbsp;&nbsp;&nbsp;[![W3Top Stable Version](https://img.shields.io/bintray/v/devizer/W3-Top/W3Top?label=Stable)](https://github.com/devizer/w3top-bin/blob/master/README.md#reinstallation-of-precompiled-binaries)
+### W3-Top &nbsp;&nbsp;&nbsp;[![W3Top Stable Version](https://img.shields.io/github/v/release/devizer/KernelManagementLab?label=Stable)](https://github.com/devizer/w3top-bin/blob/master/README.md#reinstallation-of-precompiled-binaries)
 
 W3-Top isn't grafana, fio, sysbench, Crystal Disk Mark, htop, atop, iotop or gnome-system-monitor. It's all together with a web interface and built-in benchmarks.
 
@@ -43,7 +43,7 @@ script=https://raw.githubusercontent.com/devizer/w3top-bin/master/install-w3top-
 ```
 
 This configures storage for benchmark and metrics history using sqlite3 database.
-Postgres 8.4+, mysql 5.1+ and MS Sql Server are also supported. It is enough to export corresponding DATABASE-variable for script above:
+In addition, Postgres 8.4+, mysql 5.1+ and MS Sql Server are also supported. It is enough to export corresponding DATABASE-variable for script above:
 
 ```
 # either mysql db
