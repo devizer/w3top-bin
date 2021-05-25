@@ -48,6 +48,13 @@ function centos_wget_only() {
   yum install -y wget
 }
 
+function gentoo_prepare() {
+  cmd='emerge --quiet --sync'; 
+  time (eval $cmd || eval $cmd || eval $cmd); 
+  cmd='emerge --quiet-build --quiet-fail sudo'
+  time (eval $cmd || eval $cmd || eval $cmd); 
+}
+
 function debian_prepare() {
   source /etc/os-release
   if [[ $ID == debian ]] && [[ $VERSION_ID == 8 ]]; then
