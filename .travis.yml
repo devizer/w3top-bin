@@ -271,19 +271,24 @@ matrix:
 
 
 before_install:
-  - 'if [ "$TRAVIS_PULL_REQUEST" != "false" ]; then echo SKIP PULL REQUEST; exit 888; fi'
-  - sudo apt-get install -yqq toilet
+  - |
+    echo "Install install-build-tools-bundle.sh"
+    script=https://raw.githubusercontent.com/devizer/test-and-build/master/install-build-tools-bundle.sh; (wget -q -nv --no-check-certificate -O - $script 2>/dev/null || curl -ksSL $script) | bash
+  - sudo apt-get install -yqq toilet fio
   - cat /proc/cpuinfo
   - sudo docker version || true
   - |
-    echo Loggin in dockerhub
+    echo Login in dockerhub
     echo $DOCKERHUB_PAT | docker login --username devizervlad --password-stdin 
 
   - bash show-platform.sh
   - |
     if [[ -n "$BENCHMARK_7Z" ]]; then
        sudo apt-get install p7zip-full -yqq
+       Say "7z MULTI-threaded"
        7z b
+       Say "7z SINGLE-threaded"
+       7z b -mmt=1 -md=22
     fi
   - |
     if [[ -n "$TINY_MEM_BENCH" ]]; then
@@ -307,7 +312,8 @@ script:
  - |
    if [[ "$TEST_IMAGE" == "" && "$SYSTEMD_IMAGES" == "" ]]; then
      set -e
-     source /etc/os-release; travis_say "$ID $VERSION_ID"
+     Say "TEST w3top ON HOST $ID $VERSION"
+     source /etc/os-release; 
      export HTTP_PORT=5050
      export RESPONSE_COMPRESSION=True
      export INSTALL_DIR=/opt/w3top
@@ -333,7 +339,7 @@ script:
 # docker installation
  - |
    if [[ "$TEST_IMAGE" != "" ]]; then
-     travis_say "$TEST_IMAGE"
+     Say "Test using [$TEST_IMAGE]"
      docker run --privileged -d --name w3top -p "5055:5050" "$TEST_IMAGE" sh -c "while true; do sleep 42; done"
      # bash on alpine is missed
      if [[ "$TEST_IMAGE" == alpine* ]]; then docker exec -t w3top sh -c "apk update; apk add curl tar sudo bzip2 bash; apk add bash icu-libs ca-certificates krb5-libs libgcc libstdc++ libintl libstdc++ tzdata userspace-rcu zlib libssl1.0"; fi
@@ -357,6 +363,7 @@ script:
    if [[ "$SYSTEMD_IMAGES" != "" ]]; then
      port=5060;
      for img in $SYSTEMD_IMAGES; do
+       Say "Test on SystemD Image [$img]"
        port=$((port+1)); name="systemd_${port}";
        docker run --privileged -t -d --name "$name" -p "${port}:5050" --cap-add SYS_ADMIN --rm -v "/sys/fs/cgroup:/sys/fs/cgroup:ro" "$img"
        # bash on alpine is missed
@@ -374,6 +381,7 @@ script:
        # Next test is NOT directly related to w3top
        docker exec -t $name bash -e -c 'echo "Testing INSTALL-DOTNET-DEPENDENCIES-V2.SH"; url=https://raw.githubusercontent.com/devizer/glist/master/install-dotnet-dependencies-v2.sh; (wget -q -nv --no-check-certificate -O - $url 2>/dev/null || curl -ksSL $url) | bash -e' || error=2
        wait_for_http http://localhost:${port}
+       Say "Check error on SystemD image [$img]"
        curl -I http://localhost:${port} || error=1
 
      done
@@ -388,6 +396,7 @@ script:
      time docker run --rm --privileged multiarch/qemu-user-static:register --reset
      port=15060;
      for img in $MULTIARCH_IMAGES; do
+       Say "Test on multi-arch image [$img]"
        port=$((port+1)); name="multiarch_${port}";
 
        docker run --privileged -d --name $name -p "$port:5050" "$img" sh -c "while true; do sleep 4242; done"
@@ -402,6 +411,7 @@ script:
        docker exec -t $name bash -e -c 'echo "Testing INSTALL-DOTNET-DEPENDENCIES-V2.SH"; url=https://raw.githubusercontent.com/devizer/glist/master/install-dotnet-dependencies-v2.sh; (wget -q -nv --no-check-certificate -O - $url 2>/dev/null || curl -ksSL $url) | bash -e' || error=2
        sleep 18
        wait_for_http http://localhost:$port
+       Say "Check error on multiarch image [$img]"
        curl -I http://localhost:$port || error=1
        docker exec -t $name bash -c "echo 'LOG@ARM'; echo ''; cat /tmp/w3top.log" || true
        docker rm -f $name || true
@@ -412,4 +422,5 @@ script:
    if [[ $error != "none" ]]; then echo FAIL; exit 444; fi
 
  - free -m || true
+ - Show-System-Stat
    
