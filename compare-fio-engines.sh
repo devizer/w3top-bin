@@ -13,12 +13,12 @@ tar xzf _libaio.tgz
 
 # build libaio
 cd lib*
-make prefix=/usr install
+sudo make prefix=/usr install
 
 # build fio --build-static
 cd ../fio*
 ./configure --prefix=/usr/local | tee configure.log
-make -j && make install && echo "SUCCESS. $(fio --version) engines:" && fio --enghelp | tail -n +2 | sort
+make -j && sudo make install && echo "SUCCESS. $(fio --version) engines:" && fio --enghelp | tail -n +2 | sort
 cat configure.log | grep "AIO"
 
 export File_IO_BENCHMARK_OPTIONS="--time_based"
