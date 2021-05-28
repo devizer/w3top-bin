@@ -23,7 +23,7 @@ cat configure.log | grep "AIO"
 
 export File_IO_BENCHMARK_OPTIONS="--time_based"
 for engine in libaio io_uring posixaio pvsync2; do
-  export File_IO_BENCHMARK_ENGINE=libaio
+  export FILE_IO_BENCHMARK_ENGINE=libaio
   Say "FIO Benchmark using $engine engine"
   File-IO-Benchmark $engine ~ 5G 30 1
 done
