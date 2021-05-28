@@ -16,6 +16,7 @@ matrix:
     env:
     - BENCHMARK_7Z=true
     - TINY_MEM_BENCH=true
+    - FIO_BENCHMARKS=true
 
   - name: Ubuntu 16.04 and sqlite (SystemD on host)
     os: linux
@@ -27,6 +28,7 @@ matrix:
     env:
     - BENCHMARK_7Z=true
     - TINY_MEM_BENCH=true
+    - FIO_BENCHMARKS=true
 
   - name: Arm 64 on Debian 9 & 10 via docker
     os: linux
@@ -280,6 +282,8 @@ before_install:
     echo Login in dockerhub
     echo $DOCKERHUB_PAT | docker login --username devizervlad --password-stdin 
 
+  - |
+    if [[ -n "$FIO_BENCHMARK" ]]; then bash compare-fio-engines.sh; fi
   - bash show-platform.sh
   - |
     if [[ -n "$BENCHMARK_7Z" ]]; then
