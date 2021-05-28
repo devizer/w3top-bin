@@ -1,7 +1,7 @@
 ﻿script=https://raw.githubusercontent.com/devizer/test-and-build/master/install-build-tools-bundle.sh; (wget -q -nv --no-check-certificate -O - $script 2>/dev/null || curl -ksSL $script) | bash
 Say "Building fio 2.26"
-apt-get update -qq
-apt-get install libc6-dev build-essential autoconf autoconf make wget -y -qq
+sudo apt-get update -qq
+sudo apt-get install libc6-dev build-essential autoconf autoconf make wget -y -qq
 url=https://brick.kernel.dk/snaps/fio-2.21.tar.gz
 url=https://brick.kernel.dk/snaps/fio-3.26.tar.gz
 libaio=https://pagure.io/libaio/archive/libaio-0.3.112/libaio-libaio-0.3.112.tar.gz
