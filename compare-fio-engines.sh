@@ -5,7 +5,7 @@ sudo apt-get install libc6-dev build-essential autoconf autoconf make wget -y -q
 url=https://brick.kernel.dk/snaps/fio-2.21.tar.gz
 url=https://brick.kernel.dk/snaps/fio-3.26.tar.gz
 libaio=https://pagure.io/libaio/archive/libaio-0.3.112/libaio-libaio-0.3.112.tar.gz
-mkdir -p /build && cd /build
+mkdir -p ~/build && pushd ~/build
 wget -q -nv --no-check-certificate -O _fio.tgz $url 
 wget -q -nv --no-check-certificate -O _libaio.tgz $libaio 
 tar xzf _fio.tgz
@@ -20,6 +20,8 @@ cd ../fio*
 ./configure --prefix=/usr/local | tee configure.log
 make -j && sudo make install && echo "SUCCESS. $(fio --version) engines:" && fio --enghelp | tail -n +2 | sort
 cat configure.log | grep "AIO"
+
+popd
 
 export File_IO_BENCHMARK_OPTIONS="--time_based"
 for engine in libaio io_uring posixaio pvsync2; do
