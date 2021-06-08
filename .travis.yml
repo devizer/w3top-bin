@@ -331,7 +331,7 @@ script:
      curl -I http://localhost:5050/
      curl http://localhost:5050/api/BriefInfo && echo ""
 
-     sleep 11 # wait for pre-jitting logs
+     sleep 120 # wait for pre-jitting logs
      export codename="$(lsb_release -c -s)" || true
      if [[ $codename == xenial ]]; then 
        (sudo journalctl -u w3top.service | head -242) && sudo systemctl disable w3top.service
