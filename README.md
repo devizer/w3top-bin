@@ -7,7 +7,7 @@ Here is a build tool for w3top, an HTTP-based monitoring and benchmarking tool b
 Live demo: on the throttled single-core Xeon with 592M RAM, on the Orange PI board
 
 ### Supported OS are provided by dotnet core
-- Debian 8, 9 & 10, Ubuntu 14.04 ... 20.04 and derivatives
+- Debian 8, 9, 10 & 11, Ubuntu 14.04 ... 21.04 and derivatives
 - Fedora 26 ... 32, CentOS/RedHat 6, 7 & 8 and derivatives (including Amazon Linux V1 and V2)
 - OpenSUSE 42, 15 & Tumbleweed, SLES 12 & 15
 - Alpine Linux 3.7+
@@ -21,7 +21,7 @@ Supported architectures: x64, armv7 (32-bit) and aarch64 (arm 64-bit). ArmV6 (Ra
 - IE 11, a builtin browser on Windows Server
 - Firefox ESR 52 and Chrome 49, the latest browsers for Windows XP/2003
 
-Pay attention, that these browsers are not perfect as the latest versions in performance. It is supposed that these exotic browsers should not be used on daily basis.
+Pay attention, that these browsers are not perfect as the latest versions in performance. It is supposed that these ancient browsers should not be used on daily basis.
 
 ### [Re]Installation of precompiled binaries
 Short instruction: extract 
