@@ -88,8 +88,7 @@ sudo rm -rf /opt/w3top
 journalctl -u w3top.service || cat /tmp/w3top.log
 ```
 
-For disk benchmark it is recommended to install latest fio and libaio. w3top comes with precompiled binaries of fio for all the supported architectures (x64, arm32 and arm64), but system fio takes precedence. 
-After upgrading system fio or system libaio fio metadata cache should be flushed: ``rm -rf ~/.cache/fio; systemctl restart w3top``
+For disk benchmark, it is recommended to install the latest fio and libaio. w3top comes with precompiled binaries of fio for all the supported architectures (x64, arm32, and arm64), but system fio takes precedence. After upgrading system fio or system libaio, fio metadata cache should be flushed: ``rm -rf ~/.cache/fio; systemctl restart w3top``
 
 ### Compile from source
 Compile from [source](https://github.com/devizer/KernelManagementLab#install-from-source).
