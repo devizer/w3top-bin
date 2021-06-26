@@ -4,7 +4,7 @@ W3-Top isn't grafana, fio, sysbench, Crystal Disk Mark, htop, atop, iotop or gno
 
 Here is a build tool for w3top, an HTTP-based monitoring and benchmarking tool based on KernelManagementJam
 
-Live demo: [on xeon](http://xeon.devizer.top), [on an Orange PI board](http://xeon.devizer.top)
+Live demo: [on xeon](http://xeon.devizer.top), [on an Orange PI board](http://pi.devizer.top)
 
 ### Supported OS are provided by dotnet core
 - Debian 8, 9, 10 & 11, Ubuntu 14.04 ... 21.04 and derivatives
