@@ -6,7 +6,7 @@ Here is a build tool for w3top, an HTTP-based monitoring and benchmarking tool b
 
 Live demo: [on xeon](http://xeon.devizer.top), [on an Orange PI board](http://pi.devizer.top)
 
-### Supported OS are provided by dotnet core
+### Supported OS and architectures
 - Debian 8, 9, 10 & 11, Ubuntu 14.04 ... 21.04 and derivatives
 - Fedora 26 ... 32, CentOS/RedHat 6, 7 & 8 and derivatives (including Amazon Linux V1 and V2)
 - OpenSUSE 42, 15 & Tumbleweed, SLES 12 & 15
@@ -43,7 +43,7 @@ script=https://raw.githubusercontent.com/devizer/w3top-bin/master/install-w3top-
 ```
 
 This configures storage for benchmark and metrics history using sqlite3 database.
-In addition, Postgres 8.4+, mysql 5.1+ and MS Sql Server are also supported. It is enough to export corresponding DATABASE-variable for script above:
+In addition to sqlite, Postgres 8.4+, mysql 5.1+ and MS Sql Server are also supported. It is enough to provide corresponding DATABASE-variable for script above:
 
 ```
 # either mysql db
