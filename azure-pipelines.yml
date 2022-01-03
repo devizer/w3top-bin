@@ -7,10 +7,10 @@ strategy:
   matrix:
     'Gentoo (no multilib)':
       IMAGE: 'gentoo/stage3-amd64-nomultilib'
-      SCRIPT: 'gentoo_prepare; HTTP_HOST='+'; export HTTP_HOST; install_w3top'
+      SCRIPT: 'gentoo_prepare; HTTP_HOST="+""; export HTTP_HOST; install_w3top'
     'Gentoo Hardened (no multilib)':
       IMAGE: 'gentoo/stage3-amd64-hardened-nomultilib'
-      SCRIPT: 'gentoo_prepare; HTTP_HOST='+'; export HTTP_HOST; install_w3top'
+      SCRIPT: 'gentoo_prepare; HTTP_HOST="+"; export HTTP_HOST; install_w3top'
     'Arch':
       IMAGE: 'archlinux:base'
       SCRIPT: 'pacman -Sy --noconfirm sudo tar; install_w3top'
