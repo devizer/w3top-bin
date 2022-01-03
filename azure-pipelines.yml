@@ -84,7 +84,7 @@ steps:
     Say "Pull $(IMAGE)"
     docker pull $(IMAGE)
     Say "Start image $(IMAGE)"
-    docker run --privileged -d --name w3top -p "5055:5050" "$IMAGE" sh -c "while true; do sleep 42; done"
+    docker run --privileged -d --hostname w3top-container --name w3top -p "5055:5050" "$IMAGE" sh -c "while true; do sleep 42; done"
     if [[ "$IMAGE" == alpine* ]]; then docker exec -t w3top sh -c "apk update; apk add curl tar sudo bzip2 bash; apk add bash icu-libs ca-certificates krb5-libs libgcc libstdc++ libintl libstdc++ tzdata userspace-rcu zlib libssl1.0"; fi
     
     Say "Version for $(IMAGE)"
