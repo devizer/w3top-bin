@@ -146,6 +146,9 @@ steps:
    sleep 9
    docker exec -t w3top bash -c "if [[ -f /etc/systemd/system/w3top.service ]]; then sudo journalctl -u w3top.service; else cat /tmp/w3top.log; fi" |
    tee $SYSTEM_ARTIFACTSDIRECTORY/w3top.log
+
+   docker cp w3top:/etc/init.d/w3top $SYSTEM_ARTIFACTSDIRECTORY/w3top.init.sh
+   docker cp w3top:/etc/systemd/system/w3top.service $SYSTEM_ARTIFACTSDIRECTORY/w3top.service.ini || true
   condition: succeededOrFailed()
   displayName: 'Grab w3top log'
 
