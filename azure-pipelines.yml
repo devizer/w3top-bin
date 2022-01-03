@@ -111,9 +111,11 @@ steps:
     Say "Version for $(IMAGE)"
     docker exec -t w3top bash -c "cat /etc/*release; mkdir -p /etc/init.d"
 
+
     Say "RUN w3top container and install sudo, tar, curl|wget, etc"
     cat tests/*.sh > tests/test-sources.sh; chmod +x tests/test-sources.sh
     docker cp tests/test-sources.sh w3top:/test-sources.sh
+    docker cp /usr/local/bin/Say w3top:/usr/local/bin/Say
     docker exec -t w3top bash -c "echo HOME: \$HOME; source /test-sources.sh; $SCRIPT && echo 'Container prepared.'"
     
   displayName: 'Start container'

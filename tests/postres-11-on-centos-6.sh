@@ -70,9 +70,9 @@ host   all  all  ::1/128       md5
   sudo -u postgres psql -q -t -c "Select Version();"
 
   sudo -u postgres psql -c "CREATE ROLE admin WITH SUPERUSER LOGIN PASSWORD 'pass';"
-  PGPASSWORD=pass psql -t -h localhost -p 5432 -U admin -q -c "select version();" -d postgres
-  echo Ver: $(eval 'PGPASSWORD=pass psql -t -h localhost -p 5432 -U admin -q -c "select version();" -d postgres')
-
+  PGPASSWORD=pass psql -t -h localhost -p 5432 -U admin -q -c "select version();" -d postgres >pg-ver.txt 2>&1
+  Say "VER: $(cat pg-ver.txt)"
+  
   # create empty DB w3top and postgres user w3top with access to w3top DB only.
   commands=( \
     "drop database if exists w3top;" \
@@ -88,6 +88,8 @@ host   all  all  ::1/128       md5
     sudo -u postgres psql -q -t -c "$sql"
     popd >/dev/null
   done
+
+  Say "Grant w3top user for new w3top db completed"
 
   # check permissions to w3top DB for w3top user
   PGPASSWORD=pass psql -t -h localhost -p 5432 -U w3top -q -c "select 'Hello, ' || current_user;" -d w3top
