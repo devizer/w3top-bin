@@ -12,7 +12,7 @@ strategy:
       IMAGE: 'opensuse/leap:15'
       SCRIPT: 'opensuse_prepare && install_w3top'
     'OpenSUSE leap Tumbleweed':
-      IMAGE: 'opensuse/leap:tumbleweed'
+      IMAGE: 'opensuse/tumbleweed'
       SCRIPT: 'opensuse_prepare && install_w3top'
 
     'Gentoo (no multilib)':
