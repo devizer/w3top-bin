@@ -5,9 +5,19 @@ trigger:
 
 strategy:
   matrix:
+    'OpenSUSE leap 42':
+      IMAGE: 'opensuse/leap:42'
+      SCRIPT: 'opensuse_prepare && install_w3top'
+    'OpenSUSE leap 15':
+      IMAGE: 'opensuse/leap:15'
+      SCRIPT: 'opensuse_prepare && install_w3top'
+    'OpenSUSE leap Tumbleweed':
+      IMAGE: 'opensuse/leap:tumbleweed'
+      SCRIPT: 'opensuse_prepare && install_w3top'
+
     'Gentoo (no multilib)':
       IMAGE: 'gentoo/stage3-amd64-nomultilib'
-      SCRIPT: 'gentoo_prepare; HTTP_HOST="+""; export HTTP_HOST; install_w3top'
+      SCRIPT: 'gentoo_prepare; HTTP_HOST="+"; export HTTP_HOST; install_w3top'
     'Gentoo Hardened (no multilib)':
       IMAGE: 'gentoo/stage3-amd64-hardened-nomultilib'
       SCRIPT: 'gentoo_prepare; HTTP_HOST="+"; export HTTP_HOST; install_w3top'
