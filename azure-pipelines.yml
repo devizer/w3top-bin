@@ -5,6 +5,18 @@ trigger:
 
 strategy:
   matrix:
+    'Debian 8.9':
+      IMAGE: "debian:8.9"
+      SCRIPT: "debian_prepare && install_w3top"
+    'Debian 9':
+      IMAGE: "debian:9"
+      SCRIPT: "debian_prepare && install_w3top"
+    'Debian 10':
+      IMAGE: "debian:10"
+      SCRIPT: "debian_prepare && install_w3top"
+    'Debian 11':
+      IMAGE: "debian:11"
+      SCRIPT: "debian_prepare && install_w3top"
     'Ubuntu 22.04':
       IMAGE: "ubuntu:22.04"
       SCRIPT: "debian_prepare && install_w3top"
@@ -23,7 +35,10 @@ strategy:
     'Fedora 32':
       IMAGE: "fedora:32"
       SCRIPT: "fedora_prepare && install_w3top"
-    'Ubuntu 14.04 and sqlite':
+    'Ubuntu 16.04':
+      IMAGE: "ubuntu:16.04"
+      SCRIPT: "debian_prepare && install_w3top"
+    'Ubuntu 14.04':
       IMAGE: "ubuntu:14.04"
       SCRIPT: "debian_prepare && install_w3top"
     'CentOS 7.6 and sqlite (curl)':
