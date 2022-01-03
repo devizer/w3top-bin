@@ -20,6 +20,7 @@ function mysql_51_on_centos_6() {
   Say "MY SQL VERSION:"
   mysql -u w3top -p'D0tN3t;42' -e "SHOW VARIABLES LIKE \"%version%\";" w3top
   export MYSQL_DATABASE='Server=localhost;Database=w3top;Port=3306;Uid=w3top;Pwd="D0tN3t;42";Connect Timeout=20;Pooling=false;'
+  echo "##vso[task.setvariable variable=MYSQL_DATABASE]$MYSQL_DATABASE"
   export PGSQL_DATABASE=
 }
 
