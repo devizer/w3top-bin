@@ -6,14 +6,14 @@ trigger:
 strategy:
   matrix:
     'Ubuntu 14.04 and sqlite':
-      TEST_IMAGE: "ubuntu:14.04"
-      TEST_SCRIPT: "debian_prepare && install_w3top"
+      IMAGE: "ubuntu:14.04"
+      SCRIPT: "debian_prepare && install_w3top"
     'CentOS 7.6 and sqlite (curl)':
-      TEST_IMAGE: "centos:7.0.1406"
-      TEST_SCRIPT: "centos_wget_only && install_w3top"
+      IMAGE: "centos:7.0.1406"
+      SCRIPT: "centos_wget_only && install_w3top"
     'Ubuntu 18.04 and sqlite':
-      TEST_IMAGE: "ubuntu:18.04"
-      TEST_SCRIPT: "debian_prepare && install_w3top"
+      IMAGE: "ubuntu:18.04"
+      SCRIPT: "debian_prepare && install_w3top"
 
 pool:
   vmImage: 'ubuntu-18.04'
@@ -22,12 +22,33 @@ pool:
 steps:
 
 - script: |
+    set -e
+    function wait_for_http() {
+      u="$1"; t=90; 
+      printf "Waiting for [$u] during $t seconds ..."
+      while [ $t -ge 0 ]; do t=$((t-1)); curl -m 1 -skf "$u" >/dev/null && printf " OK\n"; if [ $? -eq 0 ]; then return; fi; printf "."; sleep 1; done
+      printf " FAIL\n";
+    }
+
     script=https://raw.githubusercontent.com/devizer/test-and-build/master/install-build-tools-bundle.sh; (wget -q -nv --no-check-certificate -O - $script 2>/dev/null || curl -ksSL $script) | bash >/dev/null
     # Say --Reset-Stopwatch
-    Say "Pull $(TEST_IMAGE)"
-    docker pull $(TEST_IMAGE)
-    Say "Images"
-    docker images ls
+    Say "Pull $(IMAGE)"
+    docker pull $(IMAGE)
+    Say "Start image $(IMAGE)"
+    docker run --privileged -d --name w3top -p "5055:5050" "$IMAGE" sh -c "while true; do sleep 42; done"
+    if [[ "$IMAGE" == alpine* ]]; then docker exec -t w3top sh -c "apk update; apk add curl tar sudo bzip2 bash; apk add bash icu-libs ca-certificates krb5-libs libgcc libstdc++ libintl libstdc++ tzdata userspace-rcu zlib libssl1.0"; fi
+    
+    Say "Version for $(IMAGE)"
+    docker exec -t w3top bash -c "cat /etc/*release; mkdir -p /etc/init.d"
+
+    Say "RUN w3top"
+    cat tests/*.sh > tests/test-sources.sh; chmod +x tests/test-sources.sh
+    docker cp tests/test-sources.sh w3top:/test-sources.sh
+    docker exec -t w3top bash -c "echo HOME: \$HOME; source /test-sources.sh; $TEST_SCRIPT && echo 'TEST FINISHED. Checking app health.'"
+    
+    Say "Wait for w3top via http://localhost:5055 for $(IMAGE)"
+    wait_for_http http://localhost:5055
+
     Say "env"
     printenv | sort
   displayName: 'Test'
