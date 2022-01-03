@@ -44,7 +44,7 @@ steps:
     Say "RUN w3top"
     cat tests/*.sh > tests/test-sources.sh; chmod +x tests/test-sources.sh
     docker cp tests/test-sources.sh w3top:/test-sources.sh
-    docker exec -t w3top bash -c "echo HOME: \$HOME; source /test-sources.sh; $TEST_SCRIPT && echo 'TEST FINISHED. Checking app health.'"
+    docker exec -t w3top bash -c "echo HOME: \$HOME; source /test-sources.sh; $SCRIPT && echo 'TEST FINISHED. Checking app health.'"
     
     Say "Wait for w3top via http://localhost:5055 for $(IMAGE)"
     wait_for_http http://localhost:5055
