@@ -1,16 +1,35 @@
-# Starter pipeline
-# Start with a minimal pipeline that you can customize to build and deploy your code.
-# Add steps that build, run tests, deploy, and more:
-# https://aka.ms/yaml
+# https://mattvsts.github.io/2020/01/07/create-a-build-matrix-with-azure-pipelines/
 
 trigger:
 - master
 
+strategy:
+  matrix:
+    'Ubuntu 16.04':
+      image: 'ubuntu-16.04'
+      dotnetcore: '2.2.x'
+    'Ubuntu 18.04':
+      image: 'ubuntu-18.04'
+      dotnetcore: '3.1.x'
+    'MacOS X High Sierra':
+      image: 'macos-10.13'
+      dotnetcore: '2.2.x'
+    'MacOS X Mojave':
+      image: 'macos-10.14'
+      dotnetcore: '3.1.x'
+    'Windows Server 2016':
+      image: 'vs2017-win2016'
+      dotnetcore: '2.2.x'
+    'Windows Server 2019':
+      image: 'windows-2019'
+      dotnetcore: '3.1.x'
+
 pool:
-  vmImage: ubuntu-latest
+  vmImage: $(image)
+
 
 steps:
-- script: echo Hello, world!
+- script: echo Hello, world! ITS A $(dotnetcore)
   displayName: 'Run a one-line script'
 
 - script: |
