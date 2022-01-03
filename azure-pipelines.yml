@@ -5,15 +5,21 @@ trigger:
 
 strategy:
   matrix:
+    'Ubuntu 18.04 and sqlite':
+      IMAGE: "ubuntu:18.04"
+      SCRIPT: "debian_prepare && install_w3top"
+    'Fedora 26':
+      IMAGE: "fedora:26"
+      SCRIPT: "fedora_prepare && install_w3top"
+    'Fedora 32':
+      IMAGE: "fedora:32"
+      SCRIPT: "fedora_prepare && install_w3top"
     'Ubuntu 14.04 and sqlite':
       IMAGE: "ubuntu:14.04"
       SCRIPT: "debian_prepare && install_w3top"
     'CentOS 7.6 and sqlite (curl)':
       IMAGE: "centos:7.0.1406"
       SCRIPT: "centos_wget_only && install_w3top"
-    'Ubuntu 18.04 and sqlite':
-      IMAGE: "ubuntu:18.04"
-      SCRIPT: "debian_prepare && install_w3top"
 
 pool:
   vmImage: 'ubuntu-18.04'
