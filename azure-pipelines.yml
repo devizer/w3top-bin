@@ -89,7 +89,18 @@ strategy:
       IMAGE: "fedora:32"
       SCRIPT: "fedora_prepare"
 
-
+    'Fedora 33':
+      IMAGE: "fedora:33"
+      SCRIPT: "fedora_prepare"
+    'Fedora 34':
+      IMAGE: "fedora:34"
+      SCRIPT: "fedora_prepare"
+    'Fedora 35':
+      IMAGE: "fedora:35"
+      SCRIPT: "fedora_prepare"
+    'Fedora 36':
+      IMAGE: "fedora:36"
+      SCRIPT: "fedora_prepare"
 
 pool:
   vmImage: 'ubuntu-18.04'
