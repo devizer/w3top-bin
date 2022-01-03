@@ -5,15 +5,28 @@ trigger:
 
 strategy:
   matrix:
+    'CentOS 6.10 and MySQL 5.1 (wget)':
+      IMAGE: "centos:6.10"
+      SCRIPT: "mysql_51_on_centos_6; centos_wget_only"
+    'CentOS 6.10 and PostgreSQL 11.4 (curl)':
+      IMAGE: "centos:6.10"
+      SCRIPT: "pg_11_on_centos_6 && centos_curl_only"
+    'CentOS 7.6 and sqlite (curl)':
+      IMAGE: "centos:7.0.1406"
+      SCRIPT: "centos_wget_only"
+    'CentOS 8':
+      IMAGE: "centos:8"
+      SCRIPT: "centos_curl_only"
+
     'OpenSUSE leap 42':
       IMAGE: 'opensuse/leap:42'
-      SCRIPT: 'opensuse_prepare '
+      SCRIPT: 'opensuse_prepare'
     'OpenSUSE leap 15':
       IMAGE: 'opensuse/leap:15'
-      SCRIPT: 'opensuse_prepare '
+      SCRIPT: 'opensuse_prepare'
     'OpenSUSE leap Tumbleweed':
       IMAGE: 'opensuse/tumbleweed'
-      SCRIPT: 'opensuse_prepare '
+      SCRIPT: 'opensuse_prepare'
 
     'Gentoo (no multilib)':
       IMAGE: 'gentoo/stage3-amd64-nomultilib'
@@ -35,49 +48,48 @@ strategy:
       SCRIPT: "yum install tar sudo -y"
     'Debian 8.9':
       IMAGE: "debian:8.9"
-      SCRIPT: "debian_prepare "
+      SCRIPT: "debian_prepare"
     'Debian 9':
       IMAGE: "debian:9"
-      SCRIPT: "debian_prepare "
+      SCRIPT: "debian_prepare"
     'Debian 10':
       IMAGE: "debian:10"
-      SCRIPT: "debian_prepare "
+      SCRIPT: "debian_prepare"
     'Debian 11':
       IMAGE: "debian:11"
-      SCRIPT: "debian_prepare "
+      SCRIPT: "debian_prepare"
     'Ubuntu 22.04':
       IMAGE: "ubuntu:22.04"
-      SCRIPT: "debian_prepare "
+      SCRIPT: "debian_prepare"
     'Ubuntu 21.10':
       IMAGE: "ubuntu:21.10"
-      SCRIPT: "debian_prepare "
+      SCRIPT: "debian_prepare"
     'Ubuntu 20.04':
       IMAGE: "ubuntu:18.04"
-      SCRIPT: "debian_prepare "
+      SCRIPT: "debian_prepare"
     'Ubuntu 18.04':
       IMAGE: "ubuntu:18.04"
-      SCRIPT: "debian_prepare "
+      SCRIPT: "debian_prepare"
     'Ubuntu 16.04':
       IMAGE: "ubuntu:16.04"
-      SCRIPT: "debian_prepare "
+      SCRIPT: "debian_prepare"
     'Ubuntu 14.04':
       IMAGE: "ubuntu:14.04"
-      SCRIPT: "debian_prepare "
+      SCRIPT: "debian_prepare"
     'Fedora 24':
       IMAGE: "fedora:24"
-      SCRIPT: "fedora_prepare "
+      SCRIPT: "fedora_prepare"
     'Fedora 25':
       IMAGE: "fedora:25"
-      SCRIPT: "fedora_prepare "
+      SCRIPT: "fedora_prepare"
     'Fedora 26':
       IMAGE: "fedora:26"
-      SCRIPT: "fedora_prepare "
+      SCRIPT: "fedora_prepare"
     'Fedora 32':
       IMAGE: "fedora:32"
-      SCRIPT: "fedora_prepare "
-    'CentOS 7.6 and sqlite (curl)':
-      IMAGE: "centos:7.0.1406"
-      SCRIPT: "centos_wget_only "
+      SCRIPT: "fedora_prepare"
+
+
 
 pool:
   vmImage: 'ubuntu-18.04'
