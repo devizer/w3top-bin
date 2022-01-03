@@ -15,10 +15,12 @@ function wait_for_http() {
   printf "Waiting for [$u] during $t seconds ..."
   while [ $t -ge 0 ]; do 
     t=$((t-1)); 
-    curl -m 1 -skf "$u" >/dev/null; e1=$?;
+    e1=249;
+    if [[ "$(command -v curl)" != "" ]]; then curl -m 1 -skf "$u" >/dev/null; e1=$?; fi
     if [[ "$e1" -ne 0 ]]; then
-      wget -q -nv -T 1 "$u" >/dev/null; e1=$?
+      if [[ "$(command -v wget)" != "" ]]; then wget -q -nv -T 1 "$u" >/dev/null; e1=$?; fi
     fi
+    if [ "$e1" -eq 249 ]; then; printf "MISSING wget|curl\n"; return; fi
     if [ "$e1" -eq 0 ]; then printf " OK\n"; return; fi; 
     printf ".";
     sleep 1;
@@ -28,6 +30,7 @@ function wait_for_http() {
 
 
 function install_w3top() {
+  script=https://raw.githubusercontent.com/devizer/test-and-build/master/install-build-tools-bundle.sh; (wget -q -nv --no-check-certificate -O - $script 2>/dev/null || curl -ksSL $script) | bash >/dev/null
   export HTTP_PORT=5050
   export RESPONSE_COMPRESSION=True
   export INSTALL_DIR=/opt/w3top
