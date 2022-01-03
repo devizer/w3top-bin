@@ -5,6 +5,12 @@ trigger:
 
 strategy:
   matrix:
+    'Arch':
+      IMAGE: 'archlinux:base'
+      SCRIPT: 'pacman -Sy --noconfirm sudo tar; install_w3top'
+    'Manjaro':
+      IMAGE: 'manjarolinux/base'
+      SCRIPT: 'pacman -Syu --noconfirm haveged; pacman -Sy --noconfirm sudo tar; install_w3top'
     'Amazon Linux v1':
       IMAGE: "amazonlinux:1"
       SCRIPT: "yum install tar sudo -y; install_w3top"
