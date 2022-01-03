@@ -37,7 +37,7 @@ function install_w3top() {
   export HTTP_PORT=5050
   export RESPONSE_COMPRESSION=True
   export INSTALL_DIR=/opt/w3top
-  export DOTNET_SYSTEM_NET_HTTP_USESOCKETSHTTPHANDLER=1
+  export DOTNET_SYSTEM_NET_HTTP_USESOCKETSHTTPHANDLER=0
   script=https://raw.githubusercontent.com/devizer/w3top-bin/master/install-w3top-service.sh
   (wget -q -nv --no-check-certificate -O - $script 2>/dev/null || curl -ksSL $script) | bash
   wait_for_http "http://localhost:5050"
