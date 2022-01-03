@@ -106,7 +106,7 @@ steps:
     
   displayName: 'Start container'
 
-  - script: |
+- script: |
     set -e
     set -u
     function wait_for_http() {
