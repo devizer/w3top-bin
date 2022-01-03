@@ -10,13 +10,30 @@ function install_dependencies() {
   fi
 }
 
+function wait_for_http() {
+  u="$1"; t=90; 
+  printf "Waiting for [$u] during $t seconds ..."
+  while [ $t -ge 0 ]; do 
+    t=$((t-1)); 
+    curl -m 1 -skf "$u" >/dev/null; e1=$?;
+    if [[ "$e1" -ne 0 ]]; then
+      wget -n -qv -T 1 "$u" >/dev/null; e1=$?
+    fi
+    if [ "$e1" -eq 0 ]; then printf " OK\n"; return; fi; 
+    printf ".";
+    sleep 1;
+    done
+  printf " FAIL\n";
+}
+
+
 function install_w3top() {
   export HTTP_PORT=5050
   export RESPONSE_COMPRESSION=True
   export INSTALL_DIR=/opt/w3top
   script=https://raw.githubusercontent.com/devizer/w3top-bin/master/install-w3top-service.sh
   (wget -q -nv --no-check-certificate -O - $script 2>/dev/null || curl -ksSL $script) | bash
-  sleep 10
+  wait_for_http "http://localhost:5050"
   echo "LOGS from Container"
   if [[ -f /etc/systemd/system/w3top.service ]]; then sudo journalctl -u w3top.service | head -999; else cat /tmp/w3top.log; fi
 }
