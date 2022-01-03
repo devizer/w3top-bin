@@ -20,7 +20,7 @@ function wait_for_http() {
     if [[ "$e1" -ne 0 ]]; then
       if [[ "$(command -v wget)" != "" ]]; then wget -q -nv -T 1 "$u" >/dev/null; e1=$?; fi
     fi
-    if [ "$e1" -eq 249 ]; then; printf "MISSING wget|curl\n"; return; fi
+    if [ "$e1" -eq 249 ]; then printf "MISSING wget|curl\n"; return; fi
     if [ "$e1" -eq 0 ]; then printf " OK\n"; return; fi; 
     printf ".";
     sleep 1;
