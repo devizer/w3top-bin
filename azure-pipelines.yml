@@ -23,6 +23,7 @@ steps:
 
 - script: |
     set -e
+    set -u
     function wait_for_http() {
       u="$1"; t=90; 
       printf "Waiting for [$u] during $t seconds ..."
