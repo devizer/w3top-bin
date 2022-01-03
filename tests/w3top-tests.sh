@@ -85,6 +85,6 @@ deb http://security.debian.org jessie/updates main
 }
 
 function fedora_prepare() {
-  dnf install -y libstdc++ sudo
+  dnf install -y libstdc++ sudo tar
 }
 
