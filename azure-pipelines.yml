@@ -132,7 +132,7 @@ steps:
   displayName: 'Test All'
 
 - script: |
-
+   sleep 9
    docker exec -t w3top bash -c "if [[ -f /etc/systemd/system/w3top.service ]]; then sudo journalctl -u w3top.service; else cat /tmp/w3top.log; fi" |
    tee $SYSTEM_ARTIFACTSDIRECTORY/w3top.log
   condition: succeededOrFailed()
