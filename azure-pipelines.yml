@@ -49,7 +49,6 @@ steps:
     
     Say "Wait for w3top via http://localhost:5055 for $(IMAGE)"
     wait_for_http http://localhost:5055
+    curl -I http://localhost:5055 || exit 250
 
-    Say "env"
-    printenv | sort
   displayName: 'Test'
