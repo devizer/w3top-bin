@@ -6,14 +6,14 @@ trigger:
 strategy:
   matrix:
     'Ubuntu 14.04 and sqlite':
-      TEST_IMAGE="ubuntu:14.04"
-      TEST_SCRIPT="debian_prepare && install_w3top"
+      TEST_IMAGE: "ubuntu:14.04"
+      TEST_SCRIPT: "debian_prepare && install_w3top"
     'CentOS 7.6 and sqlite (curl)':
-      TEST_IMAGE="centos:7.0.1406"
-      TEST_SCRIPT="centos_wget_only && install_w3top"
+      TEST_IMAGE: "centos:7.0.1406"
+      TEST_SCRIPT: "centos_wget_only && install_w3top"
     'Ubuntu 18.04 and sqlite':
-      TEST_IMAGE="ubuntu:18.04"
-      TEST_SCRIPT="debian_prepare && install_w3top"
+      TEST_IMAGE: "ubuntu:18.04"
+      TEST_SCRIPT: "debian_prepare && install_w3top"
 
 pool:
   vmImage: 'ubuntu-18.04'
