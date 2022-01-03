@@ -34,7 +34,7 @@ function install_w3top() {
   script=https://raw.githubusercontent.com/devizer/w3top-bin/master/install-w3top-service.sh
   (wget -q -nv --no-check-certificate -O - $script 2>/dev/null || curl -ksSL $script) | bash
   wait_for_http "http://localhost:5050"
-  echo "LOGS from Container"
+  Say "LOGS from Container"
   if [[ -f /etc/systemd/system/w3top.service ]]; then sudo journalctl -u w3top.service | head -999; else cat /tmp/w3top.log; fi
 }
 
