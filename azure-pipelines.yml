@@ -5,6 +5,12 @@ trigger:
 
 strategy:
   matrix:
+    'Gentoo (no multilib)':
+      IMAGE: 'gentoo/stage3-amd64-nomultilib'
+      SCRIPT: 'gentoo_prepare; HTTP_HOST='+'; export HTTP_HOST; install_w3top'
+    'Gentoo Hardened (no multilib)':
+      IMAGE: 'gentoo/stage3-amd64-hardened-nomultilib'
+      SCRIPT: 'gentoo_prepare; HTTP_HOST='+'; export HTTP_HOST; install_w3top'
     'Arch':
       IMAGE: 'archlinux:base'
       SCRIPT: 'pacman -Sy --noconfirm sudo tar; install_w3top'
@@ -97,6 +103,6 @@ steps:
     
     Say "Wait for w3top via http://localhost:5055 for $(IMAGE)"
     wait_for_http http://localhost:5055
-    curl -I http://localhost:5055 || exit 250
+    curl -I http://localhost:5055 || curl -I http://localhost:5055 || curl -I http://localhost:5055 || exit 250
 
   displayName: 'Test'
