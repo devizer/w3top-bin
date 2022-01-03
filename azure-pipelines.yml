@@ -123,11 +123,8 @@ steps:
     cat tests/*.sh > tests/test-sources.sh; chmod +x tests/test-sources.sh
     docker cp tests/test-sources.sh w3top:/test-sources.sh
     docker cp /usr/local/bin/Say w3top:/usr/local/bin/Say
-    docker exec -t w3top bash -c "echo HOME: \$HOME; source /test-sources.sh; $SCRIPT && echo 'Container prepared.'"
+    docker exec -t w3top bash -c "echo HOME: \$HOME; source /test-sources.sh; $SCRIPT && Say 'INSTALLING W3Top' && install_w3top && Say 'TEST FINISHED. Checking app health.'"
     
-    Say "Installing w3top service for $(IMAGE)"
-    docker exec -t w3top bash -c "echo HOME: \$HOME; source /test-sources.sh; install_w3top && echo 'TEST FINISHED. Checking app health.'"
-
     Say "Wait for w3top via http://localhost:5050 for $(IMAGE)"
     wait_for_http http://localhost:5050
     curl -I http://localhost:5050 || curl -I http://localhost:5050 || curl -I http://localhost:5050 || exit 250
