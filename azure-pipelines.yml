@@ -5,34 +5,29 @@ trigger:
 
 strategy:
   matrix:
-    'Ubuntu 16.04':
-      image: 'ubuntu-16.04'
-      dotnetcore: '2.2.x'
-    'Ubuntu 18.04':
-      image: 'ubuntu-18.04'
-      dotnetcore: '3.1.x'
-    'MacOS X High Sierra':
-      image: 'macos-10.13'
-      dotnetcore: '2.2.x'
-    'MacOS X Mojave':
-      image: 'macos-10.14'
-      dotnetcore: '3.1.x'
-    'Windows Server 2016':
-      image: 'vs2017-win2016'
-      dotnetcore: '2.2.x'
-    'Windows Server 2019':
-      image: 'windows-2019'
-      dotnetcore: '3.1.x'
+    'Ubuntu 14.04 and sqlite':
+      TEST_IMAGE="ubuntu:14.04"
+      TEST_SCRIPT="debian_prepare && install_w3top"
+    'CentOS 7.6 and sqlite (curl)':
+      TEST_IMAGE="centos:7.0.1406"
+      TEST_SCRIPT="centos_wget_only && install_w3top"
+    'Ubuntu 18.04 and sqlite':
+      TEST_IMAGE="ubuntu:18.04"
+      TEST_SCRIPT="debian_prepare && install_w3top"
 
 pool:
-  vmImage: $(image)
+  vmImage: 'ubuntu-18.04'
 
 
 steps:
-- script: echo Hello, world! ITS A $(dotnetcore)
-  displayName: 'Run a one-line script'
 
 - script: |
-    echo Add other tasks to build, test, and deploy your project.
-    echo See https://aka.ms/yaml
-  displayName: 'Run a multi-line script'
+    script=https://raw.githubusercontent.com/devizer/test-and-build/master/install-build-tools-bundle.sh; (wget -q -nv --no-check-certificate -O - $script 2>/dev/null || curl -ksSL $script) | bash >/dev/null
+    # Say --Reset-Stopwatch
+    Say "Pull $(TEST_IMAGE)"
+    docker pull $(TEST_IMAGE)
+    Say "Images"
+    docker images ls
+    Say "env"
+    printenv | sort
+  displayName: 'Test'
