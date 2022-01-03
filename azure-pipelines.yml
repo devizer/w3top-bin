@@ -5,7 +5,16 @@ trigger:
 
 strategy:
   matrix:
-    'Ubuntu 18.04 and sqlite':
+    'Ubuntu 22.04':
+      IMAGE: "ubuntu:22.04"
+      SCRIPT: "debian_prepare && install_w3top"
+    'Ubuntu 21.10':
+      IMAGE: "ubuntu:21.10"
+      SCRIPT: "debian_prepare && install_w3top"
+    'Ubuntu 20.04':
+      IMAGE: "ubuntu:18.04"
+      SCRIPT: "debian_prepare && install_w3top"
+    'Ubuntu 18.04':
       IMAGE: "ubuntu:18.04"
       SCRIPT: "debian_prepare && install_w3top"
     'Fedora 26':

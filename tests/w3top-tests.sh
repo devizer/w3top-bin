@@ -17,7 +17,7 @@ function wait_for_http() {
     t=$((t-1)); 
     curl -m 1 -skf "$u" >/dev/null; e1=$?;
     if [[ "$e1" -ne 0 ]]; then
-      wget -n -qv -T 1 "$u" >/dev/null; e1=$?
+      wget -q -nv -T 1 "$u" >/dev/null; e1=$?
     fi
     if [ "$e1" -eq 0 ]; then printf " OK\n"; return; fi; 
     printf ".";
