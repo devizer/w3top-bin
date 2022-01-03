@@ -7,77 +7,77 @@ strategy:
   matrix:
     'OpenSUSE leap 42':
       IMAGE: 'opensuse/leap:42'
-      SCRIPT: 'opensuse_prepare && install_w3top'
+      SCRIPT: 'opensuse_prepare '
     'OpenSUSE leap 15':
       IMAGE: 'opensuse/leap:15'
-      SCRIPT: 'opensuse_prepare && install_w3top'
+      SCRIPT: 'opensuse_prepare '
     'OpenSUSE leap Tumbleweed':
       IMAGE: 'opensuse/tumbleweed'
-      SCRIPT: 'opensuse_prepare && install_w3top'
+      SCRIPT: 'opensuse_prepare '
 
     'Gentoo (no multilib)':
       IMAGE: 'gentoo/stage3-amd64-nomultilib'
-      SCRIPT: 'gentoo_prepare; HTTP_HOST="+"; export HTTP_HOST; install_w3top'
+      SCRIPT: 'gentoo_prepare; HTTP_HOST="+"; export HTTP_HOST'
     'Gentoo Hardened (no multilib)':
       IMAGE: 'gentoo/stage3-amd64-hardened-nomultilib'
-      SCRIPT: 'gentoo_prepare; HTTP_HOST="+"; export HTTP_HOST; install_w3top'
+      SCRIPT: 'gentoo_prepare; HTTP_HOST="+"; export HTTP_HOST'
     'Arch':
       IMAGE: 'archlinux:base'
-      SCRIPT: 'pacman -Sy --noconfirm sudo tar; install_w3top'
+      SCRIPT: 'pacman -Sy --noconfirm sudo tar'
     'Manjaro':
       IMAGE: 'manjarolinux/base'
-      SCRIPT: 'pacman -Syu --noconfirm haveged; pacman -Sy --noconfirm sudo tar; install_w3top'
+      SCRIPT: 'pacman -Syu --noconfirm haveged; pacman -Sy --noconfirm sudo tar'
     'Amazon Linux v1':
       IMAGE: "amazonlinux:1"
-      SCRIPT: "yum install tar sudo -y; install_w3top"
+      SCRIPT: "yum install tar sudo -y"
     'Amazon Linux v2':
       IMAGE: "amazonlinux:2"
-      SCRIPT: "yum install tar sudo -y; install_w3top"
+      SCRIPT: "yum install tar sudo -y"
     'Debian 8.9':
       IMAGE: "debian:8.9"
-      SCRIPT: "debian_prepare && install_w3top"
+      SCRIPT: "debian_prepare "
     'Debian 9':
       IMAGE: "debian:9"
-      SCRIPT: "debian_prepare && install_w3top"
+      SCRIPT: "debian_prepare "
     'Debian 10':
       IMAGE: "debian:10"
-      SCRIPT: "debian_prepare && install_w3top"
+      SCRIPT: "debian_prepare "
     'Debian 11':
       IMAGE: "debian:11"
-      SCRIPT: "debian_prepare && install_w3top"
+      SCRIPT: "debian_prepare "
     'Ubuntu 22.04':
       IMAGE: "ubuntu:22.04"
-      SCRIPT: "debian_prepare && install_w3top"
+      SCRIPT: "debian_prepare "
     'Ubuntu 21.10':
       IMAGE: "ubuntu:21.10"
-      SCRIPT: "debian_prepare && install_w3top"
+      SCRIPT: "debian_prepare "
     'Ubuntu 20.04':
       IMAGE: "ubuntu:18.04"
-      SCRIPT: "debian_prepare && install_w3top"
+      SCRIPT: "debian_prepare "
     'Ubuntu 18.04':
       IMAGE: "ubuntu:18.04"
-      SCRIPT: "debian_prepare && install_w3top"
+      SCRIPT: "debian_prepare "
     'Ubuntu 16.04':
       IMAGE: "ubuntu:16.04"
-      SCRIPT: "debian_prepare && install_w3top"
+      SCRIPT: "debian_prepare "
     'Ubuntu 14.04':
       IMAGE: "ubuntu:14.04"
-      SCRIPT: "debian_prepare && install_w3top"
+      SCRIPT: "debian_prepare "
     'Fedora 24':
       IMAGE: "fedora:24"
-      SCRIPT: "fedora_prepare && install_w3top"
+      SCRIPT: "fedora_prepare "
     'Fedora 25':
       IMAGE: "fedora:25"
-      SCRIPT: "fedora_prepare && install_w3top"
+      SCRIPT: "fedora_prepare "
     'Fedora 26':
       IMAGE: "fedora:26"
-      SCRIPT: "fedora_prepare && install_w3top"
+      SCRIPT: "fedora_prepare "
     'Fedora 32':
       IMAGE: "fedora:32"
-      SCRIPT: "fedora_prepare && install_w3top"
+      SCRIPT: "fedora_prepare "
     'CentOS 7.6 and sqlite (curl)':
       IMAGE: "centos:7.0.1406"
-      SCRIPT: "centos_wget_only && install_w3top"
+      SCRIPT: "centos_wget_only "
 
 pool:
   vmImage: 'ubuntu-18.04'
@@ -88,6 +88,27 @@ steps:
 - script: |
     set -e
     set -u
+    script=https://raw.githubusercontent.com/devizer/test-and-build/master/install-build-tools-bundle.sh; (wget -q -nv --no-check-certificate -O - $script 2>/dev/null || curl -ksSL $script) | bash >/dev/null
+    # Say --Reset-Stopwatch
+    Say "Pull $(IMAGE)"
+    docker pull $(IMAGE)
+    Say "Start image $(IMAGE)"
+    docker run --privileged -d --hostname w3top-container --name w3top -p "5050:5050" "$IMAGE" sh -c "while true; do sleep 42; done"
+    if [[ "$IMAGE" == alpine* ]]; then docker exec -t w3top sh -c "apk update; apk add curl tar sudo bzip2 bash; apk add bash icu-libs ca-certificates krb5-libs libgcc libstdc++ libintl libstdc++ tzdata userspace-rcu zlib libssl1.0"; fi
+    
+    Say "Version for $(IMAGE)"
+    docker exec -t w3top bash -c "cat /etc/*release; mkdir -p /etc/init.d"
+
+    Say "RUN w3top container and install sudo, tar, curl|wget, etc"
+    cat tests/*.sh > tests/test-sources.sh; chmod +x tests/test-sources.sh
+    docker cp tests/test-sources.sh w3top:/test-sources.sh
+    docker exec -t w3top bash -c "echo HOME: \$HOME; source /test-sources.sh; $SCRIPT && echo 'Container prepared.'"
+    
+  displayName: 'Start container'
+
+  - script: |
+    set -e
+    set -u
     function wait_for_http() {
       u="$1"; t=90; 
       printf "Waiting for [$u] during $t seconds ..."
@@ -95,24 +116,10 @@ steps:
       printf " FAIL\n";
     }
 
-    script=https://raw.githubusercontent.com/devizer/test-and-build/master/install-build-tools-bundle.sh; (wget -q -nv --no-check-certificate -O - $script 2>/dev/null || curl -ksSL $script) | bash >/dev/null
-    # Say --Reset-Stopwatch
-    Say "Pull $(IMAGE)"
-    docker pull $(IMAGE)
-    Say "Start image $(IMAGE)"
-    docker run --privileged -d --hostname w3top-container --name w3top -p "5055:5050" "$IMAGE" sh -c "while true; do sleep 42; done"
-    if [[ "$IMAGE" == alpine* ]]; then docker exec -t w3top sh -c "apk update; apk add curl tar sudo bzip2 bash; apk add bash icu-libs ca-certificates krb5-libs libgcc libstdc++ libintl libstdc++ tzdata userspace-rcu zlib libssl1.0"; fi
-    
-    Say "Version for $(IMAGE)"
-    docker exec -t w3top bash -c "cat /etc/*release; mkdir -p /etc/init.d"
+    docker exec -t w3top bash -c "echo HOME: \$HOME; source /test-sources.sh; install_w3top && echo 'TEST FINISHED. Checking app health.'"
 
-    Say "RUN w3top"
-    cat tests/*.sh > tests/test-sources.sh; chmod +x tests/test-sources.sh
-    docker cp tests/test-sources.sh w3top:/test-sources.sh
-    docker exec -t w3top bash -c "echo HOME: \$HOME; source /test-sources.sh; $SCRIPT && echo 'TEST FINISHED. Checking app health.'"
-    
-    Say "Wait for w3top via http://localhost:5055 for $(IMAGE)"
-    wait_for_http http://localhost:5055
-    curl -I http://localhost:5055 || curl -I http://localhost:5055 || curl -I http://localhost:5055 || exit 250
+    Say "Wait for w3top via http://localhost:5050 for $(IMAGE)"
+    wait_for_http http://localhost:5050
+    curl -I http://localhost:5050 || curl -I http://localhost:5050 || curl -I http://localhost:5050 || exit 250
 
-  displayName: 'Test'
+  displayName: 'Install w3top'
