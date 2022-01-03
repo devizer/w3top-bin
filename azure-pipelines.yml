@@ -131,3 +131,15 @@ steps:
 
   displayName: 'Test All'
 
+- script: |
+
+   docker exec -t w3top bash -c "if [[ -f /etc/systemd/system/w3top.service ]]; then sudo journalctl -u w3top.service; else cat /tmp/w3top.log; fi" |
+   tee $SYSTEM_ARTIFACTSDIRECTORY/w3top.log
+  condition: succeededOrFailed()
+  displayName: 'Grab w3top log'
+
+- task: PublishBuildArtifacts@1
+  condition: succeededOrFailed()
+  inputs:
+    pathtoPublish: '$(System.ARTIFACTSDIRECTORY)'
+    artifactName: '$(Agent.JobName)'
