@@ -165,6 +165,9 @@ steps:
     net.ipv4.ip_forward = 1
     vm.swappiness = 20
     fs.inotify.max_user_watches = 524288
+    net.ipv6.conf.all.disable_ipv6 = 1
+    net.ipv6.conf.default.disable_ipv6 = 1
+    net.ipv6.conf.lo.disable_ipv6 = 1
     ' | sudo tee -a /etc/sysctl.conf
     sudo sysctl -p
     sudo sysctl -p --system
