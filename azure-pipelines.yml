@@ -159,9 +159,9 @@ steps:
     set -e
     set -u
     function wait_for_http() {
-      u="$1"; t=90; 
+      u="$1"; t=30; 
       printf "Waiting for [$u] during $t seconds ..."
-      while [ $t -ge 0 ]; do t=$((t-1)); curl -m 1 -skf "$u" >/dev/null && printf " OK\n"; if [ $? -eq 0 ]; then return; fi; printf "."; sleep 1; done
+      while [ $t -ge 0 ]; do t=$((t-1)); curl --connect-timeout 3 -skf "$u" >/dev/null && printf " OK\n"; if [ $? -eq 0 ]; then return; fi; printf "."; sleep 1; done
       printf " FAIL\n";
     }
 
