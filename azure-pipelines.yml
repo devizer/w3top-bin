@@ -6,52 +6,52 @@ trigger:
 
 strategy:
   matrix:
-    'ARMv7 Ubuntu Core 20.04':
-      IMAGE: "multiarch/ubuntu-core:armhf-focal"
-      SCRIPT: "debian_prepare"
-      Multiarch: 'True'
-    'ARMv7 Ubuntu Core 18.04':
-      IMAGE: "multiarch/ubuntu-core:armhf-bionic"
-      SCRIPT: "debian_prepare"
-      Multiarch: 'True'
-    'ARMv7 Ubuntu Core 16.04':
-      IMAGE: "multiarch/ubuntu-core:armhf-xenial"
-      SCRIPT: "debian_prepare"
-      Multiarch: 'True'
-    'ARMv7 Ubuntu Core 14.04':
-      IMAGE: "multiarch/ubuntu-core:armhf-trusty"
-      SCRIPT: "debian_prepare"
-      Multiarch: 'True'
+    # 'ARMv7 Ubuntu Core 20.04':
+    #   IMAGE: "multiarch/ubuntu-core:armhf-focal"
+    #   SCRIPT: "debian_prepare"
+    #   Multiarch: 'True'
+    # 'ARMv7 Ubuntu Core 18.04':
+    #   IMAGE: "multiarch/ubuntu-core:armhf-bionic"
+    #   SCRIPT: "debian_prepare"
+    #   Multiarch: 'True'
+    # 'ARMv7 Ubuntu Core 16.04':
+    #   IMAGE: "multiarch/ubuntu-core:armhf-xenial"
+    #   SCRIPT: "debian_prepare"
+    #   Multiarch: 'True'
+    # 'ARMv7 Ubuntu Core 14.04':
+    #   IMAGE: "multiarch/ubuntu-core:armhf-trusty"
+    #   SCRIPT: "debian_prepare"
+    #   Multiarch: 'True'
 
-    'ARMv7 Ubuntu 20.04':
-      IMAGE: "multiarch/ubuntu-debootstrap:armhf-focal"
-      SCRIPT: "debian_prepare"
-      Multiarch: 'True'
-    'ARMv7 Ubuntu 18.04':
-      IMAGE: "multiarch/ubuntu-debootstrap:armhf-bionic"
-      SCRIPT: "debian_prepare"
-      Multiarch: 'True'
-    'ARMv7 Ubuntu 16.04':
-      IMAGE: "multiarch/ubuntu-debootstrap:armhf-xenial"
-      SCRIPT: "debian_prepare"
-      Multiarch: 'True'
-    'ARMv7 Ubuntu 14.04':
-      IMAGE: "multiarch/ubuntu-debootstrap:armhf-trusty"
-      SCRIPT: "debian_prepare"
-      Multiarch: 'True'
+    # 'ARMv7 Ubuntu 20.04':
+    #   IMAGE: "multiarch/ubuntu-debootstrap:armhf-focal"
+    #   SCRIPT: "debian_prepare"
+    #   Multiarch: 'True'
+    # 'ARMv7 Ubuntu 18.04':
+    #   IMAGE: "multiarch/ubuntu-debootstrap:armhf-bionic"
+    #   SCRIPT: "debian_prepare"
+    #   Multiarch: 'True'
+    # 'ARMv7 Ubuntu 16.04':
+    #   IMAGE: "multiarch/ubuntu-debootstrap:armhf-xenial"
+    #   SCRIPT: "debian_prepare"
+    #   Multiarch: 'True'
+    # 'ARMv7 Ubuntu 14.04':
+    #   IMAGE: "multiarch/ubuntu-debootstrap:armhf-trusty"
+    #   SCRIPT: "debian_prepare"
+    #   Multiarch: 'True'
 
-    'ARMv7 Debian 11':
-      IMAGE: "multiarch/debian-debootstrap:armhf-bullseye"
-      SCRIPT: "debian_prepare"
-      Multiarch: 'True'
-    'ARMv7 Debian 10':
-      IMAGE: "multiarch/debian-debootstrap:armhf-buster"
-      SCRIPT: "debian_prepare"
-      Multiarch: 'True'
-    'ARMv7 Debian 9':
-      IMAGE: "multiarch/debian-debootstrap:armhf-stretch"
-      SCRIPT: "debian_prepare"
-      Multiarch: 'True'
+    # 'ARMv7 Debian 11':
+    #   IMAGE: "multiarch/debian-debootstrap:armhf-bullseye"
+    #   SCRIPT: "debian_prepare"
+    #   Multiarch: 'True'
+    # 'ARMv7 Debian 10':
+    #   IMAGE: "multiarch/debian-debootstrap:armhf-buster"
+    #   SCRIPT: "debian_prepare"
+    #   Multiarch: 'True'
+    # 'ARMv7 Debian 9':
+    #   IMAGE: "multiarch/debian-debootstrap:armhf-stretch"
+    #   SCRIPT: "debian_prepare"
+    #   Multiarch: 'True'
     'ARMv7 Debian 8':
       IMAGE: "multiarch/debian-debootstrap:armhf-jessie"
       SCRIPT: "debian_prepare"
