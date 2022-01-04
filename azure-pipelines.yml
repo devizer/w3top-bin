@@ -3,8 +3,26 @@
 trigger:
 - master
 
+
 strategy:
   matrix:
+    'ARM-64 Debian 9':
+      IMAGE: "multiarch/debian-debootstrap:arm64-stretch"
+      SCRIPT: "debian_prepare"
+      Multiarch: 'True'
+    'ARM-64 Debian 8':
+      IMAGE: "multiarch/debian-debootstrap:arm64-jessie"
+      SCRIPT: "debian_prepare"
+      Multiarch: 'True'
+    'ARMv7 Debian 9':
+      IMAGE: "multiarch/debian-debootstrap:armhf-stretch"
+      SCRIPT: "debian_prepare"
+      Multiarch: 'True'
+    'ARMv7 Debian 8':
+      IMAGE: "multiarch/debian-debootstrap:armhf-jessie"
+      SCRIPT: "debian_prepare"
+      Multiarch: 'True'
+
     'CentOS 6.10 and MySQL 5.1 (wget)':
       IMAGE: "centos:6.10"
       SCRIPT: "mysql_51_on_centos_6; centos_wget_only"
@@ -107,6 +125,13 @@ pool:
 
 
 steps:
+
+- script: |
+    script=https://raw.githubusercontent.com/devizer/test-and-build/master/install-build-tools-bundle.sh; (wget -q -nv --no-check-certificate -O - $script 2>/dev/null || curl -ksSL $script) | bash >/dev/null
+    Say "Register qemu user static"
+    time docker run --rm --privileged multiarch/qemu-user-static:register --reset
+  condition: ne(variables.Multiarch, '')
+  displayName: 'QEMU'
 
 - script: |
     set -e
