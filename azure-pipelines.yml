@@ -160,6 +160,19 @@ steps:
     ip addr show
     Say "if config"
     sudo ifconfig -a
+    Say "Reconfigure NET"
+    echo '
+    net.ipv4.ip_forward = 1
+    vm.swappiness = 20
+    fs.inotify.max_user_watches = 524288
+    ' | sudo tee -a /etc/sysctl.conf
+    sudo sysctl -p
+    sudo sysctl -p --system
+
+    Say "FINAL IP"
+    ip addr show
+    Say "FINAL if config"
+    sudo ifconfig -a
   displayName: 'NET'
 
 - script: |
