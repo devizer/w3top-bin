@@ -156,6 +156,13 @@ steps:
   displayName: 'QEMU'
 
 - script: |
+    Say "IP"
+    ip addr show
+    Say "if config"
+    sudo ifconfig -a
+  displayName: 'NET'
+
+- script: |
     set -e
     set -u
     function wait_for_http() {
@@ -185,6 +192,7 @@ steps:
     
     Say "Wait for w3top via http://localhost:5050 for $(IMAGE)"
     wait_for_http http://localhost:5050
+    Say "Headers"
     curl -I http://localhost:5050 || curl -I http://localhost:5050 || curl -I http://localhost:5050 || exit 250
 
   displayName: 'Test All'
