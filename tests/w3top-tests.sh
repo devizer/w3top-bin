@@ -18,7 +18,7 @@ function wait_for_http() {
     e1=249;
     if [[ "$(command -v curl)" != "" ]]; then curl --connect-timeout 3 -skf "$u" >/dev/null; e1=$?; fi
     if [[ "$e1" -ne 0 ]]; then
-      if [[ "$(command -v wget)" != "" ]]; then wget -q -nv -T 1 "$u" >/dev/null; e1=$?; fi
+      if [[ "$(command -v wget)" != "" ]]; then wget -q -nv -t 1 -T 3 "$u" >/dev/null; e1=$?; fi
     fi
     if [ "$e1" -eq 249 ]; then printf "MISSING wget|curl\n"; return; fi
     if [ "$e1" -eq 0 ]; then printf " OK\n"; return; fi; 
@@ -28,6 +28,17 @@ function wait_for_http() {
   printf " FAIL\n";
 }
 
+function debian_prepare() {
+  source /etc/os-release
+  if [[ $ID == debian ]] && [[ $VERSION_ID == 8 ]]; then
+    rm -f /etc/apt/sources.list.d/backports* || true
+    echo '
+deb http://deb.debian.org/debian jessie main
+deb http://security.debian.org jessie/updates main
+' > /etc/apt/sources.list
+    fi
+  apt-get update -qq && apt-get install -y -qq sudo wget curl procps
+}
 
 function install_w3top() {
   script=https://raw.githubusercontent.com/devizer/test-and-build/master/install-build-tools-bundle.sh; (wget -q -nv --no-check-certificate -O - $script 2>/dev/null || curl -ksSL $script) | bash >/dev/null
@@ -77,18 +88,6 @@ function gentoo_prepare() {
   time (eval $cmd || eval $cmd || eval $cmd); 
   cmd='emerge --quiet-build --quiet-fail sudo'
   time (eval $cmd || eval $cmd || eval $cmd); 
-}
-
-function debian_prepare() {
-  source /etc/os-release
-  if [[ $ID == debian ]] && [[ $VERSION_ID == 8 ]]; then
-    rm -f /etc/apt/sources.list.d/backports* || true
-    echo '
-deb http://deb.debian.org/debian jessie main
-deb http://security.debian.org jessie/updates main
-' > /etc/apt/sources.list
-    fi
-  apt-get update -qq && apt-get install -y -qq sudo wget curl procps
 }
 
 function fedora_prepare() {
