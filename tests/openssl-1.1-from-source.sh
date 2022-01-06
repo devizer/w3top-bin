@@ -1,6 +1,6 @@
 
 function get_openssl_system_version() {
-  local ret="$(openssl version 2>/dev/null)"
+  local ret="$(openssl version 2>/dev/null)"; ret=""
   if [[ -z "$ret" ]]; then
     if [[ -n "$(command -v apt-get)" ]]; then
       ret="$(apt-cache show openssl | grep -E '^Version:' | awk '{print $2}')"
