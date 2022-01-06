@@ -6,6 +6,25 @@ trigger:
 
 strategy:
   matrix:
+    'Alpine 3.5':
+      IMAGE: "alpine:3.5"
+      SCRIPT: "alpine_prepare"
+    'Alpine 3.6':
+      IMAGE: "alpine:3.6"
+      SCRIPT: "alpine_prepare"
+    'Alpine 3.7':
+      IMAGE: "alpine:3.7"
+      SCRIPT: "alpine_prepare"
+    'Alpine 3.8':
+      IMAGE: "alpine:3.8"
+      SCRIPT: "alpine_prepare"
+    'Alpine 3.12':
+      IMAGE: "alpine:3.12"
+      SCRIPT: "alpine_prepare"
+    'Alpine 3.14':
+      IMAGE: "alpine:3.14"
+      SCRIPT: "alpine_prepare"
+
     # 'ARMv7 Ubuntu Core 20.04':
     #   IMAGE: "multiarch/ubuntu-core:armhf-focal"
     #   SCRIPT: "debian_prepare"
@@ -52,15 +71,14 @@ strategy:
     #   IMAGE: "multiarch/debian-debootstrap:armhf-stretch"
     #   SCRIPT: "debian_prepare"
     #   Multiarch: 'True'
+    # 'ARMv7 Debian 9':
+    #   IMAGE: "multiarch/debian-debootstrap:armhf-stretch"
+    #   SCRIPT: "debian_prepare"
+    #   Multiarch: 'True'
     'ARMv7 Debian 8':
       IMAGE: "multiarch/debian-debootstrap:armhf-jessie"
       SCRIPT: "debian_prepare"
       Multiarch: 'True'
-    'ARMv7 Debian 9':
-      IMAGE: "multiarch/debian-debootstrap:armhf-stretch"
-      SCRIPT: "debian_prepare"
-      Multiarch: 'True'
-
     'ARM-64 Debian 9':
       IMAGE: "multiarch/debian-debootstrap:arm64-stretch"
       SCRIPT: "debian_prepare"
