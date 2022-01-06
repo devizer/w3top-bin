@@ -1,4 +1,5 @@
-﻿function get_openssl_system_version() {
+
+function get_openssl_system_version() {
   local ret="$(openssl version 2>/dev/null)"
   if [[ -z "$ret" ]]; then
     if [[ -n "$(command -v apt-get)" ]]; then
@@ -35,5 +36,4 @@ function install_opensll_111() {
   popd
   rm -rf $work
 }
-install_opensll_111
 
