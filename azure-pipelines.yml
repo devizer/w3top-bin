@@ -233,7 +233,7 @@ steps:
     docker pull $(IMAGE)
     Say "Start image $(IMAGE)"
     docker run --privileged -d --hostname w3top-container --name w3top -p "5050:5050" "$IMAGE" sh -c "while true; do sleep 42; done"
-    if [[ "$IMAGE" == alpine* ]]; then docker exec -t w3top sh -c "apk update --no-progress; apk add --no-progress curl tar sudo bzip2 bash; apk add --no-progress bash icu-libs ca-certificates krb5-libs libgcc libstdc++ libintl libstdc++ tzdata userspace-rcu zlib openssl | true"; fi
+    if [[ "$IMAGE" == alpine* ]]; then docker exec -t w3top sh -c "apk update --no-progress; apk add --no-progress curl tar sudo bzip2 bash; apk add --no-progress bash icu-libs ca-certificates krb5-libs libgcc libstdc++ libintl libstdc++ tzdata userspace-rcu zlib openssl | true; echo what the hell"; fi
     
     Say "Version for $(IMAGE)"
     docker exec -t w3top bash -c "cat /etc/*release; mkdir -p /etc/init.d"
