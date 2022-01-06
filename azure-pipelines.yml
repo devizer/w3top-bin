@@ -258,7 +258,9 @@ steps:
    tee $SYSTEM_ARTIFACTSDIRECTORY/w3top.log
 
    docker cp w3top:/etc/init.d/w3top $SYSTEM_ARTIFACTSDIRECTORY/w3top.init.sh
-   docker cp w3top:/etc/systemd/system/w3top.service $SYSTEM_ARTIFACTSDIRECTORY/w3top.service.ini || true
+   docker cp w3top:/etc/systemd/system/w3top.service $SYSTEM_ARTIFACTSDIRECTORY/w3top.service.ini
+   docker cp w3top:/test-sources.sh $SYSTEM_ARTIFACTSDIRECTORY/test-sources.sh
+   true
   condition: succeededOrFailed()
   displayName: 'Grab w3top log'
 
