@@ -45,6 +45,13 @@ function install_w3top() {
   Say "Installing dotnet dependencies"
   url=https://raw.githubusercontent.com/devizer/glist/master/install-dotnet-dependencies.sh; (wget -q -nv --no-check-certificate -O - $url 2>/dev/null || curl -ksSL $url) | UPDATE_REPOS=true bash -e && echo "Successfully installed .NET Core Dependencies"
 
+  sslver=$(get_openssl_system_version)
+  if [[ "$sslver" == 3* ]]; then 
+    export OPENSSL_HOME=/opt/openssl
+    install_opensll_111
+    export APP_LD_LIBRARY_PATH=/opt/openssl/lib
+  fi
+
   export HTTP_PORT=5050
   export RESPONSE_COMPRESSION=True
   export INSTALL_DIR=/opt/w3top
