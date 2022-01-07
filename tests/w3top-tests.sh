@@ -54,6 +54,8 @@ function install_w3top() {
     export APP_LD_LIBRARY_PATH=$OPENSSL_HOME/lib
   fi
 
+  test -f ~/w3top.env && source ~/w3top.env
+
   export HTTP_PORT=5050
   export RESPONSE_COMPRESSION=True
   export INSTALL_DIR=/opt/w3top

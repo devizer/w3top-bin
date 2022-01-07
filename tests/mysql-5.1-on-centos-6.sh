@@ -19,8 +19,8 @@ function mysql_51_on_centos_6() {
   mysql -u $user -p"$password" -e "CREATE USER 'w3top'@'localhost' IDENTIFIED BY 'D0tN3t;42'; GRANT ALL PRIVILEGES ON w3top.* TO 'w3top'@'localhost' WITH GRANT OPTION;"
   Say "MY SQL VERSION:"
   mysql -u w3top -p'D0tN3t;42' -e "SHOW VARIABLES LIKE \"%version%\";" w3top
-  export MYSQL_DATABASE='Server=localhost;Database=w3top;Port=3306;Uid=w3top;Pwd="D0tN3t;42";Connect Timeout=20;Pooling=false;'
-  echo "##vso[task.setvariable variable=MYSQL_DATABASE]$MYSQL_DATABASE"
-  export PGSQL_DATABASE=
+  
+  echo "export MYSQL_DATABASE='Server=localhost;Database=w3top;Port=3306;Uid=w3top;Pwd=\"D0tN3t;42\";Connect Timeout=20;Pooling=false;'" > ~/w3top.env
+  source ~/w3top.env
 }
 

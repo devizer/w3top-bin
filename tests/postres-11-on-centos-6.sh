@@ -93,8 +93,6 @@ host   all  all  ::1/128       md5
 
   # check permissions to w3top DB for w3top user
   PGPASSWORD=pass psql -t -h localhost -p 5432 -U w3top -q -c "select 'Hello, ' || current_user;" -d w3top
-  export MYSQL_DATABASE=
-  export PGSQL_DATABASE="Host=localhost;Port=5432;Database=w3top;Username=w3top;Password=pass;Timeout=15;Pooling=false;"
-  echo "##vso[task.setvariable variable=PGSQL_DATABASE]$PGSQL_DATABASE"
+  echo 'export PGSQL_DATABASE="Host=localhost;Port=5432;Database=w3top;Username=w3top;Password=pass;Timeout=15;Pooling=false;"' > ~/w3top.env
 }
 
