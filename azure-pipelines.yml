@@ -283,7 +283,7 @@ steps:
     # check service status
     if [[ "${SYSTEMD:-}" == True ]]; then
       Say "SystemD w3top.service status"
-      docker exec -t w3top bash -e -c "systemctl status w3top.service" | exit 240
+      docker exec -t w3top bash -e -c "systemctl status w3top.service" || exit 240
     fi
     
     Say "Headers"
@@ -292,7 +292,7 @@ steps:
   displayName: 'Test All'
 
 - script: |
-   sleep 9
+   sleep 11
    docker exec -t w3top bash -c "if [[ -f /etc/systemd/system/w3top.service ]]; then sudo journalctl -u w3top.service; else cat /tmp/w3top.log; fi" |
    tee $SYSTEM_ARTIFACTSDIRECTORY/w3top.log
 
