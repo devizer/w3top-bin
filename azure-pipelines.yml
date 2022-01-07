@@ -249,12 +249,6 @@ steps:
 - script: |
     set -e
     set -u
-    function wait_for_http() {
-      u="$1"; t=30; 
-      printf "Waiting for [$u] during $t seconds ..."
-      while [ $t -ge 0 ]; do t=$((t-1)); curl --connect-timeout 3 -skf "$u" >/dev/null && printf " OK\n"; if [ $? -eq 0 ]; then return; fi; printf "."; sleep 1; done
-      printf " FAIL\n";
-    }
 
     script=https://raw.githubusercontent.com/devizer/test-and-build/master/install-build-tools-bundle.sh; (wget -q -nv --no-check-certificate -O - $script 2>/dev/null || curl -ksSL $script) | bash >/dev/null
     Say --Reset-Stopwatch
@@ -280,7 +274,21 @@ steps:
     docker exec -t w3top bash -c "
         echo HOME: \$HOME; 
         source /test-sources.sh;
-        $SCRIPT &&
+        $SCRIPT
+    "
+  displayName: 'Run Container'
+
+- script: |
+    set -e
+    set -u
+    function wait_for_http() {
+      u="$1"; t=30; 
+      printf "Waiting for [$u] during $t seconds ..."
+      while [ $t -ge 0 ]; do t=$((t-1)); curl --connect-timeout 3 -skf "$u" >/dev/null && printf " OK\n"; if [ $? -eq 0 ]; then return; fi; printf "."; sleep 1; done
+      printf " FAIL\n";
+    }
+
+    docker exec -t w3top bash -c "
         Say 'INSTALLING W3Top' &&
         install_w3top &&
         Say 'TEST FINISHED. Checking app health.'
@@ -298,7 +306,7 @@ steps:
     Say "Headers"
     curl -I http://localhost:5050 || curl -I http://localhost:5050 || exit 250
 
-  displayName: 'Test All'
+  displayName: 'w3top'
 
 - script: |
    sleep 11
