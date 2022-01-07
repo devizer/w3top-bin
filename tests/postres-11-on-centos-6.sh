@@ -52,8 +52,8 @@ yum makecache -q || yum makecache -q || yum makecache
 function pg_11_on_centos_6()
 {
   prepare_centos
-  yum install -y https://download.postgresql.org/pub/repos/yum/reporpms/EL-6-x86_64/pgdg-redhat-repo-latest.noarch.rpm
-  yum install -y postgresql11 postgresql11-server sudo 
+  yum install -y -q https://download.postgresql.org/pub/repos/yum/reporpms/EL-6-x86_64/pgdg-redhat-repo-latest.noarch.rpm
+  yum install -y -q postgresql11 postgresql11-server sudo 
 
   service postgresql-11 initdb
   service postgresql-11 start
