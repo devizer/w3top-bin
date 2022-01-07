@@ -22,11 +22,11 @@ strategy:
     
     'SystemD Fedora 26':
       IMAGE: "devizervlad/systemd-on-fedora:26"
-      SCRIPT: "sudo dnf update --nogpgcheck -y; echo"
+      SCRIPT: "sudo dnf update --nogpgcheck -y -q; echo"
       SystemD: 'True'
     'SystemD Fedora 31':
       IMAGE: "devizervlad/systemd-on-fedora:31"
-      SCRIPT: "sudo dnf update --nogpgcheck -y; echo"
+      SCRIPT: "sudo dnf update --nogpgcheck -y -q; echo"
       SystemD: 'True'
 
 

@@ -2,8 +2,8 @@
 
 function install_dependencies() {
   if [[ "$(command -v curl)" == "" ]]; then 
-    if [[ "$(command -v apt)" != "" ]]; then
-      apt-get -y install curl
+    if [[ "$(command -v apt-get)" != "" ]]; then
+      apt-get -y -qq install curl
     else
       echo ERROR: Unable to install curl
     fi
@@ -99,7 +99,7 @@ function gentoo_prepare() {
 }
 
 function fedora_prepare() {
-  dnf install -y libstdc++ sudo tar
+  dnf install -y libstdc++ sudo tar -q
   printf "\n\nINSTALLED:\n"
   dnf history userinstalled || true
 }
