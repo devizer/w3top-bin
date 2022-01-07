@@ -207,7 +207,7 @@ strategy:
       SCRIPT: "fedora_prepare"
 
 pool:
-  vmImage: 'ubuntu-21.10'
+  vmImage: 'ubuntu-20.04'
 
 
 steps:
