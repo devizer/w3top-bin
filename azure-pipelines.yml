@@ -9,15 +9,19 @@ strategy:
     'SystemD Debian 8':
       IMAGE: "jrei/systemd-debian:8"
       SCRIPT: "debian_prepare"
-      SystemD: 'True'
+      SYSTEMD: 'True'
     'SystemD Debian 9':
       IMAGE: "jrei/systemd-debian:9"
       SCRIPT: "debian_prepare"
-      SystemD: 'True'
+      SYSTEMD: 'True'
     'SystemD Debian 10':
       IMAGE: "jrei/systemd-debian:10"
       SCRIPT: "debian_prepare"
-      SystemD: 'True'
+      SYSTEMD: 'True'
+    'SystemD Debian 11':
+      IMAGE: "jrei/systemd-debian:11"
+      SCRIPT: "debian_prepare"
+      SYSTEMD: 'True'
 
     
     'SystemD Fedora 26':
