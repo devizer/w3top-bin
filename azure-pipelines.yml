@@ -289,6 +289,7 @@ steps:
     }
 
     docker exec -t w3top bash -c "
+        source /test-sources.sh;
         Say 'INSTALLING W3Top' &&
         install_w3top &&
         Say 'TEST FINISHED. Checking app health.'
