@@ -1,6 +1,6 @@
 
 function get_openssl_system_version() {
-  local ret="$(openssl version 2>/dev/null)"; ret=""
+  local ret="$(openssl version 2>/dev/null | awk '{print $2}')"; ret=""
   if [[ -z "$ret" ]]; then
     if [[ -n "$(command -v apt-get)" ]]; then
       ret="$(apt-cache show openssl | grep -E '^Version:' | awk '{print $2}')"
@@ -25,7 +25,7 @@ function install_opensll_111() {
   work=~/build/open-ssl-1.1.1m
   mkdir -p $work
   pushd $work
-  curl -o _$file $url || curl -o _$file $url
+  curl -kSL -o _$file $url || curl -kSL -o _$file $url
   tar xzf _$file
   cd open*
 
