@@ -283,7 +283,7 @@ steps:
     # check service status
     if [[ "${SYSTEMD:-}" == True ]]; then
       Say "SystemD w3top.service status"
-      docker exec -t w3top bash -e -c "systemctl status w3top.service" || exit 240
+      docker exec w3top bash -e -c "set -o pipefail; systemctl status w3top.service | head -30" || exit 240
     fi
     
     Say "Headers"
@@ -293,7 +293,7 @@ steps:
 
 - script: |
    sleep 11
-   docker exec -t w3top bash -c "if [[ -f /etc/systemd/system/w3top.service ]]; then sudo journalctl -u w3top.service; else cat /tmp/w3top.log; fi" |
+   docker exec -t w3top bash -c "set -o pipefail; if [[ -f /etc/systemd/system/w3top.service ]]; then sudo journalctl -u w3top.service | head -29999; else cat /tmp/w3top.log; fi" |
    tee $SYSTEM_ARTIFACTSDIRECTORY/w3top.log
 
    docker cp w3top:/etc/init.d/w3top $SYSTEM_ARTIFACTSDIRECTORY/w3top.init.sh
