@@ -258,7 +258,7 @@ steps:
     printenv | sort
     Say "Pull $(IMAGE)"
     docker pull $(IMAGE)
-    if [[ "$SystemD" == "True" ]]; then
+    if [[ "${SYSTEMD:-}" == "True" ]]; then
       Say "Start SYSTEM-D image $(IMAGE)"
       docker run --privileged -t --rm -d --hostname w3top-systemd-container --name w3top -p "5050:5050" --cap-add SYS_ADMIN -v "/sys/fs/cgroup:/sys/fs/cgroup:ro" "$img"
     else
@@ -281,7 +281,7 @@ steps:
     wait_for_http http://localhost:5050
     
     # check service status
-    if [[ "$SystemD" == True ]]; then
+    if [[ "${SYSTEMD:-}" == True ]]; then
       Say "SystemD w3top.service status"
       docker exec -t w3top bash -e -c "systemctl status w3top.service" | exit 240
     fi
