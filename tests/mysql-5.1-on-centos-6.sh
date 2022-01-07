@@ -2,8 +2,8 @@
 
 function mysql_51_on_centos_6() {
   prepare_centos
-  yum install -y tar sudo
-  sudo yum install -y mysql-server mysql
+  yum install -y -q tar sudo
+  sudo yum install -y -q mysql-server mysql
   sudo chkconfig mysqld on
   sudo /etc/init.d/mysqld start
   user=root; password=secret
