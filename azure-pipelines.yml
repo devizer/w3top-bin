@@ -6,24 +6,49 @@ trigger:
 
 strategy:
   matrix:
-    'Alpine 3.5':
-      IMAGE: "alpine:3.5"
-      SCRIPT: "alpine_prepare"
-    'Alpine 3.6':
-      IMAGE: "alpine:3.6"
-      SCRIPT: "alpine_prepare"
-    'Alpine 3.7':
-      IMAGE: "alpine:3.7"
-      SCRIPT: "alpine_prepare"
-    'Alpine 3.8':
-      IMAGE: "alpine:3.8"
-      SCRIPT: "alpine_prepare"
-    'Alpine 3.12':
-      IMAGE: "alpine:3.12"
-      SCRIPT: "alpine_prepare"
-    'Alpine 3.14':
-      IMAGE: "alpine:3.14"
-      SCRIPT: "alpine_prepare"
+    'SystemD Debian 8':
+      IMAGE: "jrei/systemd-debian:8"
+      SCRIPT: "debian_prepare"
+      SystemD: 'True'
+    'SystemD Debian 9':
+      IMAGE: "jrei/systemd-debian:9"
+      SCRIPT: "debian_prepare"
+      SystemD: 'True'
+    'SystemD Debian 10':
+      IMAGE: "jrei/systemd-debian:10"
+      SCRIPT: "debian_prepare"
+      SystemD: 'True'
+
+    
+    'SystemD Fedora 26':
+      IMAGE: "devizervlad/systemd-on-fedora:26"
+      SCRIPT: "sudo dnf update --nogpgcheck -y; echo"
+      SystemD: 'True'
+    'SystemD Fedora 31':
+      IMAGE: "devizervlad/systemd-on-fedora:31"
+      SCRIPT: "sudo dnf update --nogpgcheck -y; echo"
+      SystemD: 'True'
+
+
+    # alpine needs new MonoPosixH native so
+    # 'Alpine 3.5':
+    #   IMAGE: "alpine:3.5"
+    #   SCRIPT: "alpine_prepare"
+    # 'Alpine 3.6':
+    #   IMAGE: "alpine:3.6"
+    #   SCRIPT: "alpine_prepare"
+    # 'Alpine 3.7':
+    #   IMAGE: "alpine:3.7"
+    #   SCRIPT: "alpine_prepare"
+    # 'Alpine 3.8':
+    #   IMAGE: "alpine:3.8"
+    #   SCRIPT: "alpine_prepare"
+    # 'Alpine 3.12':
+    #   IMAGE: "alpine:3.12"
+    #   SCRIPT: "alpine_prepare"
+    # 'Alpine 3.14':
+    #   IMAGE: "alpine:3.14"
+    #   SCRIPT: "alpine_prepare"
 
     # 'ARMv7 Ubuntu Core 20.04':
     #   IMAGE: "multiarch/ubuntu-core:armhf-focal"
@@ -231,8 +256,13 @@ steps:
     Say --Reset-Stopwatch
     Say "Pull $(IMAGE)"
     docker pull $(IMAGE)
-    Say "Start image $(IMAGE)"
-    docker run --privileged -d --hostname w3top-container --name w3top -p "5050:5050" "$IMAGE" sh -c "while true; do sleep 42; done"
+    if [[ "$SystemD" == "True" ]]; then
+      Say "Start SYSTEM-D image $(IMAGE)"
+      docker run --privileged -t --rm -d --hostname w3top-systemd-container --name w3top -p "5050:5050" --cap-add SYS_ADMIN -v "/sys/fs/cgroup:/sys/fs/cgroup:ro" "$img"
+    else
+      Say "Start image $(IMAGE)"
+      docker run --privileged -t --rm -d --hostname w3top-container --name w3top -p "5050:5050" "$IMAGE" sh -c "while true; do sleep 42; done"
+    fi
     if [[ "$IMAGE" == alpine* ]]; then docker exec -t w3top sh -c "apk update --no-progress; apk add --no-progress curl tar sudo bzip2 bash; apk add --no-progress bash icu-libs ca-certificates krb5-libs libgcc libstdc++ libintl libstdc++ tzdata userspace-rcu zlib openssl; echo"; fi
     
     Say "Version for $(IMAGE)"
@@ -247,8 +277,15 @@ steps:
     
     Say "Wait for w3top via http://localhost:5050 for $(IMAGE)"
     wait_for_http http://localhost:5050
+    
+    # check service status
+    if [[ "$SystemD" == True ]]; then
+      Say "SystemD w3top.service status"
+      docker exec -t w3top bash -c "systemctl status w3top.service | tee /tmp/_"
+    fi
+    
     Say "Headers"
-    curl -I http://localhost:5050 || curl -I http://localhost:5050 || curl -I http://localhost:5050 || exit 250
+    curl -I http://localhost:5050 || curl -I http://localhost:5050 || exit 250
 
   displayName: 'Test All'
 
