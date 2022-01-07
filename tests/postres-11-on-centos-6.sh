@@ -46,7 +46,7 @@ EOF
 fi
 
 echo "Updating YUM repo cache"
-yum makecache || yum makecache || yum makecache
+yum makecache -q || yum makecache -q || yum makecache
 } # centos
 
 function pg_11_on_centos_6()

@@ -82,15 +82,15 @@ function alpine_prepare() {
 }
 
 function centos_curl_only() {
-  yum install -y tar sudo
-  yum remove -y wget
-  yum install -y curl
+  yum install -y -q tar sudo
+  yum remove -y -q wget
+  yum install -y -q curl
 }
 
 function centos_wget_only() {
-  yum install -y tar sudo
-  yum remove -y curl
-  yum install -y wget
+  yum install -y -q tar sudo
+  yum remove -y -q curl
+  yum install -y -q wget
 }
 
 function gentoo_prepare() {
