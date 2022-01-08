@@ -259,7 +259,8 @@ steps:
 
     if [[ -n "${QEMUVOL:-}" ]]; then
       Say "Install qemu-user-static"
-      sudo apt-get install -y -q qemu-user-static
+      sudo apt-get update -qq
+      smart-apt-install qemu-user-static
     fi
 
     Say "Pull $(IMAGE)"
