@@ -10,6 +10,9 @@ function get_openssl_system_version() {
     elif [[ -n "$(command -v yum)" ]]; then
       ret="$(yum list openssl | grep -E '^openssl' | awk 'NR==1 {print $2}')"
     fi
+    if [[ -n "$(command -v zypper)" ]]; then
+      ret="$(zypper info openssl | grep -E '^Version(\ *):' | awk -F':' '{v=$2; gsub(/ /,"", v); print v}' | sort -V -r)"
+    fi
   fi
   echo $ret
 }
