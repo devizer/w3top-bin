@@ -104,6 +104,10 @@ strategy:
     #   IMAGE: "multiarch/debian-debootstrap:armhf-stretch"
     #   SCRIPT: "debian_prepare"
     #   Multiarch: 'True'
+    'ARMv7 OpenSUSE 42':
+      IMAGE: "arm32v7/opensuse"
+      SCRIPT: "debian_prepare"
+      QEMUVOL: '/usr/bin/qemu-arm-static:/usr/bin/qemu-arm-static'
     'ARMv7 Ubuntu 20.04':
       IMAGE: "arm32v7/ubuntu:20.04"
       SCRIPT: "debian_prepare"

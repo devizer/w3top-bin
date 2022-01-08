@@ -25,6 +25,9 @@ function install_opensll_111() {
   if [[ "$(command -v dnf)" != "" ]]; then
      (dnf install gcc make autoconf libtool perl zlib-devel curl wget -y -q)
   fi
+  if [[ "$(command -v zypper)" != "" ]]; then
+     zypper -n in -y gcc make autoconf libtool perl zlib-devel curl tar gzip wget
+  fi
 
   url=https://www.openssl.org/source/openssl-1.1.1m.tar.gz
   file=$(basename $url)
