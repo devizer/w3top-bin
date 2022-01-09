@@ -285,7 +285,7 @@ steps:
     if [[ "$IMAGE" == alpine* ]]; then docker exec -t w3top sh -c "apk update --no-progress; apk add --no-progress curl tar sudo bzip2 bash; apk add --no-progress bash icu-libs ca-certificates krb5-libs libgcc libstdc++ libintl libstdc++ tzdata userspace-rcu zlib openssl; echo"; fi
     
     Say "Version for $(IMAGE)"
-    docker exec -t w3top bash -c "cat /etc/*release; mkdir -p /etc/init.d"
+    docker exec -t w3top bash -c 'cat /etc/*release; mkdir -p /etc/init.d; script=https://raw.githubusercontent.com/devizer/test-and-build/master/install-build-tools-bundle.sh; (wget -q -nv --no-check-certificate -O - $script 2>/dev/null || curl -ksSL $script) | bash >/dev/null'
 
 
     Say "RUN w3top container and install sudo, tar, curl|wget, etc"
