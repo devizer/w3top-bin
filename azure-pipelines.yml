@@ -306,7 +306,7 @@ steps:
       export CHECK_TLS_DIR=$HOME/.local/bin/check-tls; url=https://raw.githubusercontent.com/devizer/NetCore.CaValidationLab/master/install-tls-checker.sh; (wget -q -nv --no-check-certificate -O - $url 2>/dev/null || curl -ksSL $url) | bash; $HOME/.local/bin/check-tls/check-tls-core
       Say "TLS on the CONTAINER"
       docker cp $CHECK_TLS_DIR w3top:/check-tls
-      docker exec -t w3top bash -c "export DOTNET_SYSTEM_NET_HTTP_USESOCKETSHTTPHANDLER=1 DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=1; /check-tls/check-tls-core"
+      docker exec -t w3top bash -c "export DOTNET_SYSTEM_NET_HTTP_USESOCKETSHTTPHANDLER=1 DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=1; try-and-retry /check-tls/check-tls-core"
     fi
   condition: and(eq(variables.Multiarch, ''), eq(variables.QEMUVOL, ''))
   displayName: 'TLS Test (standalone)'
