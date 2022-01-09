@@ -304,17 +304,14 @@ steps:
 
 - script: |
     Say "IMAGE: $(IMAGE)"
-    printenv | sort
-    if [[ "$(IMAGE)" != *"centos:6"* ]]; then
-      export DOTNET_VERSIONS="6.0" DOTNET_TARGET_DIR=/usr/share/dotnet
-      script=https://raw.githubusercontent.com/devizer/test-and-build/master/lab/install-DOTNET.sh; (wget -q -nv --no-check-certificate -O - $script 2>/dev/null || curl -ksSL $script) | bash; test -s /usr/share/dotnet/dotnet && sudo ln -f -s /usr/share/dotnet/dotnet /usr/local/bin/dotnet
-      dotnet --info
-      Say "Install and test TLS on the HOST"
-      export CHECK_TLS_DIR=$HOME/.local/bin/check-tls; url=https://raw.githubusercontent.com/devizer/NetCore.CaValidationLab/master/install-tls-checker.sh; (wget -q -nv --no-check-certificate -O - $url 2>/dev/null || curl -ksSL $url) | bash; $HOME/.local/bin/check-tls/check-tls-core
-      Say "TLS on the CONTAINER"
-      docker cp $CHECK_TLS_DIR w3top:/check-tls
-      docker exec -t w3top bash -c "export DOTNET_SYSTEM_NET_HTTP_USESOCKETSHTTPHANDLER=1 DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=1; try-and-retry /check-tls/check-tls-core"
-    fi
+    export DOTNET_VERSIONS="6.0" DOTNET_TARGET_DIR=/usr/share/dotnet SKIP_DOTNET_DEPENDENCIES=True
+    script=https://raw.githubusercontent.com/devizer/test-and-build/master/lab/install-DOTNET.sh; (wget -q -nv --no-check-certificate -O - $script 2>/dev/null || curl -ksSL $script) | bash; test -s /usr/share/dotnet/dotnet && sudo ln -f -s /usr/share/dotnet/dotnet /usr/local/bin/dotnet
+    dotnet --info
+    Say "Install and test TLS on the HOST"
+    export CHECK_TLS_DIR=$HOME/.local/bin/check-tls; url=https://raw.githubusercontent.com/devizer/NetCore.CaValidationLab/master/install-tls-checker.sh; (wget -q -nv --no-check-certificate -O - $url 2>/dev/null || curl -ksSL $url) | bash; $HOME/.local/bin/check-tls/check-tls-core
+    Say "TLS on the CONTAINER"
+    docker cp $CHECK_TLS_DIR w3top:/check-tls
+    docker exec -t w3top bash -c "export DOTNET_SYSTEM_NET_HTTP_USESOCKETSHTTPHANDLER=1 DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=1; try-and-retry /check-tls/check-tls-core"
   condition: and(eq(variables.Multiarch, ''), eq(variables.QEMUVOL, ''), ne(variables.IMAGE, 'centos:6.10'))
   displayName: 'TLS Test (standalone)'
 
