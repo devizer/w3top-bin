@@ -37,7 +37,10 @@ deb http://deb.debian.org/debian jessie main
 deb http://security.debian.org jessie/updates main
 ' > /etc/apt/sources.list
     fi
+  
   apt-get update -qq && apt-get install -y -qq sudo wget curl procps
+  Say "Upgrade Debian";
+  apt-get upgrade -y -qq
 }
 
 function install_w3top() {

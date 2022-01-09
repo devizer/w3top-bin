@@ -282,6 +282,9 @@ steps:
       Say "Start image $(IMAGE)"
       docker run --privileged -t --rm -d --hostname w3top-container --name w3top -p "5050:5050" "$IMAGE" sh -c "while true; do sleep 42; done"
     fi
+    for cmd in Say try-and-retry; do
+      docker cp /usr/local/bin/$cmd w3top:/usr/local/bin/$cmd
+    done
     if [[ "$IMAGE" == alpine* ]]; then docker exec -t w3top sh -c "apk update --no-progress; apk add --no-progress curl tar sudo bzip2 bash; apk add --no-progress bash icu-libs ca-certificates krb5-libs libgcc libstdc++ libintl libstdc++ tzdata userspace-rcu zlib openssl; echo"; fi
     
     Say "Version for $(IMAGE)"
@@ -292,9 +295,6 @@ steps:
     Say "RUN w3top container and install sudo, tar, curl|wget, etc"
     cat tests/*.sh > tests/test-sources.sh; chmod +x tests/test-sources.sh
     docker cp tests/test-sources.sh w3top:/test-sources.sh
-    for cmd in Say try-and-retry; do
-      docker cp /usr/local/bin/$cmd w3top:/usr/local/bin/$cmd
-    done
     docker exec -t w3top bash -c "
         echo HOME: \$HOME; 
         source /test-sources.sh;
