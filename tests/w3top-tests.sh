@@ -39,7 +39,7 @@ deb http://security.debian.org jessie/updates main
     fi
   
   apt-get update -qq && apt-get install -y -qq sudo wget curl procps
-  Say "Upgrade Debian";
+  Say "Upgrade Debian|Ubuntu";
   apt-get upgrade -y -qq
 }
 

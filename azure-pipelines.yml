@@ -292,7 +292,7 @@ steps:
     # docker exec -t w3top bash -c 'script=https://raw.githubusercontent.com/devizer/test-and-build/master/install-build-tools-bundle.sh; (wget -q -nv --no-check-certificate -O - $script 2>/dev/null || curl -ksSL $script) | bash >/dev/null'
 
 
-    Say "RUN w3top container and install sudo, tar, curl|wget, etc"
+    Say "Install sudo, tar, curl|wget, etc into the container"
     cat tests/*.sh > tests/test-sources.sh; chmod +x tests/test-sources.sh
     docker cp tests/test-sources.sh w3top:/test-sources.sh
     docker exec -t w3top bash -c "
