@@ -315,7 +315,7 @@ steps:
       docker cp $CHECK_TLS_DIR w3top:/check-tls
       docker exec -t w3top bash -c "export DOTNET_SYSTEM_NET_HTTP_USESOCKETSHTTPHANDLER=1 DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=1; try-and-retry /check-tls/check-tls-core"
     fi
-  condition: and(eq(variables.Multiarch, ''), eq(variables.QEMUVOL, ''))
+  condition: and(eq(variables.Multiarch, ''), eq(variables.QEMUVOL, ''), ne(variables.IMAGE, 'centos:6.10'))
   displayName: 'TLS Test (standalone)'
 
 - script: |
