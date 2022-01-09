@@ -292,7 +292,7 @@ steps:
     Say "RUN w3top container and install sudo, tar, curl|wget, etc"
     cat tests/*.sh > tests/test-sources.sh; chmod +x tests/test-sources.sh
     docker cp tests/test-sources.sh w3top:/test-sources.sh
-    for cmd in Say try-end-retry; do
+    for cmd in Say try-and-retry; do
       docker cp /usr/local/bin/$cmd w3top:/usr/local/bin/$cmd
     done
     docker exec -t w3top bash -c "
