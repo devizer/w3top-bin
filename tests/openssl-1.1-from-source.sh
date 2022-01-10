@@ -1,4 +1,15 @@
 
+function downgrade_open_ssl_3() {
+  sslver=$(get_openssl_system_version)
+  Say "SYSTEM OPENSSL VERSION: [$sslver]"
+  if [[ "$sslver" == 3* ]]; then 
+    export OPENSSL_HOME="${OPENSSL_HOME:-/opt/openssl}"
+    Say "Building openssl 1.1 to [$OPENSSL_HOME]"
+    install_opensll_111
+    export APP_LD_LIBRARY_PATH=$OPENSSL_HOME/lib
+  fi
+}
+
 function get_openssl_system_version() {
   local ret="$(openssl version 2>/dev/null | awk '{print $2}')"; ret=""
   if [[ -z "$ret" ]]; then
