@@ -50,9 +50,9 @@ strategy:
     # 'Alpine 3.12':
     #   IMAGE: "alpine:3.12"
     #   SCRIPT: "alpine_prepare"
-    'Alpine 3.14':
-      IMAGE: "alpine:3.14"
-      SCRIPT: "alpine_prepare"
+    # 'Alpine 3.14':
+    #   IMAGE: "alpine:3.14"
+    #   SCRIPT: "alpine_prepare"
 
     # 'ARMv7 Ubuntu Core 20.04':
     #   IMAGE: "multiarch/ubuntu-core:armhf-focal"
