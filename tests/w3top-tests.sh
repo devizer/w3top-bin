@@ -81,7 +81,7 @@ function opensuse_prepare()
 function alpine_prepare() {
   script=https://raw.githubusercontent.com/devizer/test-and-build/master/install-build-tools-bundle.sh; (wget -q -nv --no-check-certificate -O - $script 2>/dev/null || curl -ksSL $script) | bash
   Say "Installing base utils"
-  apk add --no-cache --no-progress curl tar sudo bzip2 bash openssl
+  apk add --no-cache --no-progress curl tar sudo bzip2 bash openssl wget
   Say "Done"
 }
 
