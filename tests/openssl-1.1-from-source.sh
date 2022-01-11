@@ -17,9 +17,9 @@ function get_openssl_system_version() {
       ret="$(apt-cache show openssl | grep -E '^Version:' | awk '{print $2}' | sort -V -r)"
     fi
     if [[ -n "$(command -v dnf)" ]]; then
-      ret="$(dnf list openssl | grep -E '^openssl' | awk '{print $2}' | awk -F":" '{print $2}')"
+      ret="$(dnf list openssl | grep -E '^openssl' | awk '{print $2}' | awk -F":" 'NR==1 {print $NF}')"
     elif [[ -n "$(command -v yum)" ]]; then
-      ret="$(yum list openssl | grep -E '^openssl' | awk 'NR==1 {print $2}')"
+      ret="$(yum list openssl | grep -E '^openssl' | awk '{print $2}' | awk -F":" 'NR==1 {print $NF}')"
     fi
     if [[ -n "$(command -v zypper)" ]]; then
       ret="$(zypper info openssl | grep -E '^Version(\ *):' | awk -F':' '{v=$2; gsub(/ /,"", v); print v}' | sort -V -r)"
