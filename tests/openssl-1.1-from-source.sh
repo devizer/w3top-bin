@@ -30,6 +30,7 @@ function get_openssl_system_version() {
 
 function install_openssl_111() {
   OPENSSL_HOME=${OPENSSL_HOME:-/opt/openssl}
+  OPENSSL_VERSION="${OPENSSL_VERSION:-1.1.1m}"
 
   command -v apt-get 1>/dev/null &&
      (apt-get update -q; apt-get install build-essential make autoconf libtool zlib1g-dev curl wget -y -q)
@@ -40,9 +41,10 @@ function install_openssl_111() {
      zypper -n in -y gcc make autoconf libtool perl zlib-devel curl tar gzip wget
   fi
 
-  url=https://www.openssl.org/source/openssl-1.1.1m.tar.gz
+  url=https://www.openssl.org/source/openssl-1.1.1g.tar.gz
   file=$(basename $url)
-  work=~/build/open-ssl-1.1.1m
+  TRANSIENT_BUILDS="${TRANSIENT_BUILDS:-$HOME/build}"
+  work=$TRANSIENT_BUILDS/build/open-ssl-1.1
   mkdir -p $work
   pushd $work
   curl -kSL -o _$file $url || curl -kSL -o _$file $url
