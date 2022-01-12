@@ -54,7 +54,7 @@ function install_w3top() {
   if [[ "$sslver" == 3* ]]; then 
     export OPENSSL_HOME=/opt/openssl
     Say "Building openssl 1.1 to [$OPENSSL_HOME]"
-    install_opensll_111
+    install_openssl_111
     export APP_LD_LIBRARY_PATH=$OPENSSL_HOME/lib
   fi
 
