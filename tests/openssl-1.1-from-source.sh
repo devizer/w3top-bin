@@ -41,7 +41,7 @@ function install_openssl_111() {
      zypper -n in -y gcc make autoconf libtool perl zlib-devel curl tar gzip wget
   fi
 
-  url=https://www.openssl.org/source/openssl-1.1.1g.tar.gz
+  url=https://www.openssl.org/source/openssl-1.1.1m.tar.gz
   file=$(basename $url)
   TRANSIENT_BUILDS="${TRANSIENT_BUILDS:-$HOME/build}"
   work=$TRANSIENT_BUILDS/build/open-ssl-1.1
