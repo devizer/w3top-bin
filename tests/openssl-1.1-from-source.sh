@@ -54,7 +54,8 @@ function install_openssl_111() {
   ./config --prefix=$OPENSSL_HOME --openssldir=$OPENSSL_HOME
   time make -j
   # make test
-  make install
+  cpus=$(nproc); cpus=$((cpus+3))
+  make install -j${cpus}
   popd
   rm -rf $work
 }
