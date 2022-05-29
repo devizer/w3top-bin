@@ -35,7 +35,7 @@ and run `./Universe.W3Top` or install SystemD service using `install-systemd-ser
 
 Shorter option:
 ```
-export HTTP_PORT=5050
+export HTTP_HOST=0.0.0.0 HTTP_PORT=5050
 export RESPONSE_COMPRESSION=True
 export INSTALL_DIR=/opt/w3top
 script=https://raw.githubusercontent.com/devizer/w3top-bin/master/install-w3top-service.sh
