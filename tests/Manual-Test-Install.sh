@@ -1,4 +1,4 @@
-set -eu;
+set -eu; set -o pipefail
 function try_install() {
   export HTTP_HOST=0.0.0.0 HTTP_PORT=5050
   export RESPONSE_COMPRESSION=True

@@ -75,6 +75,7 @@ function download_file() {
     exit 42;
   fi
   local i=0;
+  rm -f "$file" 2>/dev/null || true
   for i in 1 2 3; do
     try_count=$((try_count+1))
     if [[ "${try_count}" -gt 1 ]]; then
@@ -119,11 +120,19 @@ find_decompressor
 
 file="w3top-$rid.tar.${COMPRESSOR_EXT}"
 url_version=https://raw.githubusercontent.com/devizer/w3top-bin/master/public/version.txt
-version=$(wget -q -nv --no-check-certificate -O - $url_version 2>/dev/null || curl -ksfL $url_version 2>/dev/null || echo "unknown")
+# TODO: download version using download_file
+# version=$(wget -q -nv --no-check-certificate -O - $url_version 2>/dev/null || curl -ksfL $url_version 2>/dev/null || echo "unknown")
+tmp=$"{TMPDIR:-/tmp}"
+export DOWNLOAD_SHOW_PROGRESS=""
+download_file "$url_version" "${tmp}/${file}-version"
+version="$(cat "${tmp}/${file}-version")"
 url_primary=https://github.com/devizer/KernelManagementLab/releases/download/v$version/$file
 url_secondary=https://dl.bintray.com/devizer/W3-Top/$version/w3top-$rid.tar.gz
 url_sha256="${url_primary}.sha256"
-sha256=$(wget -q -nv --no-check-certificate -O - $url_sha256 2>/dev/null || curl -ksfL $url_sha256 2>/dev/null || echo "unknown")
+# TODO: download sha256 using download_file
+# sha256=$(wget -q -nv --no-check-certificate -O - $url_sha256 2>/dev/null || curl -ksfL $url_sha256 2>/dev/null || echo "unknown")
+download_file "$url_sha256" "${tmp}/${file}-hash"
+sha256="$(cat "${tmp}/${file}-hash")"
 
 url_tertiary=https://raw.githubusercontent.com/devizer/w3top-bin/master/public/$file
 
@@ -163,6 +172,7 @@ ok="false"
 for url in "$url_primary" "$url_tertiary" "$url_4" "$url_5"; do
   if [[ -z "$url" ]]; then continue; fi
   export DOWNLOAD_SHOW_PROGRESS=True
+  rm -f "$copy" || true
   err=""; download_file "${url}" "$copy" || err=1
   if [[ -n "$err" ]]; then continue; fi
   actual_hash="$(sha256sum "$copy" | awk '{print $1}')"
