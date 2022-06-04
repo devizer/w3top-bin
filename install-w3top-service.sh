@@ -124,6 +124,7 @@ url_version=https://raw.githubusercontent.com/devizer/w3top-bin/master/public/ve
 # version=$(wget -q -nv --no-check-certificate -O - $url_version 2>/dev/null || curl -ksfL $url_version 2>/dev/null || echo "unknown")
 tmp=$"${TMPDIR:-/tmp}"
 export DOWNLOAD_SHOW_PROGRESS=""
+try_count=0
 download_file "$url_version" "${tmp}/${file}-version"
 version="$(cat "${tmp}/${file}-version")"
 url_primary=https://github.com/devizer/KernelManagementLab/releases/download/v$version/$file
@@ -131,6 +132,7 @@ url_secondary=https://dl.bintray.com/devizer/W3-Top/$version/w3top-$rid.tar.gz
 url_sha256="${url_primary}.sha256"
 # TODO: download sha256 using download_file
 # sha256=$(wget -q -nv --no-check-certificate -O - $url_sha256 2>/dev/null || curl -ksfL $url_sha256 2>/dev/null || echo "unknown")
+try_count=0
 download_file "$url_sha256" "${tmp}/${file}-hash"
 sha256="$(cat "${tmp}/${file}-hash")"
 
@@ -168,7 +170,7 @@ Internal installer variables:
 "
 
 mkdir -p "$(dirname $copy)"
-ok="false"
+ok="false" try_count=0
 for url in "$url_primary" "$url_tertiary" "$url_4" "$url_5"; do
   if [[ -z "$url" ]]; then continue; fi
   export DOWNLOAD_SHOW_PROGRESS=True
