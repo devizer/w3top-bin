@@ -1,9 +1,10 @@
 #!/usr/bin/env bash
 set -e
 set -u
+set -o pipefail
 
-NC='\033[0m' Color_Green='\033[1;32m' Color_Red='\033[1;31m' Color_Yellow='\033[1;33m'; 
 function say() { 
+   NC='\033[0m' Color_Green='\033[1;32m' Color_Red='\033[1;31m' Color_Yellow='\033[1;33m'; 
    local var="Color_${1:-}"
    local color="${!var}"
    shift 
@@ -112,7 +113,6 @@ elif [ -e /etc/redhat-release ]; then
     rid=rhel.6-x64;
   fi
 fi
-echo "The OS architecture: $rid"
 
 
 find_decompressor
@@ -135,7 +135,6 @@ url_5="https://master.dl.sourceforge.net/project/w3top/$version/w3top-rhel.6-x64
 [[ -n "${SKIP_URL_3:-}" ]] && url_4=""
 [[ -n "${SKIP_URL_4:-}" ]] && url_5=""
 
-
 TMPDIR="${TMPDIR:-/tmp}"
 HTTP_PORT="${HTTP_PORT:-5050}"
 RESPONSE_COMPRESSION="${RESPONSE_COMPRESSION:-True}"
@@ -149,6 +148,7 @@ echo "W3Top installation parameters:
     INSTALL_DIR: $INSTALL_DIR
     RESPONSE_COMPRESSION: $RESPONSE_COMPRESSION
 Internal installer variables:
+    OS architecture: $rid
     version per metadata (optional): $version
     download url #1: $url_primary
     download url #2: $url_tertiary
@@ -167,10 +167,10 @@ for url in "$url_primary" "$url_tertiary" "$url_4" "$url_5"; do
   if [[ -n "$err" ]]; then continue; fi
   actual_hash="$(sha256sum "$copy" | awk '{print $1}')"
   if [[ "${actual_hash:-}" != "$sha256" ]]; then
-    echo "SHA256 mismatch: ${actual_hash:-}"
+    say Red "SHA256 mismatch. Actual is ${actual_hash:-}"
     continue;
   else
-    echo "SHA256 hash is correct. Extracting $copy to [$INSTALL_DIR]"
+    say Green "SHA256 hash is correct. Extracting $copy to [$INSTALL_DIR]"
     ok=true
     break;
   fi
@@ -182,31 +182,10 @@ sudo mkdir -p "$INSTALL_DIR"
 sudo rm -rf "$INSTALL_DIR/*"
 pushd "$INSTALL_DIR" >/dev/null
 if [[ ! -z "$(command -v pv)" ]]; then
-  # pv "$copy" | sudo tar xzf -
   pv "$copy" | eval $COMPRESSOR_EXTRACT | sudo tar xf - 2>&1 | { grep -v "implausibly old time stamp" || true; } | { grep -v "in the future" || true; }
 else
-  # sudo tar xzf "$copy"
   cat "$copy" | eval $COMPRESSOR_EXTRACT | sudo tar xf - 2>&1 | { grep -v "implausibly old time stamp" || true; } | { grep -v "in the future" || true; }
 fi
 sudo rm -f "$copy"
 bash install-systemd-service.sh
 popd >/dev/null
-
-echo 'Test
-
-function try_install() {
-  export HTTP_HOST=0.0.0.0 HTTP_PORT=5050
-  export RESPONSE_COMPRESSION=True
-  export INSTALL_DIR=/opt/w3top
-  script=https://raw.githubusercontent.com/devizer/w3top-bin/master/install-w3top-service.sh
-  (wget -q -nv --no-check-certificate -O - $script 2>/dev/null || curl -ksSL $script) | bash
-}
-sudo systemctl disable w3top.service 2>/dev/null || true
-for GCC_FORCE_GZIP_PRIORITY in True ""; do
-  export GCC_FORCE_GZIP_PRIORITY;
-  export SKIP_ARIA=True SKIP_CURL=True SKIP_WGET="";   try_install
-  export SKIP_ARIA=True SKIP_CURL=""   SKIP_WGET=True; try_install
-  export SKIP_ARIA=""   SKIP_CURL=True SKIP_WGET=TRUE; try_install
-done
-Say "COMPLETE SUCCESS"
-' >/dev/null
