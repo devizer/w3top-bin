@@ -81,7 +81,7 @@ function download_file() {
       say Red "Try #${try_count} to download $url"
     fi
      local err=""
-     say Green "$try1"
+     # say Green "$try1"
      eval $try1 || err=1
      if [[ -z "$err" ]]; then return; fi
   done
