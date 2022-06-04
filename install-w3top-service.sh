@@ -122,7 +122,7 @@ file="w3top-$rid.tar.${COMPRESSOR_EXT}"
 url_version=https://raw.githubusercontent.com/devizer/w3top-bin/master/public/version.txt
 # TODO: download version using download_file
 # version=$(wget -q -nv --no-check-certificate -O - $url_version 2>/dev/null || curl -ksfL $url_version 2>/dev/null || echo "unknown")
-tmp=$"{TMPDIR:-/tmp}"
+tmp=$"${TMPDIR:-/tmp}"
 export DOWNLOAD_SHOW_PROGRESS=""
 download_file "$url_version" "${tmp}/${file}-version"
 version="$(cat "${tmp}/${file}-version")"
