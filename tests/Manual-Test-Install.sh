@@ -8,9 +8,10 @@ function try_install() {
 }
 sudo systemctl disable w3top.service 2>/dev/null || true
 for GCC_FORCE_GZIP_PRIORITY in True ""; do
+  ext=GZIP; if [[ "$GCC_FORCE_GZIP_PRIORITY" == "" ]]; then ext=XZ; fi
   export GCC_FORCE_GZIP_PRIORITY;
-  export SKIP_ARIA=True SKIP_CURL=True SKIP_WGET="";   try_install
-  export SKIP_ARIA=True SKIP_CURL=""   SKIP_WGET=True; try_install
-  export SKIP_ARIA=""   SKIP_CURL=True SKIP_WGET=TRUE; try_install
+  Say "$ext & WGET"; export SKIP_ARIA=True SKIP_CURL=True SKIP_WGET="";   try_install
+  Say "$ext & CURL"; export SKIP_ARIA=True SKIP_CURL=""   SKIP_WGET=True; try_install
+  Say "$ext & ARIA"; export SKIP_ARIA=""   SKIP_CURL=True SKIP_WGET=TRUE; try_install
 done
 Say "COMPLETE SUCCESS"
