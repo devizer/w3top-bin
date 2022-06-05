@@ -128,7 +128,7 @@ try_count=0
 download_file "$url_version" "${tmp}/${file}-version"
 version="$(cat "${tmp}/${file}-version")"
 url_primary=https://github.com/devizer/w3top-bin/releases/download/v$version/$file
-url_secondary=https://dl.bintray.com/devizer/W3-Top/$version/w3top-$rid.tar.gz
+# url_secondary=https://dl.bintray.com/devizer/W3-Top/$version/w3top-$rid.tar.gz
 url_sha256="${url_primary}.sha256"
 # TODO: download sha256 using download_file
 # sha256=$(wget -q -nv --no-check-certificate -O - $url_sha256 2>/dev/null || curl -ksfL $url_sha256 2>/dev/null || echo "unknown")
@@ -138,8 +138,8 @@ sha256="$(cat "${tmp}/${file}-hash")"
 
 url_tertiary=https://raw.githubusercontent.com/devizer/w3top-bin/master/public/$file
 
-url_4=https://sourceforge.net/projects/w3top/files/$version/w3top-$rid.tar.xz/download
-url_5="https://master.dl.sourceforge.net/project/w3top/$version/w3top-$rid.tar.xz?viasf=1"
+url_4=https://sourceforge.net/projects/w3top/files/$version/$file/download
+url_5="https://master.dl.sourceforge.net/project/w3top/$version/$file?viasf=1"
 
 [[ -n "${SKIP_URL_1:-}" ]] && url_primary=""
 [[ -n "${SKIP_URL_2:-}" ]] && url_tertiary=""
