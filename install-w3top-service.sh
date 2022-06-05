@@ -127,7 +127,7 @@ export DOWNLOAD_SHOW_PROGRESS=""
 try_count=0
 download_file "$url_version" "${tmp}/${file}-version"
 version="$(cat "${tmp}/${file}-version")"
-url_primary=https://github.com/devizer/KernelManagementLab/releases/download/v$version/$file
+url_primary=https://github.com/devizer/w3top-bin/releases/download/v$version/$file
 url_secondary=https://dl.bintray.com/devizer/W3-Top/$version/w3top-$rid.tar.gz
 url_sha256="${url_primary}.sha256"
 # TODO: download sha256 using download_file
