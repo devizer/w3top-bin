@@ -138,8 +138,8 @@ sha256="$(cat "${tmp}/${file}-hash")"
 
 url_tertiary=https://raw.githubusercontent.com/devizer/w3top-bin/master/public/$file
 
-url_4=https://sourceforge.net/projects/w3top/files/$version/w3top-rhel.6-x64.tar.xz.sha256/download
-url_5="https://master.dl.sourceforge.net/project/w3top/$version/w3top-rhel.6-x64.tar.xz.sha256?viasf=1"
+url_4=https://sourceforge.net/projects/w3top/files/$version/w3top-$rid.tar.xz/download
+url_5="https://master.dl.sourceforge.net/project/w3top/$version/w3top-$rid.tar.xz?viasf=1"
 
 [[ -n "${SKIP_URL_1:-}" ]] && url_primary=""
 [[ -n "${SKIP_URL_2:-}" ]] && url_tertiary=""
