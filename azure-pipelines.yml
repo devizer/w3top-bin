@@ -132,7 +132,7 @@ strategy:
       SCRIPT: "centos_wget_only"
     'CentOS 8':
       IMAGE: "centos:8"
-      SCRIPT: "centos_curl_only"
+      SCRIPT: "prepare_centos_8; centos_curl_only"
 
     'OpenSUSE leap 42':
       IMAGE: 'opensuse/leap:42'
