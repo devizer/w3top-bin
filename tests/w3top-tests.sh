@@ -10,6 +10,14 @@ function install_dependencies() {
   fi
 }
 
+function prepare_centos_8() {
+  echo "Resetting CentOS 8 Repo"
+  sed -i 's/mirrorlist/#mirrorlist/g' /etc/yum.repos.d/CentOS-Linux-*
+  sed -i 's|#baseurl=http://mirror.centos.org|baseurl=http://vault.centos.org|g' /etc/yum.repos.d/CentOS-Linux-*
+  yum makecache -q || yum makecache -q || yum makecache -q
+}
+
+
 function wait_for_http() {
   u="$1"; t=30; 
   printf "Waiting for [$u] during $t seconds ..."
@@ -106,6 +114,7 @@ function gentoo_prepare() {
 
 function fedora_prepare() {
   dnf install -y libstdc++ sudo tar -q
+  dnf install sudo -q || dnf install sudo -q
   printf "\n\nINSTALLED:\n"
   dnf history userinstalled || true
 }
