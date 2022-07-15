@@ -82,6 +82,12 @@ function install_w3top() {
 function opensuse_prepare()
 {
   # opensuse/tumbleweed, opensuse/leap:15, opensuse/leap:42
+  echo '
+gpgcheck = off
+repo_gpgcheck = off
+pkg_gpgcheck = off
+' >> /etc/zypp/zypp.conf
+
   zypper -n in -y curl sudo tar gzip || true
   zypper -n in -y insserv-compat || true
   sudo --version | head -1
