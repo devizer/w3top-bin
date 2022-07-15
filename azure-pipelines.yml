@@ -218,17 +218,15 @@ strategy:
       IMAGE: "fedora:36"
       SCRIPT: "fedora_prepare"
 
-timeoutInMinutes: 25
+# timeoutInMinutes: 25
 pool:
   vmImage: 'ubuntu-20.04'
 
-
 steps:
-
-
 
 - script: |
     script=https://raw.githubusercontent.com/devizer/test-and-build/master/install-build-tools-bundle.sh; (wget -q -nv --no-check-certificate -O - $script 2>/dev/null || curl -ksSL $script) | bash >/dev/null
+    Say --Reset-Stopwatch
     Say "Register qemu user static"
     time docker run --rm --privileged multiarch/qemu-user-static:register --reset
   condition: ne(variables.Multiarch, '')
