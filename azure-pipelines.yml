@@ -218,6 +218,7 @@ strategy:
       IMAGE: "fedora:36"
       SCRIPT: "fedora_prepare"
 
+timeoutInMinutes: 25
 pool:
   vmImage: 'ubuntu-20.04'
 
