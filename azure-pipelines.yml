@@ -294,7 +294,7 @@ steps:
     utils_master_url=https://raw.githubusercontent.com/devizer/NetCore.CaValidationLab/master/4gcc/build-gcc-utilities.sh
     try-and-retry curl -kSL -o /tmp/build-gcc-utilities.sh "${utils_master_url}"
     docker cp /tmp/build-gcc-utilities.sh w3top:/tmp/build-gcc-utilities.sh
-    docker exec -t w3top bash -c "source /tmp/build-gcc-utilities.sh; adjust_os_repo; test -s /etc/apt/sources.list && Say 'Debian Container Sources' && cat /etc/apt/sources.list"
+    docker exec -t w3top bash -c "source /tmp/build-gcc-utilities.sh; adjust_os_repo || true; test -s /etc/apt/sources.list && Say 'Debian Container Sources' && cat /etc/apt/sources.list"
 
     Say "Install sudo, tar, curl|wget, etc into the container"
     cat tests/*.sh > tests/test-sources.sh; chmod +x tests/test-sources.sh
