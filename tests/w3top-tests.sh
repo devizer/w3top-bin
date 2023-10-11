@@ -43,7 +43,7 @@ function debian_prepare() {
     echo '
 deb http://deb.debian.org/debian jessie main
 deb http://security.debian.org jessie/updates main
-' > /etc/apt/sources.list
+' > /dev/null # /etc/apt/sources.list, TOO COMPLEX. Extracted to adjust_os_repo()
     fi
   
   apt-get update -qq && apt-get install -y -qq sudo wget curl procps
