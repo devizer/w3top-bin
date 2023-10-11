@@ -235,6 +235,15 @@ strategy:
     'Fedora 36':
       IMAGE: "fedora:36"
       SCRIPT: "fedora_prepare"
+    'Fedora 37':
+      IMAGE: "fedora:37"
+      SCRIPT: "fedora_prepare"
+    'Fedora 38':
+      IMAGE: "fedora:38"
+      SCRIPT: "fedora_prepare"
+    'Fedora 39':
+      IMAGE: "fedora:39"
+      SCRIPT: "fedora_prepare"
 
 # timeoutInMinutes: 25
 pool:
