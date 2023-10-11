@@ -247,7 +247,7 @@ strategy:
 
 # timeoutInMinutes: 25
 pool:
-  vmImage: 'ubuntu-22.04'
+  vmImage: 'ubuntu-20.04'
 
 steps:
 
