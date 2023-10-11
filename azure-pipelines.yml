@@ -156,11 +156,11 @@ strategy:
       IMAGE: 'opensuse/tumbleweed'
       SCRIPT: 'opensuse_prepare'
 
-    'Gentoo (no multilib)':
-      IMAGE: 'gentoo/stage3-amd64-nomultilib'
+    'Gentoo (portage)':
+      IMAGE: 'gentoo/portage'
       SCRIPT: 'gentoo_prepare; HTTP_HOST="+"; export HTTP_HOST'
-    'Gentoo Hardened (no multilib)':
-      IMAGE: 'gentoo/stage3-amd64-hardened-nomultilib'
+    'Gentoo (stage3)':
+      IMAGE: 'gentoo/stage3'
       SCRIPT: 'gentoo_prepare; HTTP_HOST="+"; export HTTP_HOST'
     'Arch':
       IMAGE: 'archlinux:base'
