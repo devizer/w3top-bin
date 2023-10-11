@@ -116,6 +116,18 @@ strategy:
       IMAGE: "multiarch/debian-debootstrap:armhf-jessie"
       SCRIPT: "debian_prepare"
       Multiarch: 'True'
+    'ARMv7 Debian 9':
+      IMAGE: "multiarch/debian-debootstrap:armhf-stretch"
+      SCRIPT: "debian_prepare"
+      Multiarch: 'True'
+    'ARMv7 Debian 10':
+      IMAGE: "multiarch/debian-debootstrap:armhf-buster"
+      SCRIPT: "debian_prepare"
+      Multiarch: 'True'
+    'ARMv7 Debian 11':
+      IMAGE: "multiarch/debian-debootstrap:armhf-bullseye"
+      SCRIPT: "debian_prepare"
+      Multiarch: 'True'
     'ARM-64 Debian 9':
       IMAGE: "multiarch/debian-debootstrap:arm64-stretch"
       SCRIPT: "debian_prepare"
