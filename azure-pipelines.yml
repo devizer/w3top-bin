@@ -171,14 +171,20 @@ strategy:
     'Debian 10':
       IMAGE: "debian:10"
       SCRIPT: "debian_prepare"
+    'Debian 12':
+      IMAGE: "debian:12"
+      SCRIPT: "debian_prepare"
     'Debian 11':
       IMAGE: "debian:11"
       SCRIPT: "debian_prepare"
+    'Ubuntu 23.10':
+      IMAGE: "ubuntu:21.10"
+      SCRIPT: "debian_prepare"
+    'Ubuntu 23.04':
+      IMAGE: "ubuntu:23.04"
+      SCRIPT: "debian_prepare"
     'Ubuntu 22.04':
       IMAGE: "ubuntu:22.04"
-      SCRIPT: "debian_prepare"
-    'Ubuntu 21.10':
-      IMAGE: "ubuntu:21.10"
       SCRIPT: "debian_prepare"
     'Ubuntu 20.04':
       IMAGE: "ubuntu:18.04"
