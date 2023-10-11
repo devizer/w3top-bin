@@ -290,6 +290,11 @@ steps:
     docker exec -t w3top bash -c 'cat /etc/*release; mkdir -p /etc/init.d;'
     # docker exec -t w3top bash -c 'script=https://raw.githubusercontent.com/devizer/test-and-build/master/install-build-tools-bundle.sh; (wget -q -nv --no-check-certificate -O - $script 2>/dev/null || curl -ksSL $script) | bash >/dev/null'
 
+    Say "ADJUST OS REPO"
+    utils_master_url=https://raw.githubusercontent.com/devizer/NetCore.CaValidationLab/master/4gcc/build-gcc-utilities.sh
+    try-and-retry curl -kSL -o /tmp/build-gcc-utilities.sh "${utils_fixed_url}"
+    docker cp /tmp/build-gcc-utilities.sh w3top:/tmp/build-gcc-utilities.sh
+    docker exec -t w3top bash -c 'source /tmp/build-gcc-utilities.sh; adjust_os_repo;'
 
     Say "Install sudo, tar, curl|wget, etc into the container"
     cat tests/*.sh > tests/test-sources.sh; chmod +x tests/test-sources.sh
