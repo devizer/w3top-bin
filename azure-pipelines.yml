@@ -147,6 +147,7 @@ strategy:
     'CentOS 7.6 and sqlite (curl)':
       IMAGE: "centos:7.0.1406"
       SCRIPT: "centos_wget_only"
+      VMIMAGE: 'ubuntu-20.04'
     'CentOS 8':
       IMAGE: "centos:8"
       SCRIPT: "prepare_centos_8; centos_curl_only"
