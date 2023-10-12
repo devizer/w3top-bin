@@ -89,6 +89,9 @@ pkg_gpgcheck = off
 ' >> /etc/zypp/zypp.conf
 
   zypper -n in -y curl sudo tar gzip || true
+  zypper -n in -y awk || true
+  zypper -n in -y grep || true
+  zypper -n in -y openssl-1_1 || true
   zypper -n in -y insserv-compat || true
   sudo --version | head -1
 }
