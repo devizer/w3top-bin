@@ -1,8 +1,9 @@
 # https://mattvsts.github.io/2020/01/07/create-a-build-matrix-with-azure-pipelines/
-
+variables:
+  VMIMAGE: 'ubuntu-22.04'
+  
 trigger:
 - master
-
 
 strategy:
   matrix:
@@ -10,20 +11,23 @@ strategy:
       IMAGE: "jrei/systemd-debian:8"
       SCRIPT: "debian_prepare"
       SYSTEMD: 'True'
+      VMIMAGE: 'ubuntu-20.04'
     'SystemD Debian 9':
       IMAGE: "jrei/systemd-debian:9"
       SCRIPT: "debian_prepare"
       SYSTEMD: 'True'
+      VMIMAGE: 'ubuntu-20.04'
     'SystemD Debian 10':
       IMAGE: "jrei/systemd-debian:10"
       SCRIPT: "debian_prepare"
       SYSTEMD: 'True'
+      VMIMAGE: 'ubuntu-20.04'
     'SystemD Debian 11':
       IMAGE: "jrei/systemd-debian:11"
       SCRIPT: "debian_prepare"
       SYSTEMD: 'True'
+      VMIMAGE: 'ubuntu-20.04'
 
-    
     'SystemD Fedora 26':
       IMAGE: "devizervlad/systemd-on-fedora:26"
       SCRIPT: "sudo dnf update --nogpgcheck -y -q; echo"
@@ -146,13 +150,13 @@ strategy:
       IMAGE: "centos:8"
       SCRIPT: "prepare_centos_8; centos_curl_only"
 
-    'OpenSUSE leap 42':
+    'OpenSUSE Leap 42':
       IMAGE: 'opensuse/leap:42'
       SCRIPT: 'opensuse_prepare'
-    'OpenSUSE leap 15':
+    'OpenSUSE Leap 15':
       IMAGE: 'opensuse/leap:15'
       SCRIPT: 'opensuse_prepare'
-    'OpenSUSE leap Tumbleweed':
+    'OpenSUSE Tumbleweed':
       IMAGE: 'opensuse/tumbleweed'
       SCRIPT: 'opensuse_prepare'
 
@@ -247,7 +251,7 @@ strategy:
 
 # timeoutInMinutes: 25
 pool:
-  vmImage: 'ubuntu-20.04'
+  vmImage: '$(VMIMAGE)'
 
 steps:
 
