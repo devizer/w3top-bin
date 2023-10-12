@@ -30,13 +30,14 @@ strategy:
 
     'SystemD Fedora 26':
       IMAGE: "devizervlad/systemd-on-fedora:26"
-      SCRIPT: "sudo dnf update --nogpgcheck -y -q; echo"
+      SCRIPT: "sudo dnf update --nogpgcheck -y -q; echo; fedora_prepare"
       SystemD: 'True'
+      VMIMAGE: 'ubuntu-20.04'
     'SystemD Fedora 31':
       IMAGE: "devizervlad/systemd-on-fedora:31"
-      SCRIPT: "sudo dnf update --nogpgcheck -y -q; echo"
+      SCRIPT: "sudo dnf update --nogpgcheck -y -q; echo; fedora_prepare"
       SystemD: 'True'
-
+      VMIMAGE: 'ubuntu-20.04'
 
     # alpine needs new MonoPosixH native so
     # 'Alpine 3.5':
@@ -58,22 +59,22 @@ strategy:
     #   IMAGE: "alpine:3.14"
     #   SCRIPT: "alpine_prepare"
 
-    # 'ARMv7 Ubuntu Core 20.04':
-    #   IMAGE: "multiarch/ubuntu-core:armhf-focal"
-    #   SCRIPT: "debian_prepare"
-    #   Multiarch: 'True'
-    # 'ARMv7 Ubuntu Core 18.04':
-    #   IMAGE: "multiarch/ubuntu-core:armhf-bionic"
-    #   SCRIPT: "debian_prepare"
-    #   Multiarch: 'True'
-    # 'ARMv7 Ubuntu Core 16.04':
-    #   IMAGE: "multiarch/ubuntu-core:armhf-xenial"
-    #   SCRIPT: "debian_prepare"
-    #   Multiarch: 'True'
-    # 'ARMv7 Ubuntu Core 14.04':
-    #   IMAGE: "multiarch/ubuntu-core:armhf-trusty"
-    #   SCRIPT: "debian_prepare"
-    #   Multiarch: 'True'
+    'ARMv7 Ubuntu Core 20.04':
+      IMAGE: "multiarch/ubuntu-core:armhf-focal"
+      SCRIPT: "debian_prepare"
+      Multiarch: 'True'
+    'ARMv7 Ubuntu Core 18.04':
+      IMAGE: "multiarch/ubuntu-core:armhf-bionic"
+      SCRIPT: "debian_prepare"
+      Multiarch: 'True'
+    'ARMv7 Ubuntu Core 16.04':
+      IMAGE: "multiarch/ubuntu-core:armhf-xenial"
+      SCRIPT: "debian_prepare"
+      Multiarch: 'True'
+    'ARMv7 Ubuntu Core 14.04':
+      IMAGE: "multiarch/ubuntu-core:armhf-trusty"
+      SCRIPT: "debian_prepare"
+      Multiarch: 'True'
 
     # 'ARMv7 Ubuntu 20.04':
     #   IMAGE: "multiarch/ubuntu-debootstrap:armhf-focal"
