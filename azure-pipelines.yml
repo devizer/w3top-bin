@@ -141,9 +141,12 @@ strategy:
     'CentOS 6.10 and MySQL 5.1 (wget)':
       IMAGE: "centos:6.10"
       SCRIPT: "mysql_51_on_centos_6; centos_wget_only"
-    'CentOS 6.10 and PostgreSQL 11.4 (curl)':
+    'CentOS 6.10 and PostgreSQL 8.4 (curl)':
       IMAGE: "centos:6.10"
-      SCRIPT: "pg_11_on_centos_6 && centos_curl_only"
+      SCRIPT: "pg_84_on_centos_6 && centos_curl_only"
+    # 'CentOS 6.10 and PostgreSQL 11.4 (curl)':
+    #  IMAGE: "centos:6.10"
+    #  SCRIPT: "pg_11_on_centos_6 && centos_curl_only"
     'CentOS 7.6 and sqlite (curl)':
       IMAGE: "centos:7.0.1406"
       SCRIPT: "centos_wget_only"
