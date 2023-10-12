@@ -95,6 +95,9 @@ if [[ "$machine" == armv7* ]]; then
   rid=linux-arm;
 elif [[ "$machine" == aarch64 || "$machine" == armv8* || "$machine" == arm64* ]]; then
   rid=linux-arm64;
+  if [[ "$(getconf LONG_BIT)" == "32" ]]; then 
+    rid=linux-arm; 
+  fi
 elif [[ "$machine" == x86_64 || "$machine" == amd64 ]]; then
   rid=linux-x64;
 fi;
