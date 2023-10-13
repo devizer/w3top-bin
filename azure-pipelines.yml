@@ -134,11 +134,11 @@ strategy:
       SCRIPT: "debian_prepare"
       Multiarch: 'True'
     'ARM-64 Debian 8':
-      IMAGE: "multiarch/debian-debootstrap:arm64-stretch"
+      IMAGE: "multiarch/debian-debootstrap:arm64-jessie"
       SCRIPT: "debian_prepare"
       Multiarch: 'True'
     'ARM-64 Debian 9':
-      IMAGE: "multiarch/debian-debootstrap:arm64-jessie"
+      IMAGE: "multiarch/debian-debootstrap:arm64-stretch"
       SCRIPT: "debian_prepare"
       Multiarch: 'True'
 
