@@ -133,8 +133,12 @@ strategy:
       IMAGE: "multiarch/debian-debootstrap:armhf-bullseye"
       SCRIPT: "debian_prepare"
       Multiarch: 'True'
-    'ARM-64 Debian 9':
+    'ARM-64 Debian 8':
       IMAGE: "multiarch/debian-debootstrap:arm64-stretch"
+      SCRIPT: "debian_prepare"
+      Multiarch: 'True'
+    'ARM-64 Debian 9':
+      IMAGE: "multiarch/debian-debootstrap:arm64-jessie"
       SCRIPT: "debian_prepare"
       Multiarch: 'True'
 
@@ -165,9 +169,6 @@ strategy:
       IMAGE: 'opensuse/tumbleweed'
       SCRIPT: 'opensuse_prepare'
 
-    'Gentoo (portage)':
-      IMAGE: 'gentoo/portage'
-      SCRIPT: 'gentoo_prepare; HTTP_HOST="+"; export HTTP_HOST'
     'Gentoo (stage3)':
       IMAGE: 'gentoo/stage3'
       SCRIPT: 'gentoo_prepare; HTTP_HOST="+"; export HTTP_HOST'
