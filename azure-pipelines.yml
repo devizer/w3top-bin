@@ -264,13 +264,21 @@ steps:
 - script: |
     script=https://raw.githubusercontent.com/devizer/test-and-build/master/install-build-tools-bundle.sh; (wget -q -nv --no-check-certificate -O - $script 2>/dev/null || curl -ksSL $script) | bash >/dev/null
     Say --Reset-Stopwatch
-    Say "Register qemu user static"
-    time docker run --rm --privileged multiarch/qemu-user-static:register --reset
-  condition: ne(variables.Multiarch, '')
+
+    Say "Download Latest qemu user static using 'multiarch/qemu-user-static'"
+    # sudo apt-get install qemu-user-static -y -qq >/dev/null
+    docker run --name qemu-user-static multiarch/qemu-user-static >/dev/null || true
+    sudo docker cp qemu-user-static:/usr/bin/. /usr/bin
+    /usr/bin/qemu-arm-static --version
+    Say "Register qemu static"
+    docker run --rm --privileged multiarch/qemu-user-static:register --reset >/dev/null
+    
+  condition: or(ne(variables.Multiarch, ''), ne(variables.QEMUVOL, ''))
   displayName: 'QEMU'
 
 - script: |
     script=https://raw.githubusercontent.com/devizer/test-and-build/master/install-build-tools-bundle.sh; (wget -q -nv --no-check-certificate -O - $script 2>/dev/null || curl -ksSL $script) | bash >/dev/null
+    Say "CPU: $(Get-CpuName)"
     Say "IP"
     ip addr show
     Say "if config"
@@ -299,12 +307,6 @@ steps:
 
     script=https://raw.githubusercontent.com/devizer/test-and-build/master/install-build-tools-bundle.sh; (wget -q -nv --no-check-certificate -O - $script 2>/dev/null || curl -ksSL $script) | bash >/dev/null
     Say --Reset-Stopwatch
-
-    if [[ -n "${QEMUVOL:-}" ]]; then
-      Say "Install qemu-user-static"
-      sudo apt-get update -qq
-      smart-apt-install qemu-user-static
-    fi
 
     Say "Pull $(IMAGE)"
     docker pull $(IMAGE)
