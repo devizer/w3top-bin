@@ -275,7 +275,7 @@ steps:
     docker rm -f qemu-user-static 2>/dev/null || true
     sudo docker run -d --privileged --name qemu-user-static -v /tmp/tools:/tmp/tools --entrypoint sh multiarch/qemu-user-static /tmp/tools/wait
     Say "list of /usr/bin of container"
-    sudo docker run --privileged -t --rm --entry sh multiarch/qemu-user-static /tmp/list
+    docker exec qemu-user-static sh -c "ls -la /usr/bin"
     Say "Copying /usr/bin/ from container"
     docker exec qemu-user-static sh -c "mkdir -p /qemu; cp -fv /usr/bin/qemu* /qemu"
     sudo docker cp qemu-user-static:/qemu/. /usr/bin
