@@ -265,14 +265,20 @@ steps:
     script=https://raw.githubusercontent.com/devizer/test-and-build/master/install-build-tools-bundle.sh; (wget -q -nv --no-check-certificate -O - $script 2>/dev/null || curl -ksSL $script) | bash >/dev/null
     Say --Reset-Stopwatch
 
-    Say "Download Latest qemu user static using 'multiarch/qemu-user-static'"
     # sudo apt-get install qemu-user-static -y -qq >/dev/null
+    Say "Download Latest qemu user static using 'multiarch/qemu-user-static'"
     sudo docker pull -q multiarch/qemu-user-static
-    sudo docker run --privileged --name qemu-user-static multiarch/qemu-user-static >/dev/null || true
+    mkdir -p /tmp/tools
+    echo 'ls -la /usr/bin' >/tmp/tools/list
+    echo 'mkdir -p /qemu; cp -f /usr/bin/qemu* /qemu' >/tmp/tools/extract
+    echo 'sleep 32700' >/tmp/tools/wait
+    docker rm -f qemu-user-static 2>/dev/null || true
+    sudo docker run -d --privileged --name qemu-user-static -v /tmp/tools:/tmp/tools --entrypoint sh multiarch/qemu-user-static /tmp/tools/wait
     Say "list of /usr/bin of container"
-    sudo docker run --privileged -t --rm multiarch/qemu-user-static sh -c "ls -la /usr/bin"
+    sudo docker run --privileged -t --rm --entry sh multiarch/qemu-user-static /tmp/list
     Say "Copying /usr/bin/ from container"
-    sudo docker cp qemu-user-static:/usr/bin/. /usr/bin
+    docker exec qemu-user-static sh -c "mkdir -p /qemu; cp -fv /usr/bin/qemu* /qemu"
+    sudo docker cp qemu-user-static:/qemu/. /usr/bin
     /usr/bin/qemu-arm-static --version
     Say "Register qemu static"
     docker pull -q multiarch/qemu-user-static:register
