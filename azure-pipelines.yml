@@ -267,11 +267,16 @@ steps:
 
     Say "Download Latest qemu user static using 'multiarch/qemu-user-static'"
     # sudo apt-get install qemu-user-static -y -qq >/dev/null
+    docker pull -q multiarch/qemu-user-static
     docker run --name qemu-user-static multiarch/qemu-user-static >/dev/null || true
+    Say "list of /usr/bin of container"
+    docker run -t --rm multiarch/qemu-user-static ls -la /usr/bin
+    Say "Copying /usr/bin/ from container"
     sudo docker cp qemu-user-static:/usr/bin/. /usr/bin
     /usr/bin/qemu-arm-static --version
     Say "Register qemu static"
-    docker run --rm --privileged multiarch/qemu-user-static:register --reset >/dev/null
+    docker pull -q multiarch/qemu-user-static:register
+    docker run --rm --privileged multiarch/qemu-user-static:register --reset
     
   condition: or(ne(variables.Multiarch, ''), ne(variables.QEMUVOL, ''))
   displayName: 'QEMU'
