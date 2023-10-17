@@ -270,7 +270,7 @@ steps:
     sudo docker pull -q multiarch/qemu-user-static
     sudo docker run --privileged --name qemu-user-static multiarch/qemu-user-static >/dev/null || true
     Say "list of /usr/bin of container"
-    sudo docker run --privileged -t --rm multiarch/qemu-user-static ls -la /usr/bin
+    sudo docker run --privileged -t --rm multiarch/qemu-user-static sh -c "ls -la /usr/bin"
     Say "Copying /usr/bin/ from container"
     sudo docker cp qemu-user-static:/usr/bin/. /usr/bin
     /usr/bin/qemu-arm-static --version
