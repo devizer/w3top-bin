@@ -155,7 +155,8 @@ RESPONSE_COMPRESSION="${RESPONSE_COMPRESSION:-True}"
 INSTALL_DIR="${INSTALL_DIR:-/opt/w3top}"
 
 # if initialization script then HOME is absent
-if [[ -z "${HOME:-}" ]]; then copy=/tmp/$file; else copy=$HOME/$file; fi
+if [[ -z "${HOME:-}" ]]; then copy="${TMPDIR:-/tmp}/$file"; else copy="$HOME/$file"; fi
+copy="${TMPDIR:-/tmp}/$file"
 
 echo "W3Top installation parameters:
     HTTP_PORT: $HTTP_PORT
